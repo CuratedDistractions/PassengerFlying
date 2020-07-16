@@ -1,0 +1,118 @@
+name: Build Workflow
+
+on: [push, pull_request]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
+          architecture: "x64"
+      - name: Print Versions
+        run: |
+          python --version
+          pip --version
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          # This path is specific to Windows
+          path: ~\AppData\Local\pip\cache
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+      - name: Install requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install wheel
+          pip install -r requirements.txt
+      - name: Run PyInstaller
+        run: |
+          pyinstaller --onedir main.spec
+      - name: See dist directory
+        run: ls dist
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Windows
+          path: dist
+
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
+      - name: Print Versions
+        run: |
+          python --version
+          pip --version
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          # This path is specific to Ubuntu
+          path: ~/.cache/pip
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+      - name: Install requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install wheel
+          pip install -r requirements.txt
+      - name: Run PyInstaller
+        run: |
+          pyinstaller --onedir main.spec
+      - name: See dist directory
+        run: ls dist
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Ubuntu
+          path: dist
+
+  build-macos:
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
+      - name: Print Versions
+        run: |
+          python --version
+          pip --version
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          # This path is specific to MacOS
+          path: ~/Library/Caches/pip
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+      - name: Install requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install wheel
+          pip install -r requirements.txt
+      - name: Run PyInstaller
+        run: pyinstaller --onedir main.spec
+      - name: See dist directory
+        run: ls dist
+      - uses: actions/upload-artifact@v2
+        with:
+          name: MacOS
+          path: dist
