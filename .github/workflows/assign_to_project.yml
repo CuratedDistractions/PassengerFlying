@@ -1,0 +1,38 @@
+name: Auto Assign to Project(s)
+
+on:
+  issues:
+    types: [opened, labeled]
+  pull_request:
+    types: [opened, labeled]
+env:
+  GITHUB_TOKEN: ${{ secrets.ACTION_TOKEN }}
+
+jobs:
+  assign_one_project:
+    runs-on: ubuntu-latest
+    name: Assign to One Project
+    steps:
+    - name: Assign issues with `enhancement` label to project Enhancements
+      uses: srggrs/assign-one-project-github-action@1.2.0
+      if: |
+        contains(github.event.issue.labels.*.name, 'enhancement')
+      with:
+        project: 'https://github.com/CuratedDistractions/PassengerFlying/projects/3'
+        column_name: 'Inbox'
+
+    - name: Assign issues with `support` label to project Support Requests
+      uses: srggrs/assign-one-project-github-action@1.2.0
+      if: |
+        contains(github.event.issue.labels.*.name, 'support')
+      with:
+        project: 'https://github.com/CuratedDistractions/PassengerFlying/projects/2'
+        column_name: 'Inbox'
+
+    - name: Assign issues with `bug` label to project Bug reports and pull requests
+      uses: srggrs/assign-one-project-github-action@1.2.0
+      if: |
+        contains(github.event.issue.labels.*.name, 'bug')
+      with:
+        project: 'https://github.com/CuratedDistractions/PassengerFlying/projects/1'
+        column_name: 'Inbox'
