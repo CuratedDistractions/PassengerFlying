@@ -1,5 +1,4 @@
 coloredlogs
 python-osc
-confuse
 pyinstaller
 packaging
