@@ -2,7 +2,7 @@
 Source of descriptions: https://hexler.net/docs/touchosc-controls-reference
 """
 import logging
-import os
+import lib.settings as settings
 
 # Create a logger object.
 logger = logging.getLogger(__name__)
@@ -20,8 +20,8 @@ TOUCHOSC_COLORS = [
     "pink",
 ]
 
-touchosc = os.getenv("TOUCHOSC")
-xplane = os.getenv("XPLANE")
+touchosc = settings.globalList["TOUCHOSC"]
+xplane = settings.globalList["XPLANE"]
 
 
 class TouchoscControlItem:
