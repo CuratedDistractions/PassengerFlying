@@ -54,6 +54,7 @@ def main():
     settings.globalList["TOUCHOSC"] = touchosc  # Save the connection in a global list
     xplane = XPlane()  # This class is responsible for the connection with X-Plane
     settings.globalList["XPLANE"] = touchosc  # Save the connection in a global list
+        sys.exit()
 
     # Check if X-Plane is running and an aircraft is loaded
     try:
