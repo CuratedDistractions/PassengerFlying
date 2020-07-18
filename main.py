@@ -43,7 +43,7 @@ def main():
     # Check if we have a configuration for the loaded aircraft, if not we quit
     try:
         aircraft_module = ".".join(["aircraft", args.aircraft, "aircraft"])
-        aircraft = importlib.import_module(aircraft_module)
+        aircraft = importlib.import_module(aircraft_module).Aircraft()
 
         # Save the aircraft in a global list
         settings.globalList["AIRCRAFT"] = aircraft
