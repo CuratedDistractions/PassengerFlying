@@ -37,6 +37,9 @@ class TouchOSC:
             # logger.debug("touchOSC list: {}".format(touchosc_list.keys()))
             for touchosc_address in touchosc_list:
                 # logger.debug(f"dispatcher.map({touchosc_address}), send_touchosc_result")
+
+                # TODO: #12 Check if last argument for the dispatcher is still needed.
+                dispatcher.map(touchosc_address, self.send_touchosc_result, aircraft)
         except TypeError as e:
             logger.error(f"List with touchosc items is empty ({e}).")
         except AttributeError as e:
