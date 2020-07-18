@@ -29,7 +29,6 @@ class TouchOSC:
 
         dispatcher = Dispatcher()
 
-        # TODO: this needs to be a list of all the registered items and their callback function
         try:
             # logger.debug(aircraft.__dict__)
             aircraft = settings.globalList["AIRCRAFT"]
