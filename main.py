@@ -40,6 +40,11 @@ coloredlogs.install(
 
 
 def main():
+    touchosc = TouchOSC()  # This class is responsible for the connection with TouchOSC
+    settings.globalList["TOUCHOSC"] = touchosc  # Save the connection in a global list
+    xplane = XPlane()  # This class is responsible for the connection with X-Plane
+    settings.globalList["XPLANE"] = xplane  # Save the connection in a global list
+
     # Check if we have a configuration for the loaded aircraft, if not we quit
     try:
         aircraft_module = ".".join(["aircraft", args.aircraft, "aircraft"])
@@ -49,11 +54,6 @@ def main():
         settings.globalList["AIRCRAFT"] = aircraft
     except ModuleNotFoundError as e:
         logger.error(f"There is no configuration for ICAO {args.aircraft} ({e}).")
-
-    touchosc = TouchOSC()  # This class is responsible for the connection with TouchOSC
-    settings.globalList["TOUCHOSC"] = touchosc  # Save the connection in a global list
-    xplane = XPlane()  # This class is responsible for the connection with X-Plane
-    settings.globalList["XPLANE"] = touchosc  # Save the connection in a global list
         sys.exit()
 
     # Check if X-Plane is running and an aircraft is loaded

@@ -12,7 +12,6 @@ logger = logging.getLogger(__name__)
 
 class TouchOSC:
     def __init__(self):
-        self.aircraft = settings.globalList["AIRCRAFT"]
         self.args = settings.globalList["ARGS"]
 
     @staticmethod
@@ -33,11 +32,11 @@ class TouchOSC:
         # TODO: this needs to be a list of all the registered items and their callback function
         try:
             # logger.debug(aircraft.__dict__)
-            touchosc_list = self.aircraft.touchosc_address_dict.keys()
+            aircraft = settings.globalList["AIRCRAFT"]
+            touchosc_list = aircraft.touchosc_address_dict.keys()
             # logger.debug("touchOSC list: {}".format(touchosc_list.keys()))
             for touchosc_address in touchosc_list:
                 # logger.debug(f"dispatcher.map({touchosc_address}), send_touchosc_result")
-                dispatcher.map(touchosc_address, self.send_touchosc_result, self.aircraft)
         except TypeError as e:
             logger.error(f"List with touchosc items is empty ({e}).")
         except AttributeError as e:
