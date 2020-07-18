@@ -369,7 +369,6 @@ class XPlaneConnect:
 
         msgLen = len(msg)
 
-        # TODO: Multiple byte conversions
         buffer = struct.pack(b"<4sxiiB" + (str(msgLen) + "s").encode(), b"TEXT", x, y, msgLen, msg.encode(),)
         self.sendUDP(buffer)
 
