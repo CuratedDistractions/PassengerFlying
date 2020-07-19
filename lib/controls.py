@@ -35,6 +35,8 @@ class TouchoscControlItem:
         touchosc_visible: bool = True,
         xplane_dref_address: str = None,
         xplane_dref_index: int = None,
+        xplane_command_address: str = None,
+        xplane_command_index: int = None,
         remarks: str = "Unknown",  # TODO: Make this an empty string
     ):
         # These will keep previous values
@@ -46,6 +48,8 @@ class TouchoscControlItem:
         self.touchosc_visible = touchosc_visible
         self.xplane_dref_address = xplane_dref_address
         self.xplane_dref_index = xplane_dref_index
+        self.xplane_command_address = xplane_command_address
+        self.xplane_command_index = xplane_command_index
         self.remarks = remarks
 
     def callback_from_xplane(self, results):
@@ -123,6 +127,26 @@ class TouchoscControlItem:
         """Optional dref to listen for or send commands to in X-Plane, this is its index number"""
         self._xplane_dref_index = value
 
+    @property
+    def xplane_command_address(self) -> str:
+        """Optional command to send to X-Plane"""
+        return self._xplane_command_address
+
+    @xplane_command_address.setter
+    def xplane_command_address(self, value: str):
+        """Optional command to send to X-Plane"""
+        self._xplane_command_address = value
+
+    @property
+    def xplane_command_index(self) -> int:
+        """Optional command to send to X-Plane, this is its index number"""
+        return self._xplane_command_index
+
+    @xplane_command_index.setter
+    def xplane_command_index(self, value: int):
+        """Optional command to send to X-Plane, this is its index number"""
+        self._xplane_command_index = value
+
     def set_color_in_touchosc(self):
         """Actual command to set color in TouchOSC"""
         address = "/".join([str(self.touchosc_address), "color"])
@@ -188,10 +212,6 @@ class Led(TouchoscControlItem):
 
 class PushButton(TouchoscControlItem):
     """This control sends the second value of its value range when pressed and the first value of its value range when released."""
-
-    def __init__(self, xplane_command_address: str = None, **kwargs):
-        super().__init__(**kwargs)
-        self.xplane_command_address = xplane_command_address
 
     def callback_from_touchosc(self, touchosc_address, touchosc_results):
         # logger.debug(f"Result: {touchosc_results}")
