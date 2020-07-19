@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 class TouchOSC:
     def __init__(self):
         self.args = settings.globalList["ARGS"]
+        self.client = self.setup_client()
 
     @staticmethod
     def __default_handler(address, *args):
@@ -68,7 +69,7 @@ class TouchOSC:
         result = args[1]
         aircraft.process_touchosc_result(touchosc_address, result)
 
-    def client(self):
+    def setup_client(self):
         """The touchOSC Client connects to an iPad or other device running TouchOSC"""
 
         # IP address and port of TouchOSC device
@@ -85,4 +86,4 @@ class TouchOSC:
         # Check for * in the address and remove it. A * is used by multi controls
         address = touchosc_address.replace("*", "")
         # logger.debug("Sending command to TouchOSC: {} {}".format(address, value))
-        self.touchosc_client.send_message(address, value)
+        self.client.send_message(address, value)
