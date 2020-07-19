@@ -45,6 +45,7 @@ coloredlogs.install(
 def main():
     touchosc = TouchOSC()  # This class is responsible for the connection with TouchOSC
     settings.globalList["TOUCHOSC"] = touchosc  # Save the connection in a global list
+
     xplane = XPlane()  # This class is responsible for the connection with X-Plane
     settings.globalList["XPLANE"] = xplane  # Save the connection in a global list
 
@@ -88,6 +89,7 @@ def main():
     # - one pulls drefs from X-Plane about 10 times per second
     monitor = Process(target=xplane.xplane_monitor, args=(aircraft, args,))
     monitor.start()
+
     # - the other one listens for events from OSC
     server = Process(target=touchosc.server, args=(aircraft, args,))
     server.start()
