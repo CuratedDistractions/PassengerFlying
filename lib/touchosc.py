@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class TouchOSC:
     def __init__(self):
         self.args = settings.globalList["ARGS"]
-        self.client = self.setup_client()
+        self.client = self.__setup_client()
 
     @staticmethod
     def __default_handler(address, *args):
@@ -47,15 +47,8 @@ class TouchOSC:
 
         dispatcher.set_default_handler(self.__default_handler)
 
-        if self.args.touchosc_server_ip is None:
-            ip = "127.0.0.1"
-        else:
-            ip = self.args.touchosc_device_ip
-
-        if self.args.touchosc_server_port is None:
-            port = 5006
-        else:
-            port = self.args.touchosc_server_port
+        ip = self.args.touchosc_server_ip
+        port = int(self.args.touchosc_server_port)
 
         try:
             server = BlockingOSCUDPServer((ip, port), dispatcher)
@@ -69,15 +62,12 @@ class TouchOSC:
         result = args[1]
         aircraft.process_touchosc_result(touchosc_address, result)
 
-    def setup_client(self):
+    def __setup_client(self):
         """The touchOSC Client connects to an iPad or other device running TouchOSC"""
 
         # IP address and port of TouchOSC device
         ip = self.args.touchosc_device_ip
-        if self.args.touchosc_device_port is None:
-            port = 5005
-        else:
-            port = self.args.touchosc_server_port
+        port = int(self.args.touchosc_device_port)
 
         # TODO: Try/Except
         return SimpleUDPClient(ip, port)  # Create client
