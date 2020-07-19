@@ -279,6 +279,7 @@ class MultiPush(TouchoscControlItem):
     def __init__(self, touchosc_horizontal, **kwargs):
         super().__init__(**kwargs)
         self.touchosc_horizontal = touchosc_horizontal
+        self.touchosc_state = None
 
     @property
     def touchosc_address(self):

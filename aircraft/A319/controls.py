@@ -14,11 +14,12 @@ class AirbusButton(PushButton):
 
 class AirbusButtonLabel(Label):
     def callback_from_xplane(self, results):
-        # TODO: Compare with previous state to avoid extra updates
         if self.xplane_dref_address:
             result = results[self.xplane_dref_address][self.xplane_dref_index]
+            previous_state = self.touchosc_visible
             state = self.is_on(result)
-            self.touchosc_visible = state
+            if state != previous_state:
+                self.touchosc_visible = state
 
     def is_on(self, value):
         if value < 0.2:
@@ -37,5 +38,7 @@ class AirbusSwitch(MultiPush):
 
     def callback_from_xplane(self, results):
         if self.xplane_dref_address:
+            previous_state = self.touchosc_state
             state = int(results[self.xplane_dref_address][self.xplane_dref_index]) + 1
-            self.touchosc_state = state
+            if state != previous_state:
+                self.touchosc_state = state
