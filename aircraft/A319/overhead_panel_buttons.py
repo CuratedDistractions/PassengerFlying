@@ -55,3 +55,55 @@ adr_buttons = [
     }
 ]
 overhead_panel_buttons.extend(adr_buttons)
+
+fuel_pump_buttons = [
+    {
+        "control_type": AirbusButton,
+        "touchosc_address": "/ovhd/push133",
+        "touchosc_color": GREY,
+        "remarks": "LTK PUMPS 1",
+        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
+        "xplane_dref_index": 0,
+    },
+    {
+        "control_type": AirbusButton,
+        "touchosc_address": "/ovhd/push134",
+        "touchosc_color": GREY,
+        "remarks": "LTK PUMPS 2",
+        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
+        "xplane_dref_index": 1,
+    },
+    {
+        "control_type": AirbusButton,
+        "touchosc_address": "/ovhd/push135",
+        "touchosc_color": GREY,
+        "remarks": "CTR TK 1",
+        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
+        "xplane_dref_index": 2,
+    },
+    {
+        "control_type": AirbusButton,
+        "touchosc_address": "/ovhd/push137",
+        "touchosc_color": GREY,
+        "remarks": "CTR TK 2",
+        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
+        "xplane_dref_index": 3,
+    },
+    {
+        "control_type": AirbusButton,
+        "touchosc_address": "/ovhd/push138",
+        "touchosc_color": GREY,
+        "remarks": "RTK PUMPS 1",
+        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
+        "xplane_dref_index": 4,
+    },
+    {
+        "control_type": AirbusButton,
+        "touchosc_address": "/ovhd/push139",
+        "touchosc_color": GREY,
+        "remarks": "RTK PUMPS 2",
+        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
+        "xplane_dref_index": 5,
+    },
+]
+overhead_panel_buttons.extend(fuel_pump_buttons)
