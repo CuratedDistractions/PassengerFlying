@@ -11,7 +11,6 @@ logger = logging.getLogger(__name__)
 
 # XPC client
 # TODO: close connection when done
-# xplane_client = XPlaneConnect()
 
 
 class XPlane:
