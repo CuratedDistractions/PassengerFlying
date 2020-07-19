@@ -87,11 +87,11 @@ def main():
 
     # Start two parallel processes:
     # - one pulls drefs from X-Plane about 10 times per second
-    monitor = Process(target=xplane.xplane_monitor, args=(aircraft, args,))
+    monitor = Process(target=xplane.monitor)
     monitor.start()
 
     # - the other one listens for events from OSC
-    server = Process(target=touchosc.server, args=(aircraft, args,))
+    server = Process(target=touchosc.server)
     server.start()
 
     monitor.join()

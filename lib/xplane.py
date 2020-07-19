@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class XPlane:
-    def xplane_monitor(self):
+    def monitor(self):
         """This functions connects to NASA's X-plane Connector through their Python XPC library.
 
         It needs to actively poll for information, which is not ideal. Right now the script polls about
