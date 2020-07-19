@@ -28,10 +28,7 @@ parser.add_argument("aircraft", help="folder name of aircraft to load")
 args = parser.parse_args()
 settings.globalList["ARGS"] = args
 
-if args.debug:
-    verbose_level = "DEBUG"
-else:
-    verbose_level = "WARNING"
+verbose_level = "DEBUG" if args.debug else "WARNING"
 
 # Create a logger object.
 logger = logging.getLogger(__name__)
