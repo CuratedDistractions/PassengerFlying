@@ -36,7 +36,6 @@ class TouchoscControlItem:
         xplane_dref_address: str = None,
         xplane_dref_index: int = None,
         xplane_command_address: str = None,
-        xplane_command_index: int = None,
         remarks: str = "Unknown",  # TODO: Make this an empty string
     ):
         # These will keep previous values
@@ -49,7 +48,6 @@ class TouchoscControlItem:
         self.xplane_dref_address = xplane_dref_address
         self.xplane_dref_index = xplane_dref_index
         self.xplane_command_address = xplane_command_address
-        self.xplane_command_index = xplane_command_index
         self.remarks = remarks
 
     def callback_from_xplane(self, results):
@@ -137,16 +135,6 @@ class TouchoscControlItem:
         """Optional command to send to X-Plane"""
         self._xplane_command_address = value
 
-    @property
-    def xplane_command_index(self) -> int:
-        """Optional command to send to X-Plane, this is its index number"""
-        return self._xplane_command_index
-
-    @xplane_command_index.setter
-    def xplane_command_index(self, value: int):
-        """Optional command to send to X-Plane, this is its index number"""
-        self._xplane_command_index = value
-
     def set_color_in_touchosc(self):
         """Actual command to set color in TouchOSC"""
         address = "/".join([str(self.touchosc_address), "color"])
@@ -219,7 +207,17 @@ class PushButton(TouchoscControlItem):
             if self.xplane_command_address:  # If no command address was defined, we'll use the dref address
                 self.send_to_xplane(self.xplane_command_address)
             else:
-                logger.debug("TODO: manipulate a value in an array of X-Plane")
+                # Get the whole dref. Since it's a tuple, we need to convert it to a list
+                xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))
+
+                # Replace just the index we need
+                if xplane_dref_value[self.xplane_dref_index] == 1:
+                    xplane_dref_value[self.xplane_dref_index] = 0.0
+                else:
+                    xplane_dref_value[self.xplane_dref_index] = 1.1
+
+                # Send the whole dref back to X-Plane, converting the list back to a tuple
+                self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
 
 
 class ToggleButton(TouchoscControlItem):
