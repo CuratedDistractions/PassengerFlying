@@ -314,6 +314,13 @@ class MultiPush(TouchoscControlItem):
             address = self.touchosc_address + "/" + str(self.touchosc_state) + "/1"
         self.send_to_touchosc(address, 1)
 
+    def callback_from_xplane(self, results):
+        if self.xplane_dref_address:
+            previous_state = self.touchosc_state
+            state = int(results[self.xplane_dref_address][self.xplane_dref_index]) + 1
+            if state != previous_state:
+                self.touchosc_state = state
+
 
 class MultiFader(TouchoscControlItem):
     """This control groups multiple fader controls into one control. A touch event can traverse multiple fader controls in one gesture and change their values. This control accepts multiple touch events at the same time."""

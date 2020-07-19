@@ -35,10 +35,3 @@ class AirbusSwitch(MultiPush):
             # Extract which button of the multi control was pressed
             if self.touchosc_horizontal:
                 logger.debug("Processing for touchosc_address {}".format(touchosc_address))
-
-    def callback_from_xplane(self, results):
-        if self.xplane_dref_address:
-            previous_state = self.touchosc_state
-            state = int(results[self.xplane_dref_address][self.xplane_dref_index]) + 1
-            if state != previous_state:
-                self.touchosc_state = state
