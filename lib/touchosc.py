@@ -57,7 +57,7 @@ class TouchOSC:
             logger.error(f"Can't start touchOSC server ({e}).")
 
     def send_touchosc_result(self, touchosc_address, *args):
-        logger.debug("Processing send_touchosc_result {}".format(args))
+        # logger.debug("Processing send_touchosc_result {}".format(args))
         aircraft = args[0][0]
         result = args[1]
         aircraft.process_touchosc_result(touchosc_address, result)

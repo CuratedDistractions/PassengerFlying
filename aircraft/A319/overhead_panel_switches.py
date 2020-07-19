@@ -19,14 +19,6 @@ PINK = "pink"
 overhead_panel_switches = []
 
 
-# def set_xplane_dref_address(item_list: list, xplane_dref_address=None):
-#     for idx, item in enumerate(item_list):
-#         if xplane_dref_address is not None:
-#             item_list[idx]["xplane_dref_address"] = xplane_dref_address
-#     return item_list
-
-
-# AirbusFBW/OHPLightsATA21
 adiru_switch_array = [
     {
         "control_type": AirbusSwitch,
@@ -57,8 +49,6 @@ adiru_switch_array = [
     },
 ]
 
-# Add xplane_dref to the list
-# adiru_switch_array = set_xplane_dref_address(adiru_switch_array,)
 overhead_panel_switches.extend(adiru_switch_array)
 
 # wiper_left = WiperKnob(
