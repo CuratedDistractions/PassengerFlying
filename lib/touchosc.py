@@ -69,11 +69,13 @@ class TouchOSC:
         ip = self.args.touchosc_device_ip
         port = int(self.args.touchosc_device_port)
 
-        # TODO: Try/Except
         return SimpleUDPClient(ip, port)  # Create client
 
     def send_to_touchosc(self, touchosc_address, value):
         # Check for * in the address and remove it. A * is used by multi controls
         address = touchosc_address.replace("*", "")
         # logger.debug("Sending command to TouchOSC: {} {}".format(address, value))
-        self.client.send_message(address, value)
+        try:
+            self.client.send_message(address, value)
+        except OSError as e:
+            logger.error(f"Error when sending to value '{value}' to address {address} in TouchOSC ({e}).")
