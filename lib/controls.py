@@ -321,6 +321,17 @@ class MultiPush(TouchoscControlItem):
             if state != previous_state:
                 self.touchosc_state = state
 
+    def callback_from_touchosc(self, touchosc_address, touchosc_results):
+        logger.debug(f"Results from TouchOSC: {touchosc_results}")
+        if touchosc_results > 0:  # 0 Means a button was deactivated. That should be ignored.
+            # Extract which button of the multi control was pressed
+            if self.touchosc_horizontal:
+                logger.debug("Processing horizontal switch for touchosc_address {}".format(touchosc_address))
+            else:
+                logger.debug("Processing vertical switch for touchosc_address {}".format(touchosc_address))
+                button_pressed = touchosc_results.split("/")
+                logger.debug(button_pressed)
+
 
 class MultiFader(TouchoscControlItem):
     """This control groups multiple fader controls into one control. A touch event can traverse multiple fader controls in one gesture and change their values. This control accepts multiple touch events at the same time."""

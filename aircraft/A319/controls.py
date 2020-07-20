@@ -29,9 +29,4 @@ class AirbusButtonLabel(Label):
 
 
 class AirbusSwitch(MultiPush):
-    def callback_from_touchosc(self, touchosc_address, touchosc_results):
-        logger.debug(f"Results from TouchOSC: {touchosc_results}")
-        if touchosc_results > 0:  # 0 Means a button was deactivated. But that is of no value to us with a multi control
-            # Extract which button of the multi control was pressed
-            if self.touchosc_horizontal:
-                logger.debug("Processing for touchosc_address {}".format(touchosc_address))
+    pass
