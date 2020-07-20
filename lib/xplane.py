@@ -73,7 +73,7 @@ class XPlane:
 
     def send_to_xplane(self, dref, value=None):
         xplane_client = XPlaneConnect()
-        if value:
+        if value is not None:
             xplane_client.sendDREF(dref, value)
         else:
             xplane_client.sendCOMM(dref)
