@@ -31,15 +31,10 @@ args = parser.parse_args()
 # Save the arguments list to the global variables list
 settings.globalList["ARGS"] = args
 
+# Setup logging
 verbose_level = "DEBUG" if args.debug else "WARNING"
-
-# Create a logger object.
 logger = logging.getLogger(__name__)
-
-# Set logging level and format
-coloredlogs.install(
-    fmt="%(asctime)s %(name)s %(levelname)s %(message)s", level=verbose_level,
-)
+coloredlogs.install(fmt="%(asctime)s %(name)s %(levelname)s %(message)s", level=verbose_level)
 
 
 def main():
