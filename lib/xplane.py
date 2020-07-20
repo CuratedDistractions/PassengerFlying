@@ -9,10 +9,6 @@ from lib.nasa_xpc import XPlaneConnect
 logger = logging.getLogger(__name__)
 
 
-# XPC client
-# TODO: close connection when done
-
-
 class XPlane:
     def monitor(self):
         """This functions connects to NASA's X-plane Connector through their Python XPC library.
