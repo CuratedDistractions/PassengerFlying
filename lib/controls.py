@@ -207,16 +207,22 @@ class PushButton(TouchoscControlItem):
             if self.xplane_command_address:  # If no command address was defined, we'll use the dref address
                 self.send_to_xplane(self.xplane_command_address)
             else:
-                # Get the whole dref. Since it's a tuple, we need to convert it to a list
-                xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))
+                if self.xplane_dref_index is not None:  # Does the dref contain an array
+                    # Get the whole dref. Since it's a tuple, we need to convert it to a list
+                    xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))
 
-                # Replace just the index we need
-                if xplane_dref_value[self.xplane_dref_index] == 1:
-                    xplane_dref_value[self.xplane_dref_index] = 0.0
+                    # Replace just the index we need (it's a toggle)
+                    xplane_dref_value[self.xplane_dref_index] = int(not xplane_dref_value[self.xplane_dref_index])
                 else:
-                    xplane_dref_value[self.xplane_dref_index] = 1.1
+                    # Get the current dref value.
+                    xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))[0]
 
-                # Send the whole dref back to X-Plane, converting the list back to a tuple
+                    # Toggle
+                    logger.debug(f"Before: {xplane_dref_value}")
+                    xplane_dref_value = int(not xplane_dref_value)
+                    logger.debug(f"After: {xplane_dref_value}")
+
+                # Send the whole dref back to X-Plane
                 self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
 
 

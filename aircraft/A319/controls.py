@@ -15,11 +15,14 @@ class AirbusButton(PushButton):
 class AirbusButtonLabel(Label):
     def callback_from_xplane(self, results):
         if self.xplane_dref_address:
-            result = results[self.xplane_dref_address][self.xplane_dref_index]
-            previous_state = self.touchosc_visible
-            state = self.is_on(result)
-            if state != previous_state:
-                self.touchosc_visible = state
+            if self.xplane_dref_index is not None:
+                result = results[self.xplane_dref_address][self.xplane_dref_index]
+                previous_state = self.touchosc_visible
+                state = self.is_on(result)
+                if state != previous_state:
+                    self.touchosc_visible = state
+            else:
+                logger.debug("Nothing to do for this label")
 
     def is_on(self, value):
         if value < 0.2:
