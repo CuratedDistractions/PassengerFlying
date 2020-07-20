@@ -178,9 +178,7 @@ class Label(TouchoscControlItem):
 
     def __set_touchosc_label_text(self):
         """The actual command to set the text of a label in TouchOSC"""
-        # TODO: Check for correct values
-        address = "/".join([self.touchosc_address, "text"])
-        self.send_to_touchosc(address, self.touchosc_text)
+        self.send_to_touchosc(self.touchosc_address, self.touchosc_text)
 
 
 class Led(TouchoscControlItem):
