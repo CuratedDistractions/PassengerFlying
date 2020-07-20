@@ -296,6 +296,7 @@ class MultiPush(TouchoscControlItem):
     def touchosc_address(self, value: str):
         """Optional control to listen for or send commands to in TouchOSC"""
         # Add a * to the end of the address to listen for all buttons in the MultiPush control
+        # ? Why add a * here? I forgot why. :)
         if value[-1:] == "*":
             self._touchosc_address = value
         else:
