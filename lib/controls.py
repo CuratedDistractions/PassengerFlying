@@ -170,6 +170,9 @@ class Label(TouchoscControlItem):
     @touchosc_text.setter
     def touchosc_text(self, value: str):
         """The text of the label in TouchOSC"""
+        if type(value) == float:
+            value = "{:.1f}".format(value)
+
         # Do nothing if value wasn't changed
         if value == self._touchosc_text:
             return
@@ -181,6 +184,21 @@ class Label(TouchoscControlItem):
     def __set_touchosc_label_text(self):
         """The actual command to set the text of a label in TouchOSC"""
         self.send_to_touchosc(self.touchosc_address, self.touchosc_text)
+
+
+class DynamicLabel(Label):
+    """Will change the text of the label to the value reported by X-Plane"""
+
+    def callback_from_xplane(self, results):
+        if self.xplane_dref_address:
+            if self.xplane_dref_index is not None:
+                text = results[self.xplane_dref_address][self.xplane_dref_index]
+                # logger.debug(f"Setting text for dynamic label: {text}")
+                self.touchosc_text = text
+            else:
+                text = results[self.xplane_dref_address]
+                # logger.debug(f"Setting text for dynamic label: {text}")
+                self.touchosc_text = text
 
 
 class Led(TouchoscControlItem):
