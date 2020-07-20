@@ -38,9 +38,9 @@ class TouchoscControlItem:
         xplane_command_address: str = None,
         remarks: str = "Unknown",  # TODO: Make this an empty string
     ):
-        # These will keep previous values
-        self._touchosc_color_previous = None
-        self._touchosc_visible_previous = None
+        # Initialize some variables
+        self._touchosc_color = None
+        self._touchosc_visible = None
 
         self.touchosc_address = touchosc_address
         self.touchosc_color = touchosc_color
@@ -65,7 +65,7 @@ class TouchoscControlItem:
     def touchosc_color(self, value):
         """Sets the color of an item in TouchOSC and checks for valid color values"""
         # Do nothing if value wasn't changed
-        if value == self._touchosc_color_previous:
+        if value == self._touchosc_color:
             return
 
         if value in TOUCHOSC_COLORS:
@@ -73,7 +73,6 @@ class TouchoscControlItem:
         else:
             self._touchosc_color = "pink"
         self.set_color_in_touchosc()
-        self._touchosc_color_previous = value
 
     @property
     def touchosc_visible(self):
@@ -87,13 +86,12 @@ class TouchoscControlItem:
     def touchosc_visible(self, value: bool):
         """Sets the visibility of an item in TouchOSC"""
         # Do nothing if value wasn't changed
-        if value == self._touchosc_visible_previous:
+        if value == self._touchosc_visible:
             return
 
         if self.touchosc_address:
             self._touchosc_visible = value
             self.set_visibility_in_touchosc()
-            self._touchosc_visible_previous = value
 
     @property
     def touchosc_address(self):
@@ -158,9 +156,6 @@ class TouchoscControlItem:
 class Label(TouchoscControlItem):
     def __init__(self, touchosc_text: str, **kwargs):
         super().__init__(**kwargs)
-        # These will keep previous values
-        self._touchosc_text_previous = None
-
         self.touchosc_text = touchosc_text
 
     @property
@@ -175,12 +170,11 @@ class Label(TouchoscControlItem):
     def touchosc_text(self, value: str):
         """The text of the label in TouchOSC"""
         # Do nothing if value wasn't changed
-        if value == self._touchosc_text_previous:
+        if value == self._touchosc_text:
             return
 
         self._touchosc_text = value
         self.set_text_in_touchosc()
-        self._touchosc_text_previous = value
 
     def set_text_in_touchosc(self):
         """The actual command to set the text of a label in TouchOSC"""
@@ -308,6 +302,10 @@ class MultiPush(TouchoscControlItem):
 
     @touchosc_state.setter
     def touchosc_state(self, value: int):
+        # Do nothing if nothing changed
+        if self._touchosc_state == value:
+            return
+
         """The text of the label in TouchOSC"""
         self._touchosc_state = value
         self.__set_state_in_touchosc()
@@ -323,10 +321,8 @@ class MultiPush(TouchoscControlItem):
 
     def callback_from_xplane(self, results):
         if self.xplane_dref_address:
-            previous_state = self.touchosc_state
             state = int(results[self.xplane_dref_address][self.xplane_dref_index]) + 1
-            if state != previous_state:
-                self.touchosc_state = state
+            self.touchosc_state = state
 
     def callback_from_touchosc(self, touchosc_address, touchosc_results):
         logger.debug(f"Results from TouchOSC: {touchosc_results}")

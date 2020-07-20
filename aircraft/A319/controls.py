@@ -17,10 +17,8 @@ class AirbusButtonLabel(Label):
         if self.xplane_dref_address:
             if self.xplane_dref_index is not None:
                 result = results[self.xplane_dref_address][self.xplane_dref_index]
-                previous_state = self.touchosc_visible
                 state = self.is_on(result)
-                if state != previous_state:
-                    self.touchosc_visible = state
+                self.touchosc_visible = state
             else:
                 logger.debug("Nothing to do for this label")
 
