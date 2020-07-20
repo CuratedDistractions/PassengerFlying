@@ -21,7 +21,7 @@ settings.init()
 # Parse arguments
 parser = argparse.ArgumentParser(description=f"-== PassengerFlying v{CURRENT_VERSION} ==-")
 parser.add_argument("--debug", help="Increase output verbosity", action="store_true")
-parser.add_argument("--touchosc_device_ip", help="IP address of TouchOSC device", default="192.168.2.56")
+parser.add_argument("--touchosc_device_ip", required=True, help="IP address of TouchOSC device")
 parser.add_argument("--touchosc_device_port", help="Port of TouchOSC device", default=5006)
 parser.add_argument("--touchosc_server_ip", help="IP address of TouchOSC server", default="0.0.0.0")
 parser.add_argument("--touchosc_server_port", help="Port of TouchOSC server", default=5005)
