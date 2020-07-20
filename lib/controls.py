@@ -309,9 +309,9 @@ class MultiPush(TouchoscControlItem):
     def touchosc_state(self, value: int):
         """The text of the label in TouchOSC"""
         self._touchosc_state = value  # Need to correct by 1 because X-Plane starts at 0, the list at 1
-        self.set_state_in_touchosc()
+        self.__set_state_in_touchosc()
 
-    def set_state_in_touchosc(self):
+    def __set_state_in_touchosc(self):
         """The actual command to set the state in TouchOSC"""
         # Build the TouchOSC address
         if self.touchosc_horizontal:
