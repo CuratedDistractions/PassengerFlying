@@ -282,7 +282,7 @@ class MultiPush(TouchoscControlItem):
     """This control groups multiple push-button controls into one control. A touch event can traverse multiple push controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
 
     # This version assumes the control is set to exclusive (only one item active at a time)
-    def __init__(self, touchosc_horizontal, **kwargs):
+    def __init__(self, touchosc_horizontal=None, **kwargs):
         super().__init__(**kwargs)
         self.touchosc_horizontal = touchosc_horizontal
         self.touchosc_state = None
