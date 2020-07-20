@@ -78,8 +78,6 @@ def main():
 
     logger.info(f"Loading of {args.aircraft} configuration successful.")
 
-    # TODO: Check if we can connect to TouchOSC, if not we quit
-
     # Start two parallel processes:
     # - one pulls drefs from X-Plane about 10 times per second
     monitor = Process(target=xplane.monitor)
