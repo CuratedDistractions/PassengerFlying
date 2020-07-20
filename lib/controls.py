@@ -141,7 +141,6 @@ class TouchoscControlItem:
     def set_visibility_in_touchosc(self):
         """Actual command to set visibility in TouchOSC"""
         address = "/".join([self.touchosc_address, "visible"])
-        # logger.debug(f"Address is {address} ({self.remarks})")
         self.send_to_touchosc(address, self.touchosc_visible)
 
     @staticmethod
@@ -178,7 +177,6 @@ class Label(TouchoscControlItem):
             return
 
         self._touchosc_text = value
-        logger.debug(f"Setting text of {self.touchosc_address} to {self.touchosc_text}")
         self.__set_touchosc_label_text()
 
     def __set_touchosc_label_text(self):
@@ -193,11 +191,9 @@ class DynamicLabel(Label):
         if self.xplane_dref_address:
             if self.xplane_dref_index is not None:
                 text = results[self.xplane_dref_address][self.xplane_dref_index]
-                # logger.debug(f"Setting text for dynamic label: {text}")
                 self.touchosc_text = text
             else:
                 text = results[self.xplane_dref_address]
-                # logger.debug(f"Setting text for dynamic label: {text}")
                 self.touchosc_text = text
 
 
@@ -214,7 +210,6 @@ class PushButton(TouchoscControlItem):
     """This control sends the second value of its value range when pressed and the first value of its value range when released."""
 
     def callback_from_touchosc(self, touchosc_address, touchosc_results):
-        # logger.debug(f"Result: {touchosc_results}")
         if touchosc_results > 0:  # We ignore the release of the button
             if self.xplane_command_address:  # If no command address was defined, we'll use the dref address
                 self.send_to_xplane(self.xplane_command_address)
@@ -230,9 +225,7 @@ class PushButton(TouchoscControlItem):
                     xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))[0]
 
                     # Toggle
-                    logger.debug(f"Before: {xplane_dref_value}")
                     xplane_dref_value = int(not xplane_dref_value)
-                    logger.debug(f"After: {xplane_dref_value}")
 
                 # Send the whole dref back to X-Plane
                 self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)

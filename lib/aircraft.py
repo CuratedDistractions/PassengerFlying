@@ -47,9 +47,6 @@ class BaseAircraft:
         self.controls.append(control)
 
     def process_xplane_result(self, xplane_results):
-        # self.xplane_results = xplane_results
-        # logger.debug("{}".format(xplane_results))
-
         # Trigger each control's callback
         for control in self.controls:
             control.callback_from_xplane(xplane_results)
@@ -65,5 +62,4 @@ class BaseAircraft:
             address = touchosc_address
 
         control = self.touchosc_address_dict[address]
-        # logger.debug(f"Handing over to control {control}")
         control.callback_from_touchosc(touchosc_address, touchosc_result)

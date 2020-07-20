@@ -31,13 +31,9 @@ class TouchOSC:
         dispatcher = Dispatcher()
 
         try:
-            # logger.debug(aircraft.__dict__)
             aircraft = settings.globalList["AIRCRAFT"]
             touchosc_list = aircraft.touchosc_address_dict.keys()
-            # logger.debug("touchOSC list: {}".format(touchosc_list.keys()))
             for touchosc_address in touchosc_list:
-                # logger.debug(f"dispatcher.map({touchosc_address}), send_touchosc_result")
-
                 # TODO: Check if last argument for the dispatcher is still needed.
                 dispatcher.map(touchosc_address, self.send_touchosc_result, aircraft)
         except TypeError as e:
@@ -57,7 +53,6 @@ class TouchOSC:
             logger.error(f"Can't start touchOSC server ({e}).")
 
     def send_touchosc_result(self, touchosc_address, *args):
-        # logger.debug("Processing send_touchosc_result {}".format(args))
         aircraft = args[0][0]
         result = args[1]
         aircraft.process_touchosc_result(touchosc_address, result)
@@ -74,7 +69,6 @@ class TouchOSC:
     def send_to_touchosc(self, touchosc_address, value):
         # Check for * in the address and remove it. A * is used by multi controls
         address = touchosc_address.replace("*", "")
-        # logger.debug("Sending command to TouchOSC: {} {}".format(address, value))
         try:
             self.client.send_message(address, value)
         except OSError as e:

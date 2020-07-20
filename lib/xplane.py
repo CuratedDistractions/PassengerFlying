@@ -42,7 +42,6 @@ class XPlane:
 
             try:
                 xplane_client = XPlaneConnect()
-                # logger.debug("List to check: {}".format(xplane_dref_address_list))
                 result = xplane_client.getDREFs(xplane_dref_address_list)
                 if last_connection_ok is False:
                     logger.info("Connection restored!")
@@ -59,9 +58,6 @@ class XPlane:
 
                 # Add the original dref addresses to the returned values
                 list_with_drefs_and_results = self.reassign_results_to_drefs(result, xplane_dref_address_list)
-                # logger.debug(
-                #     "List with results: {}".format(list_with_drefs_and_results)
-                # )
 
                 # And return the results to the aircraft configuration
                 aircraft.process_xplane_result(list_with_drefs_and_results)

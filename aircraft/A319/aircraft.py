@@ -21,7 +21,6 @@ class Aircraft(BaseAircraft):
         # Add all labels
         for item in overhead_panel_labels:
             result = item["control_type"](**item)
-            # logger.debug("Item: {}".format(item))
             self.add_control(result)
 
         # Add all switches (and knobs that act like switches)
@@ -31,7 +30,6 @@ class Aircraft(BaseAircraft):
 
         # Add all buttons
         for item in overhead_panel_buttons:
-            # logger.debug(item)
             result = item["control_type"](**item)
             self.add_control(result)
 
