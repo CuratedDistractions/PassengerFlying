@@ -38,7 +38,7 @@ class Aircraft(BaseAircraft):
         # Use the IR1 light (which uses a button as background) to open ISCS screen
         iscs = AirbusButton(
             touchosc_address="/ovhd/push95",
-            touchosc_color="gray",
+            touchosc_initial_color="gray",
             xplane_command_address="toliss_airbus/iscs_open",
             remarks="ISCS Screen",
         )

@@ -31,7 +31,7 @@ class TouchoscControlItem:
         self,
         control_type=None,  # Optional, can be used when adding controls in batches
         touchosc_address: str = None,
-        touchosc_color: str = "PINK",  # TODO: Remove debug items
+        touchosc_initial_color: str = "PINK",  # TODO: Remove debug items
         touchosc_visible: bool = True,
         xplane_dref_address: str = None,
         xplane_dref_index: int = None,
@@ -43,7 +43,7 @@ class TouchoscControlItem:
         self._touchosc_visible = None
 
         self.touchosc_address = touchosc_address
-        self.touchosc_color = touchosc_color
+        self.touchosc_color = touchosc_initial_color
         self.touchosc_visible = touchosc_visible
         self.xplane_dref_address = xplane_dref_address
         self.xplane_dref_index = xplane_dref_index
@@ -154,9 +154,10 @@ class TouchoscControlItem:
 
 
 class Label(TouchoscControlItem):
-    def __init__(self, touchosc_text: str, **kwargs):
+    def __init__(self, touchosc_initial_text: str, **kwargs):
         super().__init__(**kwargs)
-        self.touchosc_text = touchosc_text
+        self._touchosc_text = None
+        self.touchosc_text = touchosc_initial_text
 
     @property
     def touchosc_text(self) -> str:
@@ -174,6 +175,7 @@ class Label(TouchoscControlItem):
             return
 
         self._touchosc_text = value
+        logger.debug(f"Setting text of {self.touchosc_address} to {self.touchosc_text}")
         self.__set_touchosc_label_text()
 
     def __set_touchosc_label_text(self):

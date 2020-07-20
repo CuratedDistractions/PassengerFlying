@@ -23,7 +23,7 @@ adiru_switch_array = [
     {
         "control_type": AirbusSwitch,
         "touchosc_address": "/ovhd/multitoggle3",
-        "touchosc_color": GREY,
+        "touchosc_initial_color": GREY,
         "touchosc_horizontal": False,
         "remarks": "AR 1",
         "xplane_dref_address": "AirbusFBW/ADIRUSwitchArray",
@@ -32,7 +32,7 @@ adiru_switch_array = [
     {
         "control_type": AirbusSwitch,
         "touchosc_address": "/ovhd/multitoggle5",
-        "touchosc_color": GREY,
+        "touchosc_initial_color": GREY,
         "touchosc_horizontal": False,
         "remarks": "IR 2",
         "xplane_dref_address": "AirbusFBW/ADIRUSwitchArray",
@@ -41,7 +41,7 @@ adiru_switch_array = [
     {
         "control_type": AirbusSwitch,
         "touchosc_address": "/ovhd/multitoggle4",
-        "touchosc_color": GREY,
+        "touchosc_initial_color": GREY,
         "touchosc_horizontal": False,
         "remarks": "IR 3",
         "xplane_dref_address": "AirbusFBW/ADIRUSwitchArray",
