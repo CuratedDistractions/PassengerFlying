@@ -3,6 +3,7 @@
 ##########################################################################################
 
 from aircraft.A319.controls import AirbusButtonLabel
+from lib.controls import DynamicLabel
 
 # Some constants for TouchOSC
 RED = "red"
@@ -1421,6 +1422,31 @@ ohp_lights_ata49 = [
 # Add xplane_dref to this list
 ohp_lights_ata49 = set_xplane_dref_address_and_control_type(ohp_lights_ata49, "AirbusFBW/OHPLightsATA49")
 overhead_panel_labels.extend(ohp_lights_ata49)
+
+# sim/cockpit2/electrical/battery_voltage_indicated_volts
+battery_voltage_indicated_volts = [
+    {
+        "control_type": DynamicLabel,
+        "xplane_dref_address": "AirbusFBW/BatVolts",
+        "xplane_dref_index": 0,
+        "touchosc_address": "/battery_voltage_1",
+        "touchosc_initial_text": "ON",
+        "touchosc_initial_color": GREY,
+        "remarks": "BATT VOLT 1",
+    },
+    {
+        "control_type": DynamicLabel,
+        "xplane_dref_address": "AirbusFBW/BatVolts",
+        "xplane_dref_index": 1,
+        "touchosc_address": "/battery_voltage_2",
+        "touchosc_initial_text": "ON",
+        "touchosc_initial_color": GREY,
+        "remarks": "BATT VOLT 1",
+    },
+]
+# Add xplane_dref to this list
+overhead_panel_labels.extend(battery_voltage_indicated_volts)
+
 
 # # AirbusFBW/OHPLightsATA70
 # ohp_lights_ata70 = [
