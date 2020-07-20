@@ -174,9 +174,9 @@ class Label(TouchoscControlItem):
             return
 
         self._touchosc_text = value
-        self.set_text_in_touchosc()
+        self.__set_touchosc_label_text()
 
-    def set_text_in_touchosc(self):
+    def __set_touchosc_label_text(self):
         """The actual command to set the text of a label in TouchOSC"""
         # TODO: Check for correct values
         address = "/".join([self.touchosc_address, "text"])
