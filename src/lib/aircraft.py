@@ -27,8 +27,6 @@ class BaseAircraft:
         # Return error if this method is not defined in child class
         logger.error("You haven't defined any controls.")
 
-    # def reset_latest_xplane_result(self):
-    #     self.latest_xplane_result.clear()
 
     def add_control(self, control):
         # Add control to X-Plane list if X-Plane drefs are defined
