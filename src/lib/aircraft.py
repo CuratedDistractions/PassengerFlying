@@ -31,9 +31,9 @@ class BaseAircraft:
     #     self.latest_xplane_result.clear()
 
     def add_control(self, control):
-        # TODO: Check for duplicates. Every control class should only be added once
         # Add control to X-Plane list if X-Plane drefs are defined
         if control.xplane_dref_address:
+            # This is a simple duplicate check. For now we only accept a dref once
             if control.xplane_dref_address not in self.xplane_dref_address_list:
                 self.xplane_dref_address_list.append(control.xplane_dref_address)
 
