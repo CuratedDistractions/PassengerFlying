@@ -49,15 +49,15 @@ class BaseAircraft:
         for control in self.controls:
             control.callback_from_xplane(xplane_results)
 
-    def process_touchosc_result(self, touchosc_address, touchosc_result):
-        logger.debug(f"Processing result from TouchOSC: {touchosc_address} and value {touchosc_result}")
+    def process_touchosc_result(self, address, result):
+        logger.debug(f"Processing result from TouchOSC: {address} and value {result}")
         # Get all elements of the address. Every TouchOCS address should be of format
         # /<category|tab>/<control_name>[/column/row]
-        address_split = touchosc_address.split("/")
+        address_split = address.split("/")
         if len(address_split) > 3:  # This is a multi control with column and row
             address = "/" + address_split[1] + "/" + address_split[2] + "*"
         else:
-            address = touchosc_address
+            address = address
 
-        control = self.touchosc_address_dict[address]
-        control.callback_from_touchosc(touchosc_address, touchosc_result)
+        control = self.address_dict[address]
+        control.callback_from_touchosc(result)
