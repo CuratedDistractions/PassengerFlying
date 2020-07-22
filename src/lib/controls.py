@@ -56,7 +56,8 @@ class TouchoscControlItem:
     def callback_from_xplane(self, results):
         pass
 
-    def callback_from_touchosc(self, results):
+    def callback_from_touchosc(self, address, results):
+        # Always provide the TouchOSC address. It's used for Multi* controls.
         pass
 
     @property
@@ -223,7 +224,7 @@ class Led(TouchoscControlItem):
 class PushButton(TouchoscControlItem):
     """This control sends the second value of its value range when pressed and the first value of its value range when released."""
 
-    def callback_from_touchosc(self, results):
+    def callback_from_touchosc(self, address, results):
         if results > 0:  # We ignore the release of the button
             if self.xplane_command_address:  # If no command address was defined, we'll use the dref address
                 self.send_to_xplane(self.xplane_command_address)

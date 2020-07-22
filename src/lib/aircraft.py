@@ -55,9 +55,9 @@ class BaseAircraft:
         # /<category|tab>/<control_name>[/column/row]
         address_split = address.split("/")
         if len(address_split) > 3:  # This is a multi control with column and row
-            address = "/" + address_split[1] + "/" + address_split[2] + "*"
+            base_address = "/" + address_split[1] + "/" + address_split[2] + "*"
         else:
-            address = address
+            base_address = address
 
-        control = self.touchosc_address_dict[address]
-        control.callback_from_touchosc(result)
+        control = self.touchosc_address_dict[base_address]
+        control.callback_from_touchosc(address, result)
