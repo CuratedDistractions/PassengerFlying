@@ -350,19 +350,39 @@ class MultiPush(TouchoscControlItem):
 
     def callback_from_xplane(self, results):
         if self.xplane_dref_address:
-            state = int(results[self.xplane_dref_address][self.xplane_dref_index]) + 1
+            if self.xplane_dref_index is not None:
+                state = int(results[self.xplane_dref_address][self.xplane_dref_index]) + 1
+            else:
+                result = results[self.xplane_dref_address]
+                if type(result) == tuple:
+                    result = result[0]
+                state = int(result) + 1
+
             self.touchosc_state = state
 
-    def callback_from_touchosc(self, results):
-        logger.debug(f"Results from TouchOSC: {results}")
+    def callback_from_touchosc(self, address, results):
         if results > 0:  # 0 Means a button was deactivated. That should be ignored.
             # Extract which button of the multi control was pressed
+            button_pressed = address.split("/")
+
             if self.touchosc_horizontal:
-                logger.debug("Processing horizontal switch for touchosc_address {}".format(self.touchosc_address))
+                result = float(button_pressed[4]) - 1
             else:
-                logger.debug("Processing vertical switch for touchosc_address {}".format(self.touchosc_address))
-                button_pressed = results.split("/")
-                logger.debug(button_pressed)
+                result = float(button_pressed[3]) - 1
+
+            if self.xplane_dref_index is not None:  # Does the dref contain an array
+                # Get the whole dref. Since it's a tuple, we need to convert it to a list
+                xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))
+
+                # Replace just the index we need (it's a toggle)
+                xplane_dref_value[self.xplane_dref_index] = result
+            else:
+                # Get the current dref value.
+                xplane_dref_value = result
+
+            # Send the whole dref back to X-Plane
+            logger.debug(f"Sending {xplane_dref_value} to {self.xplane_dref_address}")
+            self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
 
 
 class MultiFader(TouchoscControlItem):
