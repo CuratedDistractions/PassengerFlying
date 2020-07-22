@@ -74,9 +74,9 @@ class TouchoscControlItem:
 
         if value in TOUCHOSC_COLORS:
             self._touchosc_color = value
+            self.set_color_in_touchosc()
         else:
-            self._touchosc_color = "pink"  # In case a non supported color was chosen
-        self.set_color_in_touchosc()
+            logger.warning(f"Tried to set color {value} for {self.touchosc_address}, which is not supported.")
 
         settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
 
