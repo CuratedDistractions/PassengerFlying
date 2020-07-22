@@ -35,6 +35,9 @@ def main():
     # Save the arguments list to the global variables list
     settings.globalList["ARGS"] = args
 
+    # Initialize force refresh setting
+    settings.globalList["FORCE_REFRESH"] = {}
+
     # Setup logging
     verbose_level = "DEBUG" if args.debug else "WARNING"
     logger = logging.getLogger(__name__)

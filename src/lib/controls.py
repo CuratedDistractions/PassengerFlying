@@ -43,6 +43,8 @@ class TouchoscControlItem:
         self._touchosc_visible = None
 
         self.touchosc_address = touchosc_address
+        if touchosc_address:
+            settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
         if touchosc_initial_color:
             self.touchosc_color = touchosc_initial_color
         self.touchosc_visible = touchosc_visible
@@ -65,8 +67,9 @@ class TouchoscControlItem:
     @touchosc_color.setter
     def touchosc_color(self, value):
         """Sets the color of an item in TouchOSC and checks for valid color values"""
-        # Do nothing if value wasn't changed
-        if value == self._touchosc_color:
+        # Do nothing if value wasn't changed and no force refresh needed
+        force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
+        if value == self._touchosc_color and not force_refresh:
             return
 
         if value in TOUCHOSC_COLORS:
@@ -74,6 +77,8 @@ class TouchoscControlItem:
         else:
             self._touchosc_color = "pink"  # In case a non supported color was chosen
         self.set_color_in_touchosc()
+
+        settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
 
     @property
     def touchosc_visible(self):
@@ -86,13 +91,17 @@ class TouchoscControlItem:
     @touchosc_visible.setter
     def touchosc_visible(self, value: bool):
         """Sets the visibility of an item in TouchOSC"""
-        # Do nothing if value wasn't changed
-        if value == self._touchosc_visible:
+        # Do nothing if value wasn't changed and no force refresh needed
+        force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
+        if value == self._touchosc_visible and not force_refresh:
             return
 
         if self.touchosc_address:
             self._touchosc_visible = value
             self.set_visibility_in_touchosc()
+
+        settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
+
 
     @property
     def touchosc_address(self):
@@ -171,12 +180,15 @@ class Label(TouchoscControlItem):
     @touchosc_text.setter
     def touchosc_text(self, value: str):
         """The text of the label in TouchOSC"""
-        # Do nothing if value wasn't changed
-        if value == self._touchosc_text:
+        # Do nothing if value wasn't changed and no force refresh needed
+        force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
+        if value == self._touchosc_text and not force_refresh:
             return
 
         self._touchosc_text = value
         self.__set_touchosc_label_text()
+
+        settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
 
     def __set_touchosc_label_text(self):
         """The actual command to set the text of a label in TouchOSC"""
@@ -315,13 +327,16 @@ class MultiPush(TouchoscControlItem):
 
     @touchosc_state.setter
     def touchosc_state(self, value: int):
-        # Do nothing if nothing changed
-        if self._touchosc_state == value:
+        # Do nothing if nothing changed and no force refresh needed
+        force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
+        if self._touchosc_state == value and not force_refresh:
             return
 
         """The text of the label in TouchOSC"""
         self._touchosc_state = value
         self.__set_state_in_touchosc()
+
+        settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
 
     def __set_state_in_touchosc(self):
         """The actual command to set the state in TouchOSC"""
