@@ -31,19 +31,20 @@ class TouchoscControlItem:
         self,
         control_type=None,  # Optional, can be used when adding controls in batches
         touchosc_address: str = None,
-        touchosc_initial_color: str = "PINK",  # TODO: Remove debug items
+        touchosc_initial_color: str = None,
         touchosc_visible: bool = True,
         xplane_dref_address: str = None,
         xplane_dref_index: int = None,
         xplane_command_address: str = None,
-        remarks: str = "Unknown",  # TODO: Make this an empty string
+        remarks: str = None,
     ):
         # Initialize some variables
         self._touchosc_color = None
         self._touchosc_visible = None
 
         self.touchosc_address = touchosc_address
-        self.touchosc_color = touchosc_initial_color
+        if touchosc_initial_color:
+            self.touchosc_color = touchosc_initial_color
         self.touchosc_visible = touchosc_visible
         self.xplane_dref_address = xplane_dref_address
         self.xplane_dref_index = xplane_dref_index
@@ -71,7 +72,7 @@ class TouchoscControlItem:
         if value in TOUCHOSC_COLORS:
             self._touchosc_color = value
         else:
-            self._touchosc_color = "pink"
+            self._touchosc_color = "pink"  # In case a non supported color was chosen
         self.set_color_in_touchosc()
 
     @property
@@ -153,10 +154,11 @@ class TouchoscControlItem:
 
 
 class Label(TouchoscControlItem):
-    def __init__(self, touchosc_initial_text: str, **kwargs):
+    def __init__(self, touchosc_initial_text: str = None, **kwargs):
         super().__init__(**kwargs)
         self._touchosc_text = None
-        self.touchosc_text = touchosc_initial_text
+        if touchosc_initial_text:
+            self.touchosc_text = touchosc_initial_text
 
     @property
     def touchosc_text(self) -> str:
@@ -169,9 +171,6 @@ class Label(TouchoscControlItem):
     @touchosc_text.setter
     def touchosc_text(self, value: str):
         """The text of the label in TouchOSC"""
-        if type(value) == float:
-            value = "{:.1f}".format(value)
-
         # Do nothing if value wasn't changed
         if value == self._touchosc_text:
             return
@@ -191,10 +190,13 @@ class DynamicLabel(Label):
         if self.xplane_dref_address:
             if self.xplane_dref_index is not None:
                 text = results[self.xplane_dref_address][self.xplane_dref_index]
-                self.touchosc_text = text
             else:
                 text = results[self.xplane_dref_address]
-                self.touchosc_text = text
+
+            if type(text) == float:
+                text = "{:.1f}".format(text)
+
+            self.touchosc_text = text
 
 
 class Led(TouchoscControlItem):

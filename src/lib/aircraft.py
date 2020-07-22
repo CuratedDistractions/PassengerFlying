@@ -27,7 +27,6 @@ class BaseAircraft:
         # Return error if this method is not defined in child class
         logger.error("You haven't defined any controls.")
 
-
     def add_control(self, control):
         # Add control to X-Plane list if X-Plane drefs are defined
         if control.xplane_dref_address:
@@ -51,6 +50,7 @@ class BaseAircraft:
 
     def process_touchosc_result(self, address, result):
         logger.debug(f"Processing result from TouchOSC: {address} and value {result}")
+
         # Get all elements of the address. Every TouchOCS address should be of format
         # /<category|tab>/<control_name>[/column/row]
         address_split = address.split("/")
