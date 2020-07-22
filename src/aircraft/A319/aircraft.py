@@ -1,9 +1,9 @@
 import logging
 
 from aircraft.A319.controls import AirbusButton
+from aircraft.A319.overhead_panel_buttons import overhead_panel_buttons
 from aircraft.A319.overhead_panel_labels import overhead_panel_labels
 from aircraft.A319.overhead_panel_switches import overhead_panel_switches
-from aircraft.A319.overhead_panel_buttons import overhead_panel_buttons
 from lib.aircraft import BaseAircraft
 
 # Create a logger object.
