@@ -52,7 +52,7 @@ class BaseAircraft:
         logger.debug(f"Processing result from TouchOSC: {address} and value {result}")
 
         # Get all elements of the address. Every TouchOCS address should be of format
-        # /<category|tab>/<control_name>[/column/row]
+        # /<category>/<control_name>[/column/row]
         address_split = address.split("/")
         if len(address_split) > 3:  # This is a multi control with column and row
             base_address = "/" + address_split[1] + "/" + address_split[2] + "*"
