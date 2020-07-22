@@ -75,7 +75,7 @@ fuel_pump_buttons = [
     },
     {
         "control_type": AirbusButton,
-        "touchosc_address": "/button/ctr_tk_2",
+        "touchosc_address": "/button/ctr_tk_1",
         "touchosc_initial_color": GREY,
         "remarks": "CTR TK 1",
         "xplane_dref_address": "AirbusFBW/FuelOHPArray",
@@ -111,21 +111,21 @@ overhead_panel_buttons.extend(fuel_pump_buttons)
 apu_buttons = [
     {
         "control_type": AirbusButton,
-        "touchosc_address": "/apu_master_sw",
+        "touchosc_address": "/button/apu_master_sw",
         "touchosc_initial_color": GREY,
         "remarks": "APU MASTER SW",
         "xplane_dref_address": "AirbusFBW/APUMaster",
     },
     {
         "control_type": AirbusButton,
-        "touchosc_address": "/apu_start",
+        "touchosc_address": "/button/apu_start",
         "touchosc_initial_color": GREY,
         "remarks": "APU START",
         "xplane_dref_address": "AirbusFBW/APUStarter",
     },
     {
         "control_type": AirbusButton,
-        "touchosc_address": "/apu_bleed",
+        "touchosc_address": "/button/apu_bleed",
         "touchosc_initial_color": GREY,
         "remarks": "APU BLEED",
         "xplane_dref_address": "AirbusFBW/APUBleedSwitch",
@@ -137,10 +137,26 @@ external_power_button = [
     {
         "control_type": AirbusButton,
         "touchosc_address": "/button/ext_pwr",
-        "touchosc_initial_color": GREY,
         "remarks": "EXT PWR",
         "xplane_dref_address": "AirbusFBW/ElecOHPArray",
         "xplane_dref_index": 3,
     },
 ]
 overhead_panel_buttons.extend(external_power_button)
+
+battery_buttons = [
+    {
+        "control_type": AirbusButton,
+        "touchosc_address": "/button/bat_1",
+        "remarks": "BAT 1",
+        "xplane_dref_address": "Unknown",
+        "xplane_dref_index": 0,
+    },
+    {
+        "control_type": AirbusButton,
+        "touchosc_address": "/button/bat_2",
+        "remarks": "BAT 2",
+        "xplane_dref_address": "Unknown",
+        "xplane_dref_index": 0,
+    }
+]
