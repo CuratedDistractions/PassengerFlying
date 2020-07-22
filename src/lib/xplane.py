@@ -44,7 +44,6 @@ class XPlane:
                 xplane_client.close()
                 last_connection_ok = True  # Success, we didn't time out
             except socket.timeout as e:
-                # aircraft.reset_latest_xplane_result()
                 if last_connection_ok:  # It's no longer ok
                     logger.warning(f"Lost connection with X-Plane ({e}). Not a problem, will try again.")
                 last_connection_ok = False
