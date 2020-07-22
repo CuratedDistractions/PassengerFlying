@@ -59,5 +59,5 @@ class BaseAircraft:
         else:
             address = address
 
-        control = self.address_dict[address]
+        control = self.touchosc_address_dict[address]
         control.callback_from_touchosc(result)
