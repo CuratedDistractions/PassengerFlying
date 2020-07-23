@@ -101,7 +101,6 @@ class TouchoscControlItem:
 
         settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
 
-
     @property
     def touchosc_address(self):
         """Optional control to listen for or send commands to in TouchOSC"""
@@ -247,7 +246,60 @@ class PushButton(TouchoscControlItem):
 class ToggleButton(TouchoscControlItem):
     """This control changes state between on/off when released. When the state changes to on, the second value in it's value range is sent, otherwise the first."""
 
-    pass
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._touchosc_state = None
+
+    def callback_from_touchosc(self, address, results):
+        if self.xplane_dref_index is not None:  # Does the dref contain an array
+            # Get the whole dref. Since it's a tuple, we need to convert it to a list
+            xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))
+
+            # Replace just the index we need
+            xplane_dref_value[self.xplane_dref_index] = results
+        else:
+            # Get the current dref value.
+            xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))[0]
+
+            # Toggle
+            xplane_dref_value = results
+
+        # Send the whole dref back to X-Plane
+        self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
+
+    @property
+    def touchosc_state(self):
+        return self._touchosc_state
+
+    @touchosc_state.setter
+    def touchosc_state(self, value: int):
+        # Do nothing if nothing changed and no force refresh needed
+        force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
+        if self._touchosc_state == value and not force_refresh:
+            # logger.debug("Nothing changed")
+            return
+
+        """The text of the label in TouchOSC"""
+        self._touchosc_state = value
+        self.__set_state_in_touchosc()
+
+        settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
+
+    def __set_state_in_touchosc(self):
+        """The actual command to set the state in TouchOSC"""
+        self.send_to_touchosc(self.touchosc_address, self.touchosc_state)
+
+    def callback_from_xplane(self, results):
+        if self.xplane_dref_address:
+            if self.xplane_dref_index is not None:
+                state = int(results[self.xplane_dref_address][self.xplane_dref_index])
+            else:
+                result = results[self.xplane_dref_address]
+                if type(result) == tuple:
+                    result = result[0]
+                state = int(result)
+
+            self.touchosc_state = state
 
 
 class XYPad(TouchoscControlItem):
