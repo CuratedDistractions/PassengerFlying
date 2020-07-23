@@ -69,8 +69,5 @@ class Aircraft(BaseAircraft):
             self.add_control(result)
 
         # Use the IR1 light (which uses a button as background) to open ISCS screen
-        iscs = AirbusButton(
-            touchosc_address="/ovhd/push95",
-            xplane_command_address="toliss_airbus/iscs_open",
-        )
+        iscs = AirbusButton(touchosc_address="/ovhd/push95", xplane_command_address="toliss_airbus/iscs_open",)
         self.add_control(iscs)
