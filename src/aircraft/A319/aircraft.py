@@ -4,6 +4,12 @@ from aircraft.A319.controls import AirbusButton
 from aircraft.A319.overhead_panel_buttons import overhead_panel_buttons
 from aircraft.A319.overhead_panel_labels import overhead_panel_labels
 from aircraft.A319.overhead_panel_switches import overhead_panel_switches
+from aircraft.A319.main_panel_buttons import main_panel_buttons
+from aircraft.A319.main_panel_labels import main_panel_labels
+from aircraft.A319.main_panel_switches import main_panel_switches
+from aircraft.A319.pedestal_buttons import pedestal_buttons
+from aircraft.A319.pedestal_labels import pedestal_labels
+from aircraft.A319.pedestal_switches import pedestal_switches
 from lib.aircraft import BaseAircraft
 
 # Create a logger object.
@@ -23,13 +29,41 @@ class Aircraft(BaseAircraft):
             result = item["control_type"](**item)
             self.add_control(result)
 
+        for item in main_panel_labels:
+            result = item["control_type"](**item)
+            self.add_control(result)
+
+        for item in pedestal_labels:
+            result = item["control_type"](**item)
+            self.add_control(result)
+
         # Add all switches (and knobs that act like switches)
         for item in overhead_panel_switches:
             result = item["control_type"](**item)
             self.add_control(result)
 
+        for item in main_panel_switches:
+            result = item["control_type"](**item)
+            self.add_control(result)
+
+        for item in pedestal_switches:
+            result = item["control_type"](**item)
+            self.add_control(result)
+
         # Add all buttons
         for item in overhead_panel_buttons:
+            result = item["control_type"](**item)
+            self.add_control(result)
+
+        for item in main_panel_buttons:
+            result = item["control_type"](**item)
+            self.add_control(result)
+
+        for item in pedestal_buttons:
+            result = item["control_type"](**item)
+            self.add_control(result)
+
+        for item in debug_buttons:
             result = item["control_type"](**item)
             self.add_control(result)
 

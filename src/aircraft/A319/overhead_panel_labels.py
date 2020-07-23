@@ -5,18 +5,6 @@
 from aircraft.A319.controls import AirbusButtonLabel
 from lib.controls import DynamicLabel
 
-# Some constants for TouchOSC
-RED = "red"
-GREEN = "green"
-BLUE = "blue"
-YELLOW = "yellow"
-PURPLE = "purple"
-GRAY = "gray"
-GREY = "gray"
-ORANGE = "orange"
-BROWN = "brown"
-PINK = "pink"
-
 overhead_panel_labels = []
 
 
@@ -57,9 +45,9 @@ ohp_lights_ata21 = [
     {"xplane_dref_index": 25, "touchosc_address": "/label/hot_air_lower",},
     {"xplane_dref_index": 26, "touchosc_address": "/label/hot_air_upper",},
 ]
-# Add xplane_dref to this list
 ohp_lights_ata21 = set_xplane_dref_address_and_control_type(ohp_lights_ata21, "AirbusFBW/OHPLightsATA21")
 overhead_panel_labels.extend(ohp_lights_ata21)
+
 
 # AirbusFBW/OHPLightsATA24[64]
 ohp_lights_ata24 = [
@@ -87,9 +75,28 @@ ohp_lights_ata24 = [
     {"xplane_dref_index": 21, "touchosc_address": "/label/emer_elec_pwr_gen_1_line_lower",},
     {"xplane_dref_index": 22, "touchosc_address": "/label/emer_elec_pwr_gen_1_line_upper",},
 ]
-# Add xplane_dref to this list
 ohp_lights_ata24 = set_xplane_dref_address_and_control_type(ohp_lights_ata24, "AirbusFBW/OHPLightsATA24")
 overhead_panel_labels.extend(ohp_lights_ata24)
+
+
+# AirbusFBW/OHPLightsATA26[64]
+ohp_lights_ata26 = [
+    {"xplane_dref_index": 0, "touchosc_address": "/label/fire_eng_1",},
+    {"xplane_dref_index": 1, "touchosc_address": "/label/fire_eng_1_agent_1_lower",},
+    {"xplane_dref_index": 2, "touchosc_address": "/label/fire_eng_1_agent_1_upper",},
+    {"xplane_dref_index": 3, "touchosc_address": "/label/fire_eng_1_agent_2_lower",},
+    {"xplane_dref_index": 4, "touchosc_address": "/label/fire_eng_1_agent_2_upper",},
+    {"xplane_dref_index": 5, "touchosc_address": "/label/fire_eng_2",},
+    {"xplane_dref_index": 6, "touchosc_address": "/label/fire_eng_2_agent_1_lower",},
+    {"xplane_dref_index": 7, "touchosc_address": "/label/fire_eng_2_agent_1_upper",},
+    {"xplane_dref_index": 8, "touchosc_address": "/label/fire_eng_2_agent_2_lower",},
+    {"xplane_dref_index": 9, "touchosc_address": "/label/fire_eng_2_agent_2_lower",},
+    # {"xplane_dref_index": 20, "touchosc_address": "/label/fire_"},
+    # {"xplane_dref_index": 21, "touchosc_address": "/ovhd/label"},
+    {"xplane_dref_index": 22, "touchosc_address": "/label/fire_apu_agent_lower",},
+]
+ohp_lights_ata26 = set_xplane_dref_address_and_control_type(ohp_lights_ata26, "AirbusFBW/OHPLightsATA26")
+overhead_panel_labels.extend(ohp_lights_ata26)
 
 
 # AirbusFBW/OHPLightsATA27[64]
@@ -109,9 +116,9 @@ ohp_lights_ata27 = [
     {"xplane_dref_index": 12, "touchosc_address": "/label/flt_ctl_fac_2_lower",},
     {"xplane_dref_index": 13, "touchosc_address": "/label/flt_ctl_fac_2_upper",},
 ]
-# Add xplane_dref to this list
 ohp_lights_ata27 = set_xplane_dref_address_and_control_type(ohp_lights_ata27, "AirbusFBW/OHPLightsATA27")
 overhead_panel_labels.extend(ohp_lights_ata27)
+
 
 # AirbusFBW/OHPLightsATA28[64]
 ohp_lights_ata28 = [
@@ -132,9 +139,9 @@ ohp_lights_ata28 = [
     {"xplane_dref_index": 14, "touchosc_address": "/label/fuel_x_feed_lower",},
     {"xplane_dref_index": 15, "touchosc_address": "/label/fuel_x_feed_upper",},
 ]
-# Add xplane_dref to this list
 ohp_lights_ata28 = set_xplane_dref_address_and_control_type(ohp_lights_ata28, "AirbusFBW/OHPLightsATA28")
 overhead_panel_labels.extend(ohp_lights_ata28)
+
 
 # AirbusFBW/OHPLightsATA29[64]
 ohp_lights_ata29 = [
@@ -149,9 +156,9 @@ ohp_lights_ata29 = [
     {"xplane_dref_index": 8, "touchosc_address": "/label/hyd_ptu_lower",},
     {"xplane_dref_index": 9, "touchosc_address": "/label/hyd_ptu_upper",},
 ]
-# Add xplane_dref to this list
 ohp_lights_ata29 = set_xplane_dref_address_and_control_type(ohp_lights_ata29, "AirbusFBW/OHPLightsATA29")
 overhead_panel_labels.extend(ohp_lights_ata29)
+
 
 # AirbusFBW/OHPLightsATA30[64]
 ohp_lights_ata30 = [
@@ -163,309 +170,31 @@ ohp_lights_ata30 = [
     {"xplane_dref_index": 5, "touchosc_address": "/label/anti_ice_eng_2_upper"},
     {"xplane_dref_index": 10, "touchosc_address": "/label/probe_window_heat"},
 ]
-# Add xplane_dref to this list
 ohp_lights_ata30 = set_xplane_dref_address_and_control_type(ohp_lights_ata30, "AirbusFBW/OHPLightsATA30")
 overhead_panel_labels.extend(ohp_lights_ata30)
 
-# AirbusFBW/OHPLightsATA31[64]
+
+# AirbusFBW/OHPLightsATA31[64] (also defined in main_panel_labels and pedestal_labels)
 ohp_lights_ata31 = [
-    # {"xplane_dref_index": 8, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
-    # {"xplane_dref_index": 9, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
-    # {"xplane_dref_index": 10, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "EVAC/ON", "remarks": "COMMAND"},
-    # {"xplane_dref_index": 11, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "EVAC/ON", "remarks": "COMMAND"},
+    {"xplane_dref_index": 10, "touchosc_address": "/label/evac_command_lower"},
+    {"xplane_dref_index": 11, "touchosc_address": "/label/evac_command_upper"},
     {"xplane_dref_index": 12, "touchosc_address": "/label/emer_exit_lt"},
-    {
-        "xplane_dref_index": 13,
-        "touchosc_address": "/ovhd/label543",
-        "touchosc_initial_text": "ON",
-        "touchosc_initial_color": GREY,
-        # "remarks": "EMER",
-    },
-    {
-        "xplane_dref_index": 14,
-        "touchosc_address": "/ovhd/label544",
-        "touchosc_initial_text": "FAULT",
-        "touchosc_initial_color": ORANGE,
-        # "remarks": "EMER",
-    },
-    # {
-    #     "xplane_dref_index": 15,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "ON",
-    #     "touchosc_initial_color": BLUE,
-    #     "remarks": "GND CTL",
-    # },
-    # {
-    #     "xplane_dref_index": 16,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "CPT - CSTR",
-    # },
-    # {
-    #     "xplane_dref_index": 17,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "CPT - WPT",
-    # },
-    # {
-    #     "xplane_dref_index": 18,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "CPT - VOR,D",
-    # },
-    # {
-    #     "xplane_dref_index": 19,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "CPT - NDB",
-    # },
-    # {
-    #     "xplane_dref_index": 20,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "CPT - ARPT",
-    # },
-    # {
-    #     "xplane_dref_index": 21,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "FO - ARPT",
-    # },
-    # {
-    #     "xplane_dref_index": 22,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "FO - NDB",
-    # },
-    # {
-    #     "xplane_dref_index": 23,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "FO - VOR,D",
-    # },
-    # {
-    #     "xplane_dref_index": 24,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "FO - WPT",
-    # },
-    # {
-    #     "xplane_dref_index": 25,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "FO - CSTR",
-    # },
-    # {
-    #     "xplane_dref_index": 26,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "CPT - FD",
-    # },
-    # {
-    #     "xplane_dref_index": 27,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "FO - FD",
-    # },
-    # {
-    #     "xplane_dref_index": 28,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "CPT - LS",
-    # },
-    # {
-    #     "xplane_dref_index": 29,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "FO - LS",
-    # },
-    # {
-    #     "xplane_dref_index": 30,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "ENG",
-    # },
-    # {
-    #     "xplane_dref_index": 31,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "BLEED",
-    # },
-    # {
-    #     "xplane_dref_index": 32,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "PRESS",
-    # },
-    # {
-    #     "xplane_dref_index": 33,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "ELEC",
-    # },
-    # {
-    #     "xplane_dref_index": 34,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "HYD",
-    # },
-    # {
-    #     "xplane_dref_index": 35,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "FUEL",
-    # },
-    # {
-    #     "xplane_dref_index": 36,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "APU",
-    # },
-    # {
-    #     "xplane_dref_index": 37,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "COND",
-    # },
-    # {
-    #     "xplane_dref_index": 38,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "DOOR",
-    # },
-    # {
-    #     "xplane_dref_index": 39,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "WHEEL",
-    # },
-    # {
-    #     "xplane_dref_index": 40,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "F/CTL",
-    # },
-    # {
-    #     "xplane_dref_index": 41,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "STS",
-    # },
-    # {
-    #     "xplane_dref_index": 42,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "CLR (left)",
-    # },
-    # {
-    #     "xplane_dref_index": 43,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "CLR (right)",
-    # },
-    # {
-    #     "xplane_dref_index": 44,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "AP 1",
-    # },
-    # {
-    #     "xplane_dref_index": 45,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "AP 2",
-    # },
-    # {"xplane_dref_index": 46, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
-    # {"xplane_dref_index": 47, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
-    # {
-    #     "xplane_dref_index": 48,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "====",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "APPR",
-    # },
-    # {"xplane_dref_index": 49, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
-    # {"xplane_dref_index": 50, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
+    {"xplane_dref_index": 13, "touchosc_address": "/label/calls_emer_lower",},
+    {"xplane_dref_index": 14, "touchosc_address": "/label/calls_emer_upper",},
+    {"xplane_dref_index": 15, "touchosc_address": "/label/rcdr_gnd_ctl",},
 ]
-# Add xplane_dref to this list
 ohp_lights_ata31 = set_xplane_dref_address_and_control_type(ohp_lights_ata31, "AirbusFBW/OHPLightsATA31")
 overhead_panel_labels.extend(ohp_lights_ata31)
 
 
-# AirbusFBW/OHPLightsATA34[64]
+# AirbusFBW/OHPLightsATA34[64] (also defined in main_panel_labels)
 ohp_lights_ata34 = [
-    {
-        "xplane_dref_index": 0,
-        "touchosc_address": "/ovhd/label237",
-        "touchosc_initial_text": "OFF",
-        "touchosc_initial_color": GREY,
-        # "remarks": "ADR1",
-    },
-    {
-        "xplane_dref_index": 1,
-        "touchosc_address": "/ovhd/label238",
-        "touchosc_initial_text": "FAULT",
-        "touchosc_initial_color": ORANGE,
-        # "remarks": "ADR1",
-    },
-    {
-        "xplane_dref_index": 2,
-        "touchosc_address": "/ovhd/label239",
-        "touchosc_initial_text": "OFF",
-        "touchosc_initial_color": GREY,
-        # "remarks": "ADR2",
-    },
-    {
-        "xplane_dref_index": 3,
-        "touchosc_address": "/ovhd/label240",
-        "touchosc_initial_text": "FAULT",
-        "touchosc_initial_color": ORANGE,
-        # "remarks": "ADR2",
-    },
-    {
-        "xplane_dref_index": 4,
-        "touchosc_address": "/ovhd/label241",
-        "touchosc_initial_text": "OFF",
-        "touchosc_initial_color": GREY,
-        # "remarks": "ADR3",
-    },
-    {
-        "xplane_dref_index": 5,
-        "touchosc_address": "/ovhd/label242",
-        "touchosc_initial_text": "FAULT",
-        "touchosc_initial_color": ORANGE,
-        # "remarks": "ADR3",
-    },
+    {"xplane_dref_index": 0, "touchosc_address": "/label/adr1_lower",},
+    {"xplane_dref_index": 1, "touchosc_address": "/label/adr1_upper",},
+    {"xplane_dref_index": 2, "touchosc_address": "/label/adr2_lower",},
+    {"xplane_dref_index": 3, "touchosc_address": "/label/adr2_upper",},
+    {"xplane_dref_index": 4, "touchosc_address": "/label/adr3_lower",},
+    {"xplane_dref_index": 5, "touchosc_address": "/label/adr3_upper",},
     {"xplane_dref_index": 6, "touchosc_address": "/label/adirs_ir1_lower"},
     {"xplane_dref_index": 7, "touchosc_address": "/label/adirs_ir1_upper"},
     {"xplane_dref_index": 8, "touchosc_address": "/label/adirs_ir2_lower"},
@@ -473,77 +202,29 @@ ohp_lights_ata34 = [
     {"xplane_dref_index": 10, "touchosc_address": "/label/adirs_ir3_lower"},
     {"xplane_dref_index": 11, "touchosc_address": "/label/adirs_ir3_upper"},
     {"xplane_dref_index": 12, "touchosc_address": "/label/adirs_battery"},
-    {
-        "xplane_dref_index": 13,
-        "touchosc_address": "/ovhd/label211",
-        "touchosc_initial_text": "OFF",
-        "touchosc_initial_color": GREY,
-        # "remarks": "GPWS - SYS",
-    },
-    {
-        "xplane_dref_index": 14,
-        "touchosc_address": "/ovhd/label212",
-        "touchosc_initial_text": "FAULT",
-        "touchosc_initial_color": ORANGE,
-        # "remarks": "GPWS - SYS",
-    },
-    {
-        "xplane_dref_index": 15,
-        "touchosc_address": "/ovhd/label213",
-        "touchosc_initial_text": "OFF",
-        "touchosc_initial_color": GREY,
-        # "remarks": "G/S MODE",
-    },
-    {
-        "xplane_dref_index": 16,
-        "touchosc_address": "/ovhd/label215",
-        "touchosc_initial_text": "OFF",
-        "touchosc_initial_color": GREY,
-        # "remarks": "FLAP MODE",
-    },
-    {
-        "xplane_dref_index": 17,
-        "touchosc_address": "/ovhd/label217",
-        "touchosc_initial_text": "ON",
-        "touchosc_initial_color": GREY,
-        # "remarks": "LDG FLAP 3",
-    },
+    {"xplane_dref_index": 13, "touchosc_address": "/label/gpws_sys_lower",},
+    {"xplane_dref_index": 14, "touchosc_address": "/label/gpws_sys_upper",},
+    {"xplane_dref_index": 15, "touchosc_address": "/label/gpws_g_s_mode",},
+    {"xplane_dref_index": 16, "touchosc_address": "/label/gpws_flap_mode",},
+    {"xplane_dref_index": 17, "touchosc_address": "/label/gpws_ldg_flap_3",},
     # {"xplane_dref_index": 20, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
     # {"xplane_dref_index": 21, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
     # {"xplane_dref_index": 22, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
     # {"xplane_dref_index": 23, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
-    # {
-    #     "xplane_dref_index": 24,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "ON",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "CPT - TERR ON ND",
-    # },
-    # {
-    #     "xplane_dref_index": 25,
-    #     "touchosc_address": "/ovhd/label",
-    #     "touchosc_initial_text": "ON",
-    #     "touchosc_initial_color": GREEN,
-    #     "remarks": "FO - TERR ON ND",
-    # },
-    {
-        "xplane_dref_index": 26,
-        "touchosc_address": "/ovhd/label209",
-        "touchosc_initial_text": "OFF",
-        "touchosc_initial_color": GREY,
-        # "remarks": "GPWS - TERR",
-    },
-    {
-        "xplane_dref_index": 27,
-        "touchosc_address": "/ovhd/label210",
-        "touchosc_initial_text": "FAULT",
-        "touchosc_initial_color": ORANGE,
-        # "remarks": "GPWS - TERR",
-    },
+    {"xplane_dref_index": 26, "touchosc_address": "/label/gpws_terr_lower",},
+    {"xplane_dref_index": 27, "touchosc_address": "/label/gpws_terr_upper",},
 ]
-# Add xplane_dref to this list
 ohp_lights_ata34 = set_xplane_dref_address_and_control_type(ohp_lights_ata34, "AirbusFBW/OHPLightsATA34")
 overhead_panel_labels.extend(ohp_lights_ata34)
+
+
+# AirbusFBW/OHPLightsATA35[64]
+ohp_lights_ata35 = [
+    {"xplane_dref_index": 1, "touchosc_address": "/label/crew_supply",},
+]
+ohp_lights_ata35 = set_xplane_dref_address_and_control_type(ohp_lights_ata35, "AirbusFBW/OHPLightsATA35")
+overhead_panel_labels.extend(ohp_lights_ata35)
+
 
 # AirbusFBW/OHPLightsATA49[64]
 ohp_lights_ata49 = [
@@ -555,6 +236,16 @@ ohp_lights_ata49 = [
 # Add xplane_dref to this list
 ohp_lights_ata49 = set_xplane_dref_address_and_control_type(ohp_lights_ata49, "AirbusFBW/OHPLightsATA49")
 overhead_panel_labels.extend(ohp_lights_ata49)
+
+
+# AirbusFBW/OHPLightsATA70[64]
+ohp_lights_ata70 = [
+    {"xplane_dref_index": 0, "touchosc_address": "/label/eng_man_start_1",},
+    {"xplane_dref_index": 1, "touchosc_address": "/label/eng_man_start_2",},
+]
+ohp_lights_ata70 = set_xplane_dref_address_and_control_type(ohp_lights_ata70, "AirbusFBW/OHPLightsATA70")
+overhead_panel_labels.extend(ohp_lights_ata70)
+
 
 # AirbusFBW/BatVolts
 battery_voltage_indicated_volts = [
@@ -571,5 +262,4 @@ battery_voltage_indicated_volts = [
         "touchosc_address": "/label/elec_battery_voltage_2",
     },
 ]
-# Add xplane_dref to this list
 overhead_panel_labels.extend(battery_voltage_indicated_volts)

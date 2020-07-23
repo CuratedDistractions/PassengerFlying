@@ -1,11 +1,12 @@
 ##########################################################################################
-"""     OVERHEAD PANEL SWITCHES """
+""" OVERHEAD PANEL SWITCHES """
 ##########################################################################################
 
 from aircraft.A319.controls import AirbusSwitch
 
 overhead_panel_switches = []
 
+# AirbusFBW/ADIRUSwitchArray[6]
 adiru_switch_array = [
     {
         "control_type": AirbusSwitch,
@@ -31,6 +32,7 @@ adiru_switch_array = [
 ]
 overhead_panel_switches.extend(adiru_switch_array)
 
+# AirbusFBW/OHPLightSwitches[16]
 OHPLightSwitches = [
     {
         "control_type": AirbusSwitch,
