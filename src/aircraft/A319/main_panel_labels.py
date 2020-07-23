@@ -4,7 +4,8 @@
 
 import logging
 
-from aircraft.A319.controls import AirbusButtonLabel
+from aircraft.A319.controls import AirbusLabel
+from lib.controls import MasterWarningButtonLabel, MasterCautionButtonLabel
 
 # Create a logger object.
 logger = logging.getLogger(__name__)
@@ -15,20 +16,63 @@ main_panel_labels = []
 def set_xplane_dref_address_and_control_type(item_list: list, xplane_dref_address=None):
     for idx, item in enumerate(item_list):
         item_list[idx]["xplane_dref_address"] = xplane_dref_address
-        item_list[idx]["control_type"] = AirbusButtonLabel
+        if "control_type" not in item_list[idx]:
+            item_list[idx]["control_type"] = AirbusLabel
     return item_list
 
 
 # AirbusFBW/OHPLightsATA31[64] (also defined in overhead_panel_labels and pedestal_labels)
 ohp_lights_ata31 = [
-    {"xplane_dref_index": 0, "touchosc_address": "/label/cpt_master_warn_lower",},
-    {"xplane_dref_index": 1, "touchosc_address": "/label/cpt_master_warn_upper",},
-    {"xplane_dref_index": 2, "touchosc_address": "/label/fo_master_warn_lower",},
-    {"xplane_dref_index": 3, "touchosc_address": "/label/fo_master_warn_upper",},
-    {"xplane_dref_index": 4, "touchosc_address": "/label/cpt_master_caution_lower",},
-    {"xplane_dref_index": 5, "touchosc_address": "/label/cpt_master_caution_upper",},
-    {"xplane_dref_index": 6, "touchosc_address": "/label/fo_master_caution_lower",},
-    {"xplane_dref_index": 7, "touchosc_address": "/label/fo_master_caution_upper",},
+    {
+        "xplane_dref_index": 0,
+        "touchosc_address": "/label/cpt_master_warning_lower",
+        "control_type": MasterWarningButtonLabel,
+    },
+    {
+        "xplane_dref_index": 0,
+        "touchosc_address": "/label/cpt_master_warning_outline",
+        "control_type": MasterWarningButtonLabel,
+    },
+    {
+        "xplane_dref_index": 1,
+        "touchosc_address": "/label/cpt_master_warning_upper",
+        "control_type": MasterWarningButtonLabel,
+    },
+    {
+        "xplane_dref_index": 2,
+        "touchosc_address": "/label/fo_master_warning_lower",
+        "control_type": MasterWarningButtonLabel,
+    },
+    {
+        "xplane_dref_index": 3,
+        "touchosc_address": "/label/fo_master_warning_upper",
+        "control_type": MasterWarningButtonLabel,
+    },
+    {
+        "xplane_dref_index": 4,
+        "touchosc_address": "/label/cpt_master_caution_lower",
+        "control_type": MasterCautionButtonLabel,
+    },
+    {
+        "xplane_dref_index": 4,
+        "touchosc_address": "/label/cpt_master_caution_outline",
+        "control_type": MasterCautionButtonLabel,
+    },
+    {
+        "xplane_dref_index": 5,
+        "touchosc_address": "/label/cpt_master_caution_upper",
+        "control_type": MasterCautionButtonLabel,
+    },
+    {
+        "xplane_dref_index": 6,
+        "touchosc_address": "/label/fo_master_caution_lower",
+        "control_type": MasterCautionButtonLabel,
+    },
+    {
+        "xplane_dref_index": 7,
+        "touchosc_address": "/label/fo_master_caution_upper",
+        "control_type": MasterCautionButtonLabel,
+    },
     {"xplane_dref_index": 16, "touchosc_address": "/label/cpt_cstr",},
     {"xplane_dref_index": 17, "touchosc_address": "/label/cpt_wpt",},
     {"xplane_dref_index": 18, "touchosc_address": "/label/cpt_vor_d",},
@@ -49,6 +93,7 @@ ohp_lights_ata31 = [
     # {"xplane_dref_index": 47, "touchosc_address": "/label/"},
     {"xplane_dref_index": 48, "touchosc_address": "/label/appr",},
 ]
+logger.debug("Importing")
 ohp_lights_ata31 = set_xplane_dref_address_and_control_type(ohp_lights_ata31, "AirbusFBW/OHPLightsATA31")
 main_panel_labels.extend(ohp_lights_ata31)
 
@@ -69,6 +114,7 @@ ohp_lights_ata32 = [
     {"xplane_dref_index": 16, "touchosc_address": "/label/auto_brk_max_lower",},
     {"xplane_dref_index": 17, "touchosc_address": "/label/auto_brk_max_upper",},
 ]
+logger.debug("Importing")
 ohp_lights_ata32 = set_xplane_dref_address_and_control_type(ohp_lights_ata32, "AirbusFBW/OHPLightsATA32")
 main_panel_labels.extend(ohp_lights_ata32)
 
@@ -77,5 +123,6 @@ ohp_lights_ata34 = [
     {"xplane_dref_index": 24, "touchosc_address": "cpt_terr_on_nd",},
     {"xplane_dref_index": 25, "touchosc_address": "fo_terr_on_nd",},
 ]
+logger.debug("Importing")
 ohp_lights_ata34 = set_xplane_dref_address_and_control_type(ohp_lights_ata34, "AirbusFBW/OHPLightsATA34")
 main_panel_labels.extend(ohp_lights_ata34)

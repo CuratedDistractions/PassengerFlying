@@ -35,6 +35,7 @@ adiru_switch_array = [
         "xplane_dref_index": 2,
     },
 ]
+logger.debug("Importing")
 overhead_panel_switches.extend(adiru_switch_array)
 
 # AirbusFBW/OHPLightSwitches[16]
@@ -131,6 +132,7 @@ OHPLightSwitches = [
         "xplane_dref_index": 12,
     },
 ]
+logger.debug("Importing")
 overhead_panel_switches.extend(OHPLightSwitches)
 
 int_lt_ann_lt = [
@@ -141,6 +143,7 @@ int_lt_ann_lt = [
         "xplane_dref_address": "AirbusFBW/AnnunMode",
     }
 ]
+logger.debug("Importing")
 overhead_panel_switches.extend(int_lt_ann_lt)
 
 # wiper_left = WiperKnob(

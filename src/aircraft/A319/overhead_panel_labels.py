@@ -2,7 +2,7 @@
 """     OVERHEAD PANEL LABELS """
 ##########################################################################################
 
-from aircraft.A319.controls import AirbusButtonLabel
+from aircraft.A319.controls import AirbusLabel
 from lib.controls import DynamicLabel
 import logging
 
@@ -15,7 +15,7 @@ overhead_panel_labels = []
 def set_xplane_dref_address_and_control_type(item_list: list, xplane_dref_address=None):
     for idx, item in enumerate(item_list):
         item_list[idx]["xplane_dref_address"] = xplane_dref_address
-        item_list[idx]["control_type"] = AirbusButtonLabel
+        item_list[idx]["control_type"] = AirbusLabel
     return item_list
 
 
@@ -49,6 +49,7 @@ ohp_lights_ata21 = [
     {"xplane_dref_index": 25, "touchosc_address": "/label/hot_air_lower",},
     {"xplane_dref_index": 26, "touchosc_address": "/label/hot_air_upper",},
 ]
+logger.debug("Importing")
 ohp_lights_ata21 = set_xplane_dref_address_and_control_type(ohp_lights_ata21, "AirbusFBW/OHPLightsATA21")
 overhead_panel_labels.extend(ohp_lights_ata21)
 
@@ -79,6 +80,7 @@ ohp_lights_ata24 = [
     {"xplane_dref_index": 21, "touchosc_address": "/label/emer_elec_pwr_gen_1_line_lower",},
     {"xplane_dref_index": 22, "touchosc_address": "/label/emer_elec_pwr_gen_1_line_upper",},
 ]
+logger.debug("Importing")
 ohp_lights_ata24 = set_xplane_dref_address_and_control_type(ohp_lights_ata24, "AirbusFBW/OHPLightsATA24")
 overhead_panel_labels.extend(ohp_lights_ata24)
 
@@ -99,6 +101,7 @@ ohp_lights_ata26 = [
     # {"xplane_dref_index": 21, "touchosc_address": "/ovhd/label"},
     {"xplane_dref_index": 22, "touchosc_address": "/label/fire_apu_agent_lower",},
 ]
+logger.debug("Importing")
 ohp_lights_ata26 = set_xplane_dref_address_and_control_type(ohp_lights_ata26, "AirbusFBW/OHPLightsATA26")
 overhead_panel_labels.extend(ohp_lights_ata26)
 
@@ -120,6 +123,7 @@ ohp_lights_ata27 = [
     {"xplane_dref_index": 12, "touchosc_address": "/label/flt_ctl_fac_2_lower",},
     {"xplane_dref_index": 13, "touchosc_address": "/label/flt_ctl_fac_2_upper",},
 ]
+logger.debug("Importing")
 ohp_lights_ata27 = set_xplane_dref_address_and_control_type(ohp_lights_ata27, "AirbusFBW/OHPLightsATA27")
 overhead_panel_labels.extend(ohp_lights_ata27)
 
@@ -143,6 +147,7 @@ ohp_lights_ata28 = [
     {"xplane_dref_index": 14, "touchosc_address": "/label/fuel_x_feed_lower",},
     {"xplane_dref_index": 15, "touchosc_address": "/label/fuel_x_feed_upper",},
 ]
+logger.debug("Importing")
 ohp_lights_ata28 = set_xplane_dref_address_and_control_type(ohp_lights_ata28, "AirbusFBW/OHPLightsATA28")
 overhead_panel_labels.extend(ohp_lights_ata28)
 
@@ -160,6 +165,7 @@ ohp_lights_ata29 = [
     {"xplane_dref_index": 8, "touchosc_address": "/label/hyd_ptu_lower",},
     {"xplane_dref_index": 9, "touchosc_address": "/label/hyd_ptu_upper",},
 ]
+logger.debug("Importing")
 ohp_lights_ata29 = set_xplane_dref_address_and_control_type(ohp_lights_ata29, "AirbusFBW/OHPLightsATA29")
 overhead_panel_labels.extend(ohp_lights_ata29)
 
@@ -174,6 +180,7 @@ ohp_lights_ata30 = [
     {"xplane_dref_index": 5, "touchosc_address": "/label/anti_ice_eng_2_upper"},
     {"xplane_dref_index": 10, "touchosc_address": "/label/probe_window_heat"},
 ]
+logger.debug("Importing")
 ohp_lights_ata30 = set_xplane_dref_address_and_control_type(ohp_lights_ata30, "AirbusFBW/OHPLightsATA30")
 overhead_panel_labels.extend(ohp_lights_ata30)
 
@@ -187,6 +194,7 @@ ohp_lights_ata31 = [
     {"xplane_dref_index": 14, "touchosc_address": "/label/calls_emer_upper",},
     {"xplane_dref_index": 15, "touchosc_address": "/label/rcdr_gnd_ctl",},
 ]
+logger.debug("Importing")
 ohp_lights_ata31 = set_xplane_dref_address_and_control_type(ohp_lights_ata31, "AirbusFBW/OHPLightsATA31")
 overhead_panel_labels.extend(ohp_lights_ata31)
 
@@ -218,6 +226,7 @@ ohp_lights_ata34 = [
     {"xplane_dref_index": 26, "touchosc_address": "/label/gpws_terr_lower",},
     {"xplane_dref_index": 27, "touchosc_address": "/label/gpws_terr_upper",},
 ]
+logger.debug("Importing")
 ohp_lights_ata34 = set_xplane_dref_address_and_control_type(ohp_lights_ata34, "AirbusFBW/OHPLightsATA34")
 overhead_panel_labels.extend(ohp_lights_ata34)
 
@@ -226,6 +235,7 @@ overhead_panel_labels.extend(ohp_lights_ata34)
 ohp_lights_ata35 = [
     {"xplane_dref_index": 1, "touchosc_address": "/label/crew_supply",},
 ]
+logger.debug("Importing")
 ohp_lights_ata35 = set_xplane_dref_address_and_control_type(ohp_lights_ata35, "AirbusFBW/OHPLightsATA35")
 overhead_panel_labels.extend(ohp_lights_ata35)
 
@@ -237,6 +247,7 @@ ohp_lights_ata49 = [
     {"xplane_dref_index": 2, "touchosc_address": "/label/apu_start_lower"},
     {"xplane_dref_index": 3, "touchosc_address": "/label/apu_start_upper"},
 ]
+logger.debug("Importing")
 # Add xplane_dref to this list
 ohp_lights_ata49 = set_xplane_dref_address_and_control_type(ohp_lights_ata49, "AirbusFBW/OHPLightsATA49")
 overhead_panel_labels.extend(ohp_lights_ata49)
@@ -247,6 +258,7 @@ ohp_lights_ata70 = [
     {"xplane_dref_index": 0, "touchosc_address": "/label/eng_man_start_1",},
     {"xplane_dref_index": 1, "touchosc_address": "/label/eng_man_start_2",},
 ]
+logger.debug("Importing")
 ohp_lights_ata70 = set_xplane_dref_address_and_control_type(ohp_lights_ata70, "AirbusFBW/OHPLightsATA70")
 overhead_panel_labels.extend(ohp_lights_ata70)
 
@@ -266,4 +278,5 @@ battery_voltage_indicated_volts = [
         "touchosc_address": "/label/elec_battery_voltage_2",
     },
 ]
+logger.debug("Importing")
 overhead_panel_labels.extend(battery_voltage_indicated_volts)

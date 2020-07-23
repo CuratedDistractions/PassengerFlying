@@ -27,6 +27,7 @@ cargo_door_mode_array = [
         "xplane_dref_index": 1,
     },
 ]
+logger.debug("Importing")
 other_switches.extend(cargo_door_mode_array)
 
 # AirbusFBW/PaxDoorModeArray[4] // All values checked
@@ -60,4 +61,5 @@ pax_door_mode_array = [
         "xplane_dref_index": 3,
     },
 ]
+logger.debug("Importing")
 other_switches.extend(pax_door_mode_array)
