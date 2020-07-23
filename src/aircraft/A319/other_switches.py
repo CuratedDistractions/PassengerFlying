@@ -3,6 +3,10 @@
 ##########################################################################################
 
 from aircraft.A319.controls import AirbusSwitch
+import logging
+
+# Create a logger object.
+logger = logging.getLogger(__name__)
 
 other_switches = []
 

@@ -4,6 +4,10 @@
 
 from aircraft.A319.controls import AirbusButtonLabel
 from lib.controls import DynamicLabel
+import logging
+
+# Create a logger object.
+logger = logging.getLogger(__name__)
 
 overhead_panel_labels = []
 

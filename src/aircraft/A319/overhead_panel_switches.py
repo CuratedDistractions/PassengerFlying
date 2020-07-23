@@ -4,7 +4,12 @@
 
 from aircraft.A319.controls import AirbusSwitch
 
+import logging
+
 overhead_panel_switches = []
+
+# Create a logger object.
+logger = logging.getLogger(__name__)
 
 # AirbusFBW/ADIRUSwitchArray[6]
 adiru_switch_array = [

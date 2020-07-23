@@ -2,7 +2,12 @@
 """ MAIN PANEL LABELS """
 ##########################################################################################
 
+import logging
+
 from aircraft.A319.controls import AirbusButtonLabel
+
+# Create a logger object.
+logger = logging.getLogger(__name__)
 
 main_panel_labels = []
 

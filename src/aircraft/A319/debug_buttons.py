@@ -3,6 +3,10 @@
 ##########################################################################################
 
 from lib.controls import ToggleButton
+import logging
+
+# Create a logger object.
+logger = logging.getLogger(__name__)
 
 debug_buttons = []
 

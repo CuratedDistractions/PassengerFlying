@@ -3,6 +3,10 @@
 ##########################################################################################
 
 from aircraft.A319.controls import AirbusButton
+import logging
+
+# Create a logger object.
+logger = logging.getLogger(__name__)
 
 overhead_panel_guards = []
 
