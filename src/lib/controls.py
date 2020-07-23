@@ -36,7 +36,6 @@ class TouchoscControlItem:
         xplane_dref_address: str = None,
         xplane_dref_index: int = None,
         xplane_command_address: str = None,
-        remarks: str = None,
     ):
         # Initialize some variables
         self._touchosc_color = None
@@ -51,7 +50,6 @@ class TouchoscControlItem:
         self.xplane_dref_address = xplane_dref_address
         self.xplane_dref_index = xplane_dref_index
         self.xplane_command_address = xplane_command_address
-        self.remarks = remarks
 
     def callback_from_xplane(self, results):
         pass
