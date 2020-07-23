@@ -40,7 +40,7 @@ class XPlane:
                 xplane_client = XPlaneConnect()
                 result = xplane_client.getDREFs(xplane_dref_address_list)
                 if last_connection_ok is False:
-                    logger.info("Connection restored!")
+                    logger.warning("Connection restored!")
                 xplane_client.close()
                 last_connection_ok = True  # Success, we didn't time out
             except socket.timeout as e:
