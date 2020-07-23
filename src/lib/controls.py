@@ -7,19 +7,6 @@ import lib.settings as settings
 # Create a logger object.
 logger = logging.getLogger(__name__)
 
-# List of colors TouchOSC supports
-TOUCHOSC_COLORS = [
-    "red",
-    "green",
-    "blue",
-    "yellow",
-    "purple",
-    "gray",
-    "orange",
-    "brown",
-    "pink",
-]
-
 touchosc = settings.globalList["TOUCHOSC"]
 xplane = settings.globalList["XPLANE"]
 
@@ -70,6 +57,19 @@ class TouchoscControlItem:
         force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
         if value == self._touchosc_color and not force_refresh:
             return
+
+        # List of colors TouchOSC supports
+        TOUCHOSC_COLORS = [
+            "red",
+            "green",
+            "blue",
+            "yellow",
+            "purple",
+            "gray",
+            "orange",
+            "brown",
+            "pink",
+        ]
 
         if value in TOUCHOSC_COLORS:
             self._touchosc_color = value
