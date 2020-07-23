@@ -9,6 +9,9 @@ from lib.nasa_xpc import XPlaneConnect
 logger = logging.getLogger(__name__)
 
 
+# TODO: XPlane doesn't have to be a class
+
+
 class XPlane:
     def monitor(self):
         """This functions connects to NASA's X-plane Connector through their Python XPC library.
@@ -18,7 +21,6 @@ class XPlane:
         In the future I'd like dref changed from X-Plane be pushed. But I'll need to wait till Python 3 is available
         as an X-Plane plugin. It's being worked on, so we'll see.
         """
-
         aircraft = settings.globalList["AIRCRAFT"]
 
         # Fetch all registered drefs in one bundle
@@ -62,7 +64,8 @@ class XPlane:
                 if time_taken < time_delay_amount:
                     time.sleep(time_delay_amount - time_taken)
 
-    def send_to_xplane(self, dref, value=None):
+    @staticmethod
+    def send_to_xplane(dref, value=None):
         xplane_client = XPlaneConnect()
         if value is not None:
             xplane_client.sendDREF(dref, value)
@@ -70,13 +73,15 @@ class XPlane:
             xplane_client.sendCOMM(dref)
         xplane_client.close()
 
-    def get_from_xplane(self, dref):
+    @staticmethod
+    def get_from_xplane(dref):
         xplane_client = XPlaneConnect()
         result = xplane_client.getDREF(dref)
         xplane_client.close()
         return result
 
-    def reassign_results_to_drefs(self, results, xplane_dref_address_list):
+    @staticmethod
+    def reassign_results_to_drefs(results, xplane_dref_address_list):
         list_with_drefs_and_results = {}
         for idx, result in enumerate(results):
             dref = xplane_dref_address_list[idx]  # Match result with dref with same index

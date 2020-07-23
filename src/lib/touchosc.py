@@ -58,7 +58,6 @@ class TouchOSC:
 
     def __setup_client(self):
         """The touchOSC Client connects to an iPad or other device running TouchOSC"""
-
         # IP address and port of TouchOSC device
         ip = self.args.touchosc_device_ip
         port = int(self.args.touchosc_device_port)

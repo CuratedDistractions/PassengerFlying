@@ -13,6 +13,7 @@ import struct
 
 
 class XPlaneConnect:
+
     """XPlaneConnect (XPC) facilitates communication to and from the XPCPlugin."""
 
     socket = None
@@ -20,6 +21,7 @@ class XPlaneConnect:
     # Basic Functions
     def __init__(self, xpHost="localhost", xpPort=49009, port=0, timeout=100):
         """Sets up a new connection to an X-Plane Connect plugin running in X-Plane.
+
             Args:
               xpHost: The hostname of the machine running X-Plane.
               xpPort: The port on which the XPC plugin is listening. Usually 49007.
@@ -82,6 +84,7 @@ class XPlaneConnect:
     # Configuration
     def setCONN(self, port):
         """Sets the port on which the client sends and receives data.
+
             Args:
               port: The new port to use.
         """
@@ -107,6 +110,7 @@ class XPlaneConnect:
 
     def pauseSim(self, pause):
         """Pauses or un-pauses the physics simulation engine in X-Plane.
+
             Args:
               pause: True to pause the simulation; False to resume.
         """
@@ -120,6 +124,7 @@ class XPlaneConnect:
     # X-Plane UDP Data
     def readDATA(self):
         """Reads X-Plane data.
+
             Returns: A 2 dimensional array containing 0 or more rows of data. Each array
               in the result will have 9 elements, the first of which is the row number which
               that array represents data for, and the rest of which are the data elements in
@@ -136,6 +141,7 @@ class XPlaneConnect:
 
     def sendDATA(self, data):
         """Sends X-Plane data over the underlying UDP socket.
+
             Args:
               data: An array of values representing data rows to be set. Each array in `data`
                 should have 9 elements, the first of which is a row number in the range (0-134),
@@ -154,6 +160,7 @@ class XPlaneConnect:
     # Position
     def getPOSI(self, ac=0):
         """Gets position information for the specified aircraft.
+
         Args:
           ac: The aircraft to get the position of. 0 is the main/player aircraft.
         """
@@ -175,6 +182,7 @@ class XPlaneConnect:
 
     def sendPOSI(self, values, ac=0):
         """Sets position information on the specified aircraft.
+
             Args:
               values: The position values to set. `values` is a array containing up to
                 7 elements. If less than 7 elements are specified or any elment is set to `-998`,
@@ -209,6 +217,7 @@ class XPlaneConnect:
     # Controls
     def getCTRL(self, ac=0):
         """Gets the control surface information for the specified aircraft.
+
         Args:
           ac: The aircraft to get the control surfaces of. 0 is the main/player aircraft.
         """
@@ -231,6 +240,7 @@ class XPlaneConnect:
 
     def sendCTRL(self, values, ac=0):
         """Sets control surface information on the specified aircraft.
+
             Args:
               values: The control surface values to set. `values` is a array containing up to
                 6 elements. If less than 6 elements are specified or any elment is set to `-998`,

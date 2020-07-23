@@ -1,6 +1,5 @@
-"""
-Source of descriptions: https://hexler.net/docs/touchosc-controls-reference
-"""
+"""Source of descriptions: https://hexler.net/docs/touchosc-controls-reference."""
+
 import logging
 import lib.settings as settings
 
@@ -12,6 +11,7 @@ xplane = settings.globalList["XPLANE"]
 
 
 class TouchoscControlItem:
+
     """This is the base class for all TouchOSC controls."""
 
     def __init__(
@@ -52,7 +52,7 @@ class TouchoscControlItem:
 
     @touchosc_color.setter
     def touchosc_color(self, value):
-        """Sets the color of an item in TouchOSC and checks for valid color values"""
+        """Sets the color of an item in TouchOSC and checks for valid color values."""
         # Do nothing if value wasn't changed and no force refresh needed
         force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
         if value == self._touchosc_color and not force_refresh:
@@ -81,7 +81,7 @@ class TouchoscControlItem:
 
     @property
     def touchosc_visible(self):
-        """Visibility of an item in TouchOSC"""
+        """Visibility of an item in TouchOSC."""
         try:
             return self._touchosc_visible
         except AttributeError:
@@ -89,7 +89,7 @@ class TouchoscControlItem:
 
     @touchosc_visible.setter
     def touchosc_visible(self, value: bool):
-        """Sets the visibility of an item in TouchOSC"""
+        """Sets the visibility of an item in TouchOSC."""
         # Do nothing if value wasn't changed and no force refresh needed
         force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
         if value == self._touchosc_visible and not force_refresh:
@@ -103,51 +103,51 @@ class TouchoscControlItem:
 
     @property
     def touchosc_address(self):
-        """Optional control to listen for or send commands to in TouchOSC"""
+        """Optional control to listen for or send commands to in TouchOSC."""
         return self._touchosc_address
 
     @touchosc_address.setter
     def touchosc_address(self, value: str):
-        """Optional control to listen for or send commands to in TouchOSC"""
+        """Optional control to listen for or send commands to in TouchOSC."""
         self._touchosc_address = value
 
     @property
     def xplane_dref_address(self) -> str:
-        """Optional dref to listen for or send commands to in X-Plane"""
+        """Optional dref to listen for or send commands to in X-Plane."""
         return self._xplane_dref_address
 
     @xplane_dref_address.setter
     def xplane_dref_address(self, value: str):
-        """Optional dref to listen for or send commands to in X-Plane"""
+        """Optional dref to listen for or send commands to in X-Plane."""
         self._xplane_dref_address = value
 
     @property
     def xplane_dref_index(self) -> int:
-        """Optional dref to listen for or send commands to in X-Plane, this is its index number"""
+        """Optional dref to listen for or send commands to in X-Plane, this is its index number."""
         return self._xplane_dref_index
 
     @xplane_dref_index.setter
     def xplane_dref_index(self, value: int):
-        """Optional dref to listen for or send commands to in X-Plane, this is its index number"""
+        """Optional dref to listen for or send commands to in X-Plane, this is its index number."""
         self._xplane_dref_index = value
 
     @property
     def xplane_command_address(self) -> str:
-        """Optional command to send to X-Plane"""
+        """Optional command to send to X-Plane."""
         return self._xplane_command_address
 
     @xplane_command_address.setter
     def xplane_command_address(self, value: str):
-        """Optional command to send to X-Plane"""
+        """Optional command to send to X-Plane."""
         self._xplane_command_address = value
 
     def set_color_in_touchosc(self):
-        """Actual command to set color in TouchOSC"""
+        """Actual command to set color in TouchOSC."""
         address = "/".join([str(self.touchosc_address), "color"])
         self.send_to_touchosc(address, self.touchosc_color)
 
     def set_visibility_in_touchosc(self):
-        """Actual command to set visibility in TouchOSC"""
+        """Actual command to set visibility in TouchOSC."""
         address = "/".join([self.touchosc_address, "visible"])
         self.send_to_touchosc(address, self.touchosc_visible)
 
@@ -169,7 +169,7 @@ class Label(TouchoscControlItem):
 
     @property
     def touchosc_text(self) -> str:
-        """The text of the label in TouchOSC"""
+        """The text of the label in TouchOSC."""
         try:
             return self._touchosc_text
         except AttributeError:
@@ -177,7 +177,7 @@ class Label(TouchoscControlItem):
 
     @touchosc_text.setter
     def touchosc_text(self, value: str):
-        """The text of the label in TouchOSC"""
+        """The text of the label in TouchOSC."""
         # Do nothing if value wasn't changed and no force refresh needed
         force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
         if value == self._touchosc_text and not force_refresh:
@@ -189,12 +189,13 @@ class Label(TouchoscControlItem):
         settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
 
     def __set_touchosc_label_text(self):
-        """The actual command to set the text of a label in TouchOSC"""
+        """The actual command to set the text of a label in TouchOSC."""
         self.send_to_touchosc(self.touchosc_address, self.touchosc_text)
 
 
 class DynamicLabel(Label):
-    """Will change the text of the label to the value reported by X-Plane"""
+
+    """Will change the text of the label to the value reported by X-Plane."""
 
     def callback_from_xplane(self, results):
         if self.xplane_dref_address:
@@ -211,7 +212,8 @@ class DynamicLabel(Label):
 
 # TODO: Keep it DRY (both Master buttons)
 class MasterWarningButtonLabel(Label):
-    """Will change color when a master warning is active"""
+
+    """Will change color when a master warning is active."""
 
     def callback_from_xplane(self, results):
         if self.xplane_dref_address:
@@ -232,7 +234,8 @@ class MasterWarningButtonLabel(Label):
 
 
 class MasterCautionButtonLabel(Label):
-    """Will change color when a master caution is active"""
+
+    """Will change color when a master caution is active."""
 
     def callback_from_xplane(self, results):
         if self.xplane_dref_address:
@@ -253,6 +256,7 @@ class MasterCautionButtonLabel(Label):
 
 
 class Led(TouchoscControlItem):
+
     """This control is for display purposes only and does not react to touch or send messages.
 
     Values of incoming messages are mapped to the control's value range and update the brightness of the LED display.
@@ -262,6 +266,7 @@ class Led(TouchoscControlItem):
 
 
 class PushButton(TouchoscControlItem):
+
     """This control sends the second value of its value range when pressed and the first value of its value range when released."""
 
     def callback_from_touchosc(self, address, results):
@@ -287,6 +292,7 @@ class PushButton(TouchoscControlItem):
 
 
 class ToggleButton(TouchoscControlItem):
+
     """This control changes state between on/off when released. When the state changes to on, the second value in it's value range is sent, otherwise the first."""
 
     def __init__(self, **kwargs):
@@ -322,14 +328,14 @@ class ToggleButton(TouchoscControlItem):
             # logger.debug("Nothing changed")
             return
 
-        """The text of the label in TouchOSC"""
+        """The text of the label in TouchOSC."""
         self._touchosc_state = value
         self.__set_state_in_touchosc()
 
         settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
 
     def __set_state_in_touchosc(self):
-        """The actual command to set the state in TouchOSC"""
+        """The actual command to set the state in TouchOSC."""
         self.send_to_touchosc(self.touchosc_address, self.touchosc_state)
 
     def callback_from_xplane(self, results):
@@ -346,18 +352,21 @@ class ToggleButton(TouchoscControlItem):
 
 
 class XYPad(TouchoscControlItem):
+
     """This control maps the position of a touch along the x and y axes of its rectangle to its value range and sends out both values. Both x and y values use the same value range. The location of the minimum and maximum value positions of each axes can be inverted in the control's properties."""
 
     pass
 
 
 class Fader(TouchoscControlItem):
+
     """These controls emulate classic fader and potentiometer controls on hardware devices. They map the position of a touch to their value range by interpolating between their minimum and maximum positions."""
 
     pass
 
 
 class Rotary(TouchoscControlItem):
+
     """This control emulates an endless rotary or encoder control on hardware devices. It sends the upper end of its value range when a touch is moved clockwise, the lower end of its value range when a touch is moved counter-clockwise. It does not respond to incoming messages."""
 
     def callback_from_touchosc(self, address, results):
@@ -379,34 +388,40 @@ class Rotary(TouchoscControlItem):
 
 
 class Encoder(TouchoscControlItem):
+
     """This control emulates an endless rotary or encoder control on hardware devices. It sends the upper end of its value range when a touch is moved clockwise, the lower end of its value range when a touch is moved counter-clockwise. It does not respond to incoming messages."""
 
     pass
 
 
 class Battery(TouchoscControlItem):
+
     """This control is for display purposes only and does not react to touch or send messages. It displays the current battery charge of the device. It does not respond to incoming messages."""
 
     pass
 
 
 class Time(TouchoscControlItem):
+
     """This control is for display purposes only and does not react to touch or send messages. It displays the current time. It does not respond to incoming messages."""
 
     pass
 
 
 class MultiToggle(TouchoscControlItem):
+
     """This control groups multiple toggle controls into one control. A touch event can traverse multiple toggle controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
 
 
 class MultiXY(TouchoscControlItem):
+
     """This control behaves the same way as the XY Pad control but handles up to 5 touch-points at the same time. This control accepts multiple touch events. It does not respond to incoming messages."""
 
     pass
 
 
 class MultiPush(TouchoscControlItem):
+
     """This control groups multiple push-button controls into one control. A touch event can traverse multiple push controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
 
     # This version assumes the control is set to exclusive (only one item active at a time)
@@ -417,12 +432,12 @@ class MultiPush(TouchoscControlItem):
 
     @property
     def touchosc_address(self):
-        """Optional control to listen for or send commands to in TouchOSC"""
+        """Optional control to listen for or send commands to in TouchOSC."""
         return self._touchosc_address
 
     @touchosc_address.setter
     def touchosc_address(self, value: str):
-        """Optional control to listen for or send commands to in TouchOSC"""
+        """Optional control to listen for or send commands to in TouchOSC."""
         # Add a * to the end of the address to listen for all buttons in the MultiPush control
         # ? Why add a * here? I forgot why. :)
         if value[-1:] == "*":
@@ -441,14 +456,14 @@ class MultiPush(TouchoscControlItem):
         if self._touchosc_state == value and not force_refresh:
             return
 
-        """The text of the label in TouchOSC"""
+        """The text of the label in TouchOSC."""
         self._touchosc_state = value
         self.__set_state_in_touchosc()
 
         settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
 
     def __set_state_in_touchosc(self):
-        """The actual command to set the state in TouchOSC"""
+        """The actual command to set the state in TouchOSC."""
         # Build the TouchOSC address
         if self.touchosc_horizontal:
             address = self.touchosc_address + "/1/" + str(self.touchosc_state)
@@ -494,6 +509,7 @@ class MultiPush(TouchoscControlItem):
 
 
 class MultiFader(TouchoscControlItem):
+
     """This control groups multiple fader controls into one control. A touch event can traverse multiple fader controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
 
     pass
