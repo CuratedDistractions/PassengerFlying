@@ -34,8 +34,7 @@ class TouchOSC:
             aircraft = settings.globalList["AIRCRAFT"]
             touchosc_list = aircraft.touchosc_address_dict.keys()
             for touchosc_address in touchosc_list:
-                # TODO: Check if last argument for the dispatcher is still needed.
-                dispatcher.map(touchosc_address, self.send_touchosc_result, aircraft)
+                dispatcher.map(touchosc_address, self.send_touchosc_result)
         except TypeError as e:
             logger.error(f"List with touchosc items is empty ({e}).")
         except AttributeError as e:
@@ -53,8 +52,8 @@ class TouchOSC:
             logger.error(f"Can't start touchOSC server ({e}).")
 
     def send_touchosc_result(self, touchosc_address, *args):
-        aircraft = args[0][0]
-        result = args[1]
+        result = args[0]
+        aircraft = settings.globalList["AIRCRAFT"]
         aircraft.process_touchosc_result(touchosc_address, result)
 
     def __setup_client(self):
