@@ -194,7 +194,6 @@ class Label(TouchoscControlItem):
 
 
 class DynamicLabel(Label):
-
     """Will change the text of the label to the value reported by X-Plane."""
 
     def callback_from_xplane(self, results):
@@ -212,7 +211,6 @@ class DynamicLabel(Label):
 
 # TODO: Keep it DRY (both Master buttons)
 class MasterWarningButtonLabel(Label):
-
     """Will change color when a master warning is active."""
 
     def callback_from_xplane(self, results):
@@ -234,7 +232,6 @@ class MasterWarningButtonLabel(Label):
 
 
 class MasterCautionButtonLabel(Label):
-
     """Will change color when a master caution is active."""
 
     def callback_from_xplane(self, results):
@@ -328,7 +325,7 @@ class ToggleButton(TouchoscControlItem):
             # logger.debug("Nothing changed")
             return
 
-        """The text of the label in TouchOSC."""
+        # The text of the label in TouchOSC
         self._touchosc_state = value
         self.__set_state_in_touchosc()
 
