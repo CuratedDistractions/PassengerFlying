@@ -15,6 +15,8 @@ from lib.xplane import XPlane
 # Current version
 CURRENT_VERSION = "0.1a"
 
+logger = logging.getLogger(__name__)
+
 
 def main():
     # Initialize things like the global variables list
@@ -40,8 +42,9 @@ def main():
 
     # Setup logging
     verbose_level = "DEBUG" if args.debug else "WARNING"
-    logger = logging.getLogger(__name__)
-    coloredlogs.install(fmt="%(asctime)s %(name)s %(levelname)s %(message)s", level=verbose_level)
+    coloredlogs.install(
+        fmt="%(asctime)s,%(msecs)d %(name)s(%(lineno)d) %(levelname)s %(funcName)s %(message)s", level=verbose_level
+    )
 
     touchosc = TouchOSC()  # This class is responsible for the connection with TouchOSC
     settings.globalList["TOUCHOSC"] = touchosc  # Save the connection in a global list
