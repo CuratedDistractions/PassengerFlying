@@ -9,25 +9,22 @@ overhead_panel_switches = []
 adiru_switch_array = [
     {
         "control_type": AirbusSwitch,
-        "touchosc_address": "/multitoggle/ir1",
+        "touchosc_address": "/multitoggle/adirs_ir1",
         "touchosc_horizontal": False,
-        "remarks": "IR 1",
         "xplane_dref_address": "AirbusFBW/ADIRUSwitchArray",
         "xplane_dref_index": 0,
     },
     {
         "control_type": AirbusSwitch,
-        "touchosc_address": "/multitoggle/ir3",
+        "touchosc_address": "/multitoggle/adirs_ir3",
         "touchosc_horizontal": False,
-        "remarks": "IR 2",
         "xplane_dref_address": "AirbusFBW/ADIRUSwitchArray",
         "xplane_dref_index": 1,
     },
     {
         "control_type": AirbusSwitch,
-        "touchosc_address": "/multitoggle/ir2",
+        "touchosc_address": "/multitoggle/adirs_ir2",
         "touchosc_horizontal": False,
-        "remarks": "IR 3",
         "xplane_dref_address": "AirbusFBW/ADIRUSwitchArray",
         "xplane_dref_index": 2,
     },
@@ -129,12 +126,14 @@ OHPLightSwitches = [
 ]
 overhead_panel_switches.extend(OHPLightSwitches)
 
-int_lt_ann_lt = [{
-    "control_type": AirbusSwitch,
-    "touchosc_address": "/multitoggle/int_lt_ann_lt",
-    "touchosc_horizontal": False,
-    "xplane_dref_address": "AirbusFBW/AnnunMode",
-}]
+int_lt_ann_lt = [
+    {
+        "control_type": AirbusSwitch,
+        "touchosc_address": "/multitoggle/int_lt_ann_lt",
+        "touchosc_horizontal": False,
+        "xplane_dref_address": "AirbusFBW/AnnunMode",
+    }
+]
 overhead_panel_switches.extend(int_lt_ann_lt)
 
 # wiper_left = WiperKnob(
