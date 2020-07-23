@@ -10,6 +10,7 @@ from aircraft.A319.main_panel_switches import main_panel_switches
 from aircraft.A319.pedestal_buttons import pedestal_buttons
 from aircraft.A319.pedestal_labels import pedestal_labels
 from aircraft.A319.pedestal_switches import pedestal_switches
+from aircraft.A319.debug_buttons import debug_buttons
 from lib.aircraft import BaseAircraft
 
 # Create a logger object.
