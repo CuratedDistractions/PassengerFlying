@@ -40,7 +40,24 @@ class XPlane:
 
             try:
                 xplane_client = XPlaneConnect()
-                result = xplane_client.getDREFs(xplane_dref_address_list)
+
+                # X-Plane might crash if we request to many drefs at once. So we'll cut the list in
+                # smaller batches.
+                # TODO: Get size of X-Plane arrays and sort batches evenly
+                result = []
+                batch_size = 20
+
+                def chunks(lst, n):
+                    """Yield successive n-sized chunks from lst.
+
+                    Credits: https://stackoverflow.com/a/312464/776118
+                    """
+                    for i in range(0, len(lst), n):
+                        yield lst[i : i + n]
+
+                for batch in chunks(xplane_dref_address_list, batch_size):
+                    result.extend(xplane_client.getDREFs(batch))
+
                 if last_connection_ok is False:
                     logger.warning("Connection restored!")
                 xplane_client.close()
