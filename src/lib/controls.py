@@ -203,7 +203,7 @@ class DynamicLabel(Label):
             else:
                 text = results[self.xplane_dref_address]
 
-            if type(text) == float:
+            if isinstance(text, float):
                 text = "{:.1f}".format(text)
 
             self.touchosc_text = text
@@ -258,8 +258,6 @@ class Led(TouchoscControlItem):
 
     Values of incoming messages are mapped to the control's value range and update the brightness of the LED display.
     """
-
-    pass
 
 
 class PushButton(TouchoscControlItem):
@@ -341,7 +339,7 @@ class ToggleButton(TouchoscControlItem):
                 state = int(results[self.xplane_dref_address][self.xplane_dref_index])
             else:
                 result = results[self.xplane_dref_address]
-                if type(result) == tuple:
+                if isinstance(result, tuple):
                     result = result[0]
                 state = int(result)
 
@@ -474,7 +472,7 @@ class MultiPush(TouchoscControlItem):
                 state = int(results[self.xplane_dref_address][self.xplane_dref_index]) + 1
             else:
                 result = results[self.xplane_dref_address]
-                if type(result) == tuple:
+                if isinstance(result, tuple):
                     result = result[0]
                 state = int(result) + 1
 

@@ -51,7 +51,8 @@ class TouchOSC:
         except OSError as e:
             logger.error(f"Can't start touchOSC server ({e}).")
 
-    def send_touchosc_result(self, touchosc_address, *args):
+    @staticmethod
+    def send_touchosc_result(touchosc_address, *args):
         result = args[0]
         aircraft = settings.globalList["AIRCRAFT"]
         aircraft.process_touchosc_result(touchosc_address, result)

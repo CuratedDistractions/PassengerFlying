@@ -1,4 +1,6 @@
 """
+Library to connect to X-Plane using NASA's X-Plane plugin.
+
 Source: https://github.com/nasa/XPlaneConnect/blob/master/Python3/src/xpc.py
 License: https://github.com/nasa/XPlaneConnect/blob/master/license.pdf
 
