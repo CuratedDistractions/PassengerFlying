@@ -2,13 +2,16 @@ import logging
 
 from aircraft.A319.debug_buttons import debug_buttons
 from aircraft.A319.main_panel_buttons import main_panel_buttons
+from aircraft.A319.main_panel_knobs import main_panel_knobs
 from aircraft.A319.main_panel_labels import main_panel_labels
 from aircraft.A319.main_panel_switches import main_panel_switches
 from aircraft.A319.other_switches import other_switches
 from aircraft.A319.overhead_panel_buttons import overhead_panel_buttons
+from aircraft.A319.overhead_panel_knobs import overhead_panel_knobs
 from aircraft.A319.overhead_panel_labels import overhead_panel_labels
 from aircraft.A319.overhead_panel_switches import overhead_panel_switches
 from aircraft.A319.pedestal_buttons import pedestal_buttons
+from aircraft.A319.pedestal_knobs import pedestal_knobs
 from aircraft.A319.pedestal_labels import pedestal_labels
 from aircraft.A319.pedestal_switches import pedestal_switches
 from lib.aircraft import BaseAircraft
@@ -27,52 +30,34 @@ class Aircraft(BaseAircraft):
 
     def define_controls(self):
         # Add all labels
-        for item in overhead_panel_labels:
-            result = item["control_type"](**item)
-            self.add_control(result)
-
-        for item in main_panel_labels:
-            result = item["control_type"](**item)
-            self.add_control(result)
-
-        for item in pedestal_labels:
-            result = item["control_type"](**item)
-            self.add_control(result)
+        self.process_controls(overhead_panel_labels)
+        self.process_controls(main_panel_labels)
+        self.process_controls(pedestal_labels)
 
         # Add all switches (and knobs that act like switches)
-        for item in overhead_panel_switches:
-            result = item["control_type"](**item)
-            self.add_control(result)
-
-        for item in main_panel_switches:
-            result = item["control_type"](**item)
-            self.add_control(result)
-
-        for item in pedestal_switches:
-            result = item["control_type"](**item)
-            self.add_control(result)
-
-        for item in other_switches:
-            result = item["control_type"](**item)
-            self.add_control(result)
+        self.process_controls(overhead_panel_switches)
+        self.process_controls(main_panel_switches)
+        self.process_controls(pedestal_switches)
+        self.process_controls(other_switches)
 
         # Add all buttons
-        for item in overhead_panel_buttons:
-            result = item["control_type"](**item)
-            self.add_control(result)
+        self.process_controls(overhead_panel_buttons)
+        self.process_controls(main_panel_buttons)
+        self.process_controls(pedestal_buttons)
 
-        for item in main_panel_buttons:
-            result = item["control_type"](**item)
-            self.add_control(result)
+        # Add all knobs
+        self.process_controls(overhead_panel_knobs)
+        self.process_controls(main_panel_knobs)
+        self.process_controls(pedestal_knobs)
 
-        for item in pedestal_buttons:
-            result = item["control_type"](**item)
-            self.add_control(result)
-
-        for item in debug_buttons:
-            result = item["control_type"](**item)
-            self.add_control(result)
+        # Add debug buttons
+        self.process_controls(debug_buttons)
 
         # Use the IR1 light (which uses a button as background) to open ISCS screen
         iscs = PushButton(touchosc_address="/ovhd/push95", xplane_command_address="toliss_airbus/iscs_open",)
         self.add_control(iscs)
+
+    def process_controls(self, controls):
+        for item in controls:
+            result = item["control_type"](**item)
+            self.add_control(result)

@@ -3,10 +3,6 @@
 ##########################################################################################
 
 from aircraft.A319.controls import AirbusLabel
-import logging
-
-# Create a logger object.
-logger = logging.getLogger(__name__)
 
 pedestal_labels = []
 
@@ -35,17 +31,13 @@ ohp_lights_ata31 = [
     {"xplane_dref_index": 42, "touchosc_address": "/label/clr_left",},
     {"xplane_dref_index": 43, "touchosc_address": "/label/clr_right",},
 ]
-logger.debug("Importing")
-
 ohp_lights_ata31 = set_xplane_dref_address_and_control_type(ohp_lights_ata31, "AirbusFBW/OHPLightsATA31")
 pedestal_labels.extend(ohp_lights_ata31)
 
-# ! I Don't know why, but X-Plane crashes when using this dref
 # AirbusFBW/ACP1Lights[16]
 acp1_lights = [
     {"xplane_dref_index": 0, "touchosc_address": "/label/cpt_com_call_1"},
     {"xplane_dref_index": 1, "touchosc_address": "/label/cpt_com_call_2"},
 ]
-logger.debug("Importing")
 acp1_lights = set_xplane_dref_address_and_control_type(acp1_lights, "AirbusFBW/ACP1Lights")
-# pedestal_labels.extend(acp1_lights)
+pedestal_labels.extend(acp1_lights)

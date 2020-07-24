@@ -2,13 +2,8 @@
 # MAIN PANEL LABELS
 ##########################################################################################
 
-import logging
-
 from aircraft.A319.controls import AirbusLabel
 from lib.controls import MasterWarningButtonLabel, MasterCautionButtonLabel
-
-# Create a logger object.
-logger = logging.getLogger(__name__)
 
 main_panel_labels = []
 
@@ -93,7 +88,6 @@ ohp_lights_ata31 = [
     # {"xplane_dref_index": 47, "touchosc_address": "/label/"},
     {"xplane_dref_index": 48, "touchosc_address": "/label/appr",},
 ]
-logger.debug("Importing")
 ohp_lights_ata31 = set_xplane_dref_address_and_control_type(ohp_lights_ata31, "AirbusFBW/OHPLightsATA31")
 main_panel_labels.extend(ohp_lights_ata31)
 
@@ -114,7 +108,6 @@ ohp_lights_ata32 = [
     {"xplane_dref_index": 16, "touchosc_address": "/label/auto_brk_max_lower",},
     {"xplane_dref_index": 17, "touchosc_address": "/label/auto_brk_max_upper",},
 ]
-logger.debug("Importing")
 ohp_lights_ata32 = set_xplane_dref_address_and_control_type(ohp_lights_ata32, "AirbusFBW/OHPLightsATA32")
 main_panel_labels.extend(ohp_lights_ata32)
 
@@ -123,6 +116,5 @@ ohp_lights_ata34 = [
     {"xplane_dref_index": 24, "touchosc_address": "cpt_terr_on_nd",},
     {"xplane_dref_index": 25, "touchosc_address": "fo_terr_on_nd",},
 ]
-logger.debug("Importing")
 ohp_lights_ata34 = set_xplane_dref_address_and_control_type(ohp_lights_ata34, "AirbusFBW/OHPLightsATA34")
 main_panel_labels.extend(ohp_lights_ata34)

@@ -3,10 +3,6 @@
 ##########################################################################################
 
 from lib.controls import PushButton
-import logging
-
-# Create a logger object.
-logger = logging.getLogger(__name__)
 
 overhead_panel_guards = []
 
@@ -116,5 +112,4 @@ ohp_guards_all_ata = [
         "xplane_dref_index": 19,
     },
 ]
-logger.debug("Importing")
 overhead_panel_guards.extend(ohp_guards_all_ata)

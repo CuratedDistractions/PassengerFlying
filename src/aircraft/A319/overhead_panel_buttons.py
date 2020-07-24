@@ -3,10 +3,6 @@
 ##########################################################################################
 
 from lib.controls import PushButton
-import logging
-
-# Create a logger object.
-logger = logging.getLogger(__name__)
 
 overhead_panel_buttons = []
 
@@ -27,7 +23,6 @@ calls_buttons = [
         "xplane_command_address": "AirbusFBW/purser/aft",
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(calls_buttons)
 
 # AirbusFBW/FuelOHPArray[32] // All values checked
@@ -81,7 +76,6 @@ fuel_pump_buttons = [
         "xplane_dref_index": 7,
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(fuel_pump_buttons)
 
 apu_buttons = [
@@ -101,7 +95,6 @@ apu_buttons = [
         "xplane_dref_address": "AirbusFBW/APUBleedSwitch",
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(apu_buttons)
 
 # AirbusFBW/ElecOHPArray[32] // All values checked
@@ -173,7 +166,6 @@ ElecOHPArray = [
         "xplane_dref_index": 13,
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(ElecOHPArray)
 
 apu_starter = [
@@ -183,7 +175,6 @@ apu_starter = [
         "xplane_command_address": "AirbusFBW/APUStarter",
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(apu_starter)
 
 calls_emer_button = [
@@ -193,7 +184,6 @@ calls_emer_button = [
         "xplane_dref_address": "AirbusFBW/EmerCallOHPButton",
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(calls_emer_button)
 
 # AirbusFBW/FireExOHPArray[16] // All values checked
@@ -235,7 +225,6 @@ fire_ex_ohp_array = [
         "xplane_dref_index": 5,
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(fire_ex_ohp_array)
 
 # AirbusFBW/HydOHPArray[24] // All values checked
@@ -277,7 +266,6 @@ hyd_ohp_array = [
         "xplane_dref_index": 5,
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(hyd_ohp_array)
 
 adr_buttons = [
@@ -300,7 +288,6 @@ adr_buttons = [
         "xplane_dref_index": 2,
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(adr_buttons)
 
 # AirbusFBW/ENGFireSwitchArray[4] // All values checked
@@ -318,7 +305,6 @@ eng_fire_switch_array = [
         "xplane_dref_index": 1,
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(eng_fire_switch_array)
 
 # AirbusFBW/FCCSwitchArray[16] // All values checked
@@ -366,7 +352,6 @@ fcc_switch_array = [
         "xplane_dref_index": 6,
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(fcc_switch_array)
 
 # AirbusFBW/GPWSSwitchArray[8] // All values checked
@@ -402,7 +387,6 @@ gpws_switch_array = [
         "xplane_dref_index": 4,
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(gpws_switch_array)
 
 
@@ -413,5 +397,4 @@ probe_window_heat_button = [
         "xplane_dref_address": "AirbusFBW/ProbeHeatSwitch",
     },
 ]
-logger.debug("Importing")
 overhead_panel_buttons.extend(probe_window_heat_button)

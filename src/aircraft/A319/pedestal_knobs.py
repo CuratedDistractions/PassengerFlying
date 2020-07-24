@@ -2,13 +2,9 @@
 # PEDESTAL KNOBS
 ##########################################################################################
 
-from lib.controls import Knob
-import logging
+from lib.controls import Rotary
 
-# Create a logger object.
-logger = logging.getLogger(__name__)
-
-pedestal_labels = []
+pedestal_knobs = []
 
 # AirbusFBW/PanelFloodBrightnessLevel
 
