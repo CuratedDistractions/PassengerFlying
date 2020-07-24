@@ -9,13 +9,11 @@ based on this commit that has Python 2 code:
 
 """
 
-
 import socket
 import struct
 
 
 class XPlaneConnect:
-
     """XPlaneConnect (XPC) facilitates communication to and from the XPCPlugin."""
 
     socket = None
