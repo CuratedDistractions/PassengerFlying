@@ -17,7 +17,7 @@ from aircraft.A319.pedestal.switches import pedestal_switches
 from lib.aircraft import BaseAircraft
 from lib.controls import PushButton
 
-# Create a logger object.
+# Create a logger object
 logger = logging.getLogger(__name__)
 
 

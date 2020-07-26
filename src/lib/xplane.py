@@ -5,7 +5,7 @@ import time
 from lib.settings import globals_list
 from lib.nasa_xpc import XPlaneConnect
 
-# Create a logger object.
+# Create a logger object
 logger = logging.getLogger(__name__)
 
 

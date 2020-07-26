@@ -6,7 +6,7 @@ from pythonosc.udp_client import SimpleUDPClient
 
 from lib.settings import globals_list
 
-# Create a logger object.
+# Create a logger object
 logger = logging.getLogger(__name__)
 
 

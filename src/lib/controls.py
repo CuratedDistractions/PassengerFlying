@@ -3,7 +3,7 @@
 import logging
 from lib.settings import globals_list
 
-# Create a logger object.
+# Create a logger object
 logger = logging.getLogger(__name__)
 
 touchosc = globals_list.touchosc

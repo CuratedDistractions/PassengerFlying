@@ -1,6 +1,6 @@
 import logging
 
-# Create a logger object.
+# Create a logger object
 logger = logging.getLogger(__name__)
 
 

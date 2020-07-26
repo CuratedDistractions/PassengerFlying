@@ -3,7 +3,7 @@ import logging
 from lib.settings import globals_list
 from lib.controls import Label, MultiToggle
 
-# Create a logger object.
+# Create a logger object
 logger = logging.getLogger(__name__)
 
 

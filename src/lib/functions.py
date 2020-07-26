@@ -6,7 +6,7 @@ import socket
 import sys
 from packaging import version
 
-# Create a logger object.
+# Create a logger object
 logger = logging.getLogger(__name__)
 
 
