@@ -1,0 +1,16 @@
+site_name: PassengerFlying
+theme:
+  name: material
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: false  
+      custom_templates: templates
+      watch:
+        - src
+        - src/lib
+        - src/aircraft/A319
