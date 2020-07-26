@@ -1,13 +1,13 @@
 """Source of descriptions: https://hexler.net/docs/touchosc-controls-reference."""
 
 import logging
-import lib.settings as settings
+from lib.settings import globals_list
 
 # Create a logger object.
 logger = logging.getLogger(__name__)
 
-touchosc = settings.globalList["TOUCHOSC"]
-xplane = settings.globalList["XPLANE"]
+touchosc = globals_list.touchosc
+xplane = globals_list.xplane
 
 
 class TouchoscControlItem:
@@ -30,7 +30,7 @@ class TouchoscControlItem:
 
         self.touchosc_address = touchosc_address
         if touchosc_address:
-            settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
+            globals_list.force_refresh[self.touchosc_address] = False
         if touchosc_initial_color:
             self.touchosc_color = touchosc_initial_color
         self.touchosc_visible = touchosc_visible
@@ -54,7 +54,7 @@ class TouchoscControlItem:
     def touchosc_color(self, value):
         """Sets the color of an item in TouchOSC and checks for valid color values."""
         # Do nothing if value wasn't changed and no force refresh needed
-        force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
+        force_refresh = globals_list.force_refresh[self.touchosc_address]
         if value == self._touchosc_color and not force_refresh:
             return
 
@@ -77,7 +77,7 @@ class TouchoscControlItem:
         else:
             logger.warning(f"Tried to set color {value} for {self.touchosc_address}, which is not supported.")
 
-        settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
+        globals_list.force_refresh[self.touchosc_address] = False
 
     @property
     def touchosc_visible(self):
@@ -91,7 +91,7 @@ class TouchoscControlItem:
     def touchosc_visible(self, value: bool):
         """Sets the visibility of an item in TouchOSC."""
         # Do nothing if value wasn't changed and no force refresh needed
-        force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
+        force_refresh = globals_list.force_refresh[self.touchosc_address]
         if value == self._touchosc_visible and not force_refresh:
             return
 
@@ -99,7 +99,7 @@ class TouchoscControlItem:
             self._touchosc_visible = value
             self.set_visibility_in_touchosc()
 
-        settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
+        globals_list.force_refresh[self.touchosc_address] = False
 
     @property
     def touchosc_address(self):
@@ -179,14 +179,14 @@ class Label(TouchoscControlItem):
     def touchosc_text(self, value: str):
         """The text of the label in TouchOSC."""
         # Do nothing if value wasn't changed and no force refresh needed
-        force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
+        force_refresh = globals_list.force_refresh[self.touchosc_address]
         if value == self._touchosc_text and not force_refresh:
             return
 
         self._touchosc_text = value
         self.__set_touchosc_label_text()
 
-        settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
+        globals_list.force_refresh[self.touchosc_address] = False
 
     def __set_touchosc_label_text(self):
         """The actual command to set the text of a label in TouchOSC."""
@@ -202,6 +202,8 @@ class DynamicLabel(Label):
                 text = results[self.xplane_dref_address][self.xplane_dref_index]
             else:
                 text = results[self.xplane_dref_address]
+                if isinstance(text, tuple):
+                    text = text[0]
 
             if isinstance(text, float):
                 text = "{:.1f}".format(text)
@@ -318,7 +320,7 @@ class ToggleButton(TouchoscControlItem):
     @touchosc_state.setter
     def touchosc_state(self, value: int):
         # Do nothing if nothing changed and no force refresh needed
-        force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
+        force_refresh = globals_list.force_refresh[self.touchosc_address]
         if self._touchosc_state == value and not force_refresh:
             # logger.debug("Nothing changed")
             return
@@ -327,7 +329,7 @@ class ToggleButton(TouchoscControlItem):
         self._touchosc_state = value
         self.__set_state_in_touchosc()
 
-        settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
+        globals_list.force_refresh[self.touchosc_address] = False
 
     def __set_state_in_touchosc(self):
         """The actual command to set the state in TouchOSC."""
@@ -392,7 +394,7 @@ class Rotary(TouchoscControlItem):
     @touchosc_state.setter
     def touchosc_state(self, value: int):
         # Do nothing if nothing changed and no force refresh needed
-        force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
+        force_refresh = globals_list.force_refresh[self.touchosc_address]
         if self._touchosc_state == value and not force_refresh:
             # logger.debug("Nothing changed")
             return
@@ -401,7 +403,7 @@ class Rotary(TouchoscControlItem):
         self._touchosc_state = value
         self.__set_state_in_touchosc()
 
-        settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
+        globals_list.force_refresh[self.touchosc_address] = False
 
     def __set_state_in_touchosc(self):
         """The actual command to set the state in TouchOSC."""
@@ -441,9 +443,9 @@ class Time(TouchoscControlItem):
     pass
 
 
-class MultiToggle(TouchoscControlItem):
+class MultiPush(TouchoscControlItem):
 
-    """This control groups multiple toggle controls into one control. A touch event can traverse multiple toggle controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
+    """This control groups multiple push-button controls into one control. A touch event can traverse multiple push controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
 
 
 class MultiXY(TouchoscControlItem):
@@ -453,9 +455,9 @@ class MultiXY(TouchoscControlItem):
     pass
 
 
-class MultiPush(TouchoscControlItem):
+class MultiToggle(TouchoscControlItem):
 
-    """This control groups multiple push-button controls into one control. A touch event can traverse multiple push controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
+    """This control groups multiple toggle controls into one control. A touch event can traverse multiple toggle controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
 
     # This version assumes the control is set to exclusive (only one item active at a time)
     def __init__(self, touchosc_horizontal=None, **kwargs):
@@ -471,7 +473,7 @@ class MultiPush(TouchoscControlItem):
     @touchosc_address.setter
     def touchosc_address(self, value: str):
         """Optional control to listen for or send commands to in TouchOSC."""
-        # Add a * to the end of the address to listen for all buttons in the MultiPush control
+        # Add a * to the end of the address to listen for all buttons in the MultiToggle control
         # ? Why add a * here? I forgot why. :)
         if value[-1:] == "*":
             self._touchosc_address = value
@@ -485,7 +487,7 @@ class MultiPush(TouchoscControlItem):
     @touchosc_state.setter
     def touchosc_state(self, value: int):
         # Do nothing if nothing changed and no force refresh needed
-        force_refresh = settings.globalList["FORCE_REFRESH"][self.touchosc_address]
+        force_refresh = globals_list.force_refresh[self.touchosc_address]
         if self._touchosc_state == value and not force_refresh:
             return
 
@@ -493,7 +495,7 @@ class MultiPush(TouchoscControlItem):
         self._touchosc_state = value
         self.__set_state_in_touchosc()
 
-        settings.globalList["FORCE_REFRESH"][self.touchosc_address] = False
+        globals_list.force_refresh[self.touchosc_address] = False
 
     def __set_state_in_touchosc(self):
         """The actual command to set the state in TouchOSC."""

@@ -1,14 +1,14 @@
-import argparse
-import importlib
 import logging
-import socket
-import sys
 from multiprocessing import Process, freeze_support
 
-import coloredlogs
-from packaging import version
-
-import lib.settings as settings
+from lib.functions import (
+    parse_arguments,
+    load_aircraft_configuration,
+    xplane_is_running,
+    aircraft_is_compatible,
+    setup_logging,
+)
+from lib.settings import globals_list
 from lib.touchosc import TouchOSC
 from lib.xplane import XPlane
 
@@ -19,84 +19,49 @@ logger = logging.getLogger(__name__)
 
 
 def main():
-    # Initialize things like the global variables list
-    settings.init()
+    # Collect arguments from command line
+    args = parse_arguments(CURRENT_VERSION)
 
-    # Parse arguments
-    parser = argparse.ArgumentParser(description=f"-== PassengerFlying v{CURRENT_VERSION} ==-")
-
-    parser.add_argument("--aircraft", required=True, help="Folder name of aircraft to load")
-    parser.add_argument("--debug", help="Increase output verbosity", action="store_true")
-    parser.add_argument("--touchosc_device_ip", required=True, help="IP address of TouchOSC device")
-    parser.add_argument("--touchosc_device_port", help="Port of TouchOSC device", default=5006)
-    parser.add_argument("--touchosc_server_ip", help="IP address of TouchOSC server", default="0.0.0.0")
-    parser.add_argument("--touchosc_server_port", help="Port of TouchOSC server", default=5005)
-
-    args = parser.parse_args()
+    # Setup logging format
+    setup_logging(args.debug)
 
     # Save the arguments list to the global variables list
-    settings.globalList["ARGS"] = args
+    globals_list.args = args
 
     # Initialize force refresh setting
-    settings.globalList["FORCE_REFRESH"] = {}
-
-    # Setup logging
-    verbose_level = "DEBUG" if args.debug else "WARNING"
-    coloredlogs.install(
-        fmt="%(asctime)s,%(msecs)d %(name)s(%(lineno)d) %(levelname)s %(funcName)s %(message)s", level=verbose_level
-    )
+    globals_list.force_refresh = {}
 
     touchosc = TouchOSC()  # This class is responsible for the connection with TouchOSC
-    settings.globalList["TOUCHOSC"] = touchosc  # Save the connection in a global list
+    globals_list.touchosc = touchosc  # Save the connection in a global list
 
     xplane = XPlane()  # This class is responsible for the connection with X-Plane
-    settings.globalList["XPLANE"] = xplane  # Save the connection in a global list
+    globals_list.xplane = xplane  # Save the connection in a global list
 
-    # Check if we have a configuration for the loaded aircraft, if not we quit
-    try:
-        aircraft_module = ".".join(["aircraft", args.aircraft, "aircraft"])
-        aircraft = importlib.import_module(aircraft_module).Aircraft()
+    # Import modules of aircraft configuration
+    aircraft = load_aircraft_configuration(args.aircraft)
+    # Save the aircraft in a global list
+    globals_list.aircraft = aircraft
 
-        # Save the aircraft in a global list
-        settings.globalList["AIRCRAFT"] = aircraft
-    except ModuleNotFoundError as e:
-        logger.error(f"There is no configuration for ICAO {args.aircraft} ({e}).")
-        sys.exit()
+    # Check if X-Plane is running and aircraft configuration is compatible with base script
+    if xplane_is_running(xplane) and aircraft_is_compatible(aircraft, CURRENT_VERSION):
+        logger.info(f"Loading of {args.aircraft} configuration successful.")
 
-    # Check if X-Plane is running and an aircraft is loaded
-    try:
-        xplane.get_from_xplane("sim/aircraft/view/acf_ICAO")
-    except socket.timeout as e:
-        logger.error(f"Either X-Plane is't running or no aircraft was loaded ({e}).")
-        sys.exit()
+    # Let's start the show.
+    run_loop(xplane, touchosc)
 
-    try:
-        if version.parse(CURRENT_VERSION) < version.parse(aircraft.minimum_supported_version()) or version.parse(
-            CURRENT_VERSION
-        ) > version.parse(aircraft.maximum_supported_version()):
-            logger.error(
-                "This aircraft is only compatible with PassengerFlying versions between {} and {}. You are using version {}".format(
-                    aircraft.minimum_supported_version(), aircraft.maximum_supported_version(), CURRENT_VERSION
-                )
-            )
-            sys.exit()
-    except AttributeError as e:
-        logger.error(f"This aircraft has no version compatability configured ({e}).")
-        sys.exit()
 
-    logger.info(f"Loading of {args.aircraft} configuration successful.")
-
+def run_loop(xplane, touchosc):
     # Start two parallel processes:
     # - one pulls drefs from X-Plane about 10 times per second
-    monitor = Process(target=xplane.monitor)
-    monitor.start()
+    xplane = Process(target=xplane.monitor, name="X-Plane")
+    xplane.start()
 
     # - the other one listens for events from OSC
-    server = Process(target=touchosc.server)
-    server.start()
+    touchosc = Process(target=touchosc.server, name="TouchOSC")
+    touchosc.start()
 
-    monitor.join()
-    server.join()
+    xplane.join()
+    touchosc.join()
 
 
 if __name__ == "__main__":

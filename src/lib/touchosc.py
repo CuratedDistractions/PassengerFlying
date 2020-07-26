@@ -4,7 +4,7 @@ from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import BlockingOSCUDPServer
 from pythonosc.udp_client import SimpleUDPClient
 
-import lib.settings as settings
+from lib.settings import globals_list
 
 # Create a logger object.
 logger = logging.getLogger(__name__)
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class TouchOSC:
     def __init__(self):
-        self.args = settings.globalList["ARGS"]
+        self.args = globals_list.args
         self.client = self.__setup_client()
 
     @staticmethod
@@ -31,10 +31,10 @@ class TouchOSC:
         dispatcher = Dispatcher()
 
         try:
-            aircraft = settings.globalList["AIRCRAFT"]
+            aircraft = globals_list.aircraft
             touchosc_list = aircraft.touchosc_address_dict.keys()
             for touchosc_address in touchosc_list:
-                dispatcher.map(touchosc_address, self.send_touchosc_result)
+                dispatcher.map(touchosc_address, self.__send_touchosc_result)
         except TypeError as e:
             logger.error(f"List with touchosc items is empty ({e}).")
         except AttributeError as e:
@@ -46,15 +46,18 @@ class TouchOSC:
         port = int(self.args.touchosc_server_port)
 
         try:
+            logger.debug(f"Starting server on ip {ip} and port {port}")
             server = BlockingOSCUDPServer((ip, port), dispatcher)
             server.serve_forever()
         except OSError as e:
             logger.error(f"Can't start touchOSC server ({e}).")
 
     @staticmethod
-    def send_touchosc_result(touchosc_address, *args):
+    def __send_touchosc_result(touchosc_address, *args):
+        """Send the results we got from TouchOSC to the aircraft class for processing."""
+
         result = args[0]
-        aircraft = settings.globalList["AIRCRAFT"]
+        aircraft = globals_list.aircraft
         aircraft.process_touchosc_result(touchosc_address, result)
 
     def __setup_client(self):

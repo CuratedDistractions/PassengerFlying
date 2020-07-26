@@ -2,7 +2,7 @@
 # MAIN PANEL LABELS
 ##########################################################################################
 
-from aircraft.A319.controls import AirbusLabel
+from aircraft.A319.controls import AirbusLabel, AirbusQNHLabel
 from lib.controls import MasterWarningButtonLabel, MasterCautionButtonLabel
 
 main_panel_labels = []
@@ -93,16 +93,16 @@ main_panel_labels.extend(ohp_lights_ata31)
 
 # AirbusFBW/OHPLightsATA32
 ohp_lights_ata32 = [
-    {"xplane_dref_index": 0, "touchosc_address": "/label/ldg_gear_1_lower",},
-    {"xplane_dref_index": 1, "touchosc_address": "/label/ldg_gear_1_upper",},
-    {"xplane_dref_index": 2, "touchosc_address": "/label/ldg_gear_2_lower",},
-    {"xplane_dref_index": 3, "touchosc_address": "/label/ldg_gear_2_upper",},
-    {"xplane_dref_index": 4, "touchosc_address": "/label/ldg_gear_3_lower",},
-    {"xplane_dref_index": 5, "touchosc_address": "/label/ldg_gear_3_upper",},
+    {"xplane_dref_index": 0, "touchosc_address": "/label/ldg_gear_left_lower",},
+    {"xplane_dref_index": 1, "touchosc_address": "/label/ldg_gear_left_upper",},
+    {"xplane_dref_index": 2, "touchosc_address": "/label/ldg_gear_center_lower",},
+    {"xplane_dref_index": 3, "touchosc_address": "/label/ldg_gear_center_upper",},
+    {"xplane_dref_index": 4, "touchosc_address": "/label/ldg_gear_right_lower",},
+    {"xplane_dref_index": 5, "touchosc_address": "/label/ldg_gear_right_upper",},
     {"xplane_dref_index": 10, "touchosc_address": "/label/brk_fan_lower",},
     {"xplane_dref_index": 11, "touchosc_address": "/label/brk_fan_upper"},
     {"xplane_dref_index": 12, "touchosc_address": "/label/auto_brk_lo_lower",},
-    {"xplane_dref_index": 13, "touchosc_address": "/label/auto_brk_lo_lower"},
+    {"xplane_dref_index": 13, "touchosc_address": "/label/auto_brk_lo_upper"},
     {"xplane_dref_index": 14, "touchosc_address": "/label/auto_brk_med_lower",},
     {"xplane_dref_index": 15, "touchosc_address": "/label/auto_brk_med_upper"},
     {"xplane_dref_index": 16, "touchosc_address": "/label/auto_brk_max_lower",},
@@ -118,3 +118,14 @@ ohp_lights_ata34 = [
 ]
 ohp_lights_ata34 = set_xplane_dref_address_and_control_type(ohp_lights_ata34, "AirbusFBW/OHPLightsATA34")
 main_panel_labels.extend(ohp_lights_ata34)
+
+
+# AirbusFBW/ISIBaroSetting
+isi_baro_setting = [
+    {
+        "control_type": AirbusQNHLabel,
+        "xplane_dref_address": "AirbusFBW/ISIBaroSetting",
+        "touchosc_address": "/label/cpt_qnh",
+    },
+]
+main_panel_labels.extend(isi_baro_setting)

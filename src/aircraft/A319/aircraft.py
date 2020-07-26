@@ -1,19 +1,19 @@
 import logging
 
-from aircraft.A319.debug_buttons import debug_buttons
-from aircraft.A319.main_panel_buttons import main_panel_buttons
-from aircraft.A319.main_panel_knobs import main_panel_knobs
-from aircraft.A319.main_panel_labels import main_panel_labels
-from aircraft.A319.main_panel_switches import main_panel_switches
-from aircraft.A319.other_switches import other_switches
-from aircraft.A319.overhead_panel_buttons import overhead_panel_buttons
-from aircraft.A319.overhead_panel_knobs import overhead_panel_knobs
-from aircraft.A319.overhead_panel_labels import overhead_panel_labels
-from aircraft.A319.overhead_panel_switches import overhead_panel_switches
-from aircraft.A319.pedestal_buttons import pedestal_buttons
-from aircraft.A319.pedestal_knobs import pedestal_knobs
-from aircraft.A319.pedestal_labels import pedestal_labels
-from aircraft.A319.pedestal_switches import pedestal_switches
+from aircraft.A319.debug.buttons import debug_buttons
+from aircraft.A319.main_panel.buttons import main_panel_buttons
+from aircraft.A319.main_panel.knobs import main_panel_knobs
+from aircraft.A319.main_panel.labels import main_panel_labels
+from aircraft.A319.main_panel.switches import main_panel_switches
+from aircraft.A319.other.switches import other_switches
+from aircraft.A319.overhead_panel.buttons import overhead_panel_buttons
+from aircraft.A319.overhead_panel.knobs import overhead_panel_knobs
+from aircraft.A319.overhead_panel.labels import overhead_panel_labels
+from aircraft.A319.overhead_panel.switches import overhead_panel_switches
+from aircraft.A319.pedestal.buttons import pedestal_buttons
+from aircraft.A319.pedestal.knobs import pedestal_knobs
+from aircraft.A319.pedestal.labels import pedestal_labels
+from aircraft.A319.pedestal.switches import pedestal_switches
 from lib.aircraft import BaseAircraft
 from lib.controls import PushButton
 

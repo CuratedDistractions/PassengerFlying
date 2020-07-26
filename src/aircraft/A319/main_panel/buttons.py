@@ -19,3 +19,5 @@ master_buttons = [
     },
 ]
 main_panel_buttons.extend(master_buttons)
+
+# AirbusFBW/ISIBaroStd

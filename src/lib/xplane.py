@@ -2,7 +2,7 @@ import logging
 import socket
 import time
 
-import lib.settings as settings
+from lib.settings import globals_list
 from lib.nasa_xpc import XPlaneConnect
 
 # Create a logger object.
@@ -21,7 +21,7 @@ class XPlane:
         In the future I'd like dref changed from X-Plane be pushed. But I'll need to wait till Python 3 is available
         as an X-Plane plugin. It's being worked on, so we'll see.
         """
-        aircraft = settings.globalList["AIRCRAFT"]
+        aircraft = globals_list.aircraft
 
         # Fetch all registered drefs in one bundle
         xplane_dref_address_list = aircraft.xplane_dref_address_list
