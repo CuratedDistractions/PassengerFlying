@@ -472,11 +472,31 @@ class Rotary(TouchoscControlItem):
 class Encoder(TouchoscControlItem):
     """This control emulates an endless rotary or encoder control on hardware devices. It sends the upper end of its value range when a touch is moved clockwise, the lower end of its value range when a touch is moved counter-clockwise. It does not respond to incoming messages."""
 
-    pass
+    def __init__(self, touchosc_adjust_value=1, **kwargs):
+        super().__init__(**kwargs)
+        self._touchosc_adjust_value = touchosc_adjust_value
+
+    def callback_from_touchosc(self, address, results):
+        adjust_value = self._touchosc_adjust_value if results else self._touchosc_adjust_value * -1
+
+        if self.xplane_dref_index is not None:  # Does the dref contain an array
+            # Get the whole dref. Since it's a tuple, we need to convert it to a list
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
+
+            # Replace just the index we need
+            xplane_dref_value[self.xplane_dref_index] = xplane_dref_value[self.xplane_dref_index] + adjust_value
+        else:
+            # Get the current dref value.
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
+
+            # Toggle
+            xplane_dref_value = xplane_dref_value + adjust_value
+
+        # Send the whole dref back to X-Plane
+        self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
 
 
 class Battery(TouchoscControlItem):
-
     """This control is for display purposes only and does not react to touch or send messages. It displays the current battery charge of the device. It does not respond to incoming messages."""
 
     pass

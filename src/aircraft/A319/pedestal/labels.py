@@ -41,3 +41,10 @@ acp1_lights = [
 ]
 acp1_lights = set_xplane_dref_address_and_control_type(acp1_lights, "AirbusFBW/ACP1Lights")
 pedestal_labels.extend(acp1_lights)
+
+# Transponder
+# AirbusFBW/XPDR1
+# AirbusFBW/XPDR2
+# AirbusFBW/XPDR3
+# AirbusFBW/XPDR4
+# These numbers are in reversed order

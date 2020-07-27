@@ -16,3 +16,9 @@ qnh_switch = [
     },
 ]
 main_panel_switches.extend(qnh_switch)
+
+# Chrono
+# AirbusFBW/ClockETSwitch
+# sim/instruments/timer_reset
+# sim/instruments/timer_show_date
+# sim/instruments/timer_start_stop

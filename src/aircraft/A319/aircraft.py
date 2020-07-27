@@ -5,14 +5,17 @@ from aircraft.A319.main_panel.buttons import main_panel_buttons
 from aircraft.A319.main_panel.knobs import main_panel_knobs
 from aircraft.A319.main_panel.labels import main_panel_labels
 from aircraft.A319.main_panel.switches import main_panel_switches
+from aircraft.A319.other.buttons import other_buttons
 from aircraft.A319.other.switches import other_switches
 from aircraft.A319.overhead_panel.buttons import overhead_panel_buttons
+from aircraft.A319.overhead_panel.guards import overhead_panel_guards
 from aircraft.A319.overhead_panel.knobs import overhead_panel_knobs
 from aircraft.A319.overhead_panel.labels import overhead_panel_labels
 from aircraft.A319.overhead_panel.switches import overhead_panel_switches
 from aircraft.A319.pedestal.buttons import pedestal_buttons
 from aircraft.A319.pedestal.knobs import pedestal_knobs
 from aircraft.A319.pedestal.labels import pedestal_labels
+from aircraft.A319.pedestal.sliders import pedestal_sliders
 from aircraft.A319.pedestal.switches import pedestal_switches
 from lib.aircraft import BaseAircraft
 from lib.controls import PushButton
@@ -44,6 +47,12 @@ class Aircraft(BaseAircraft):
         self.process_controls(overhead_panel_buttons)
         self.process_controls(main_panel_buttons)
         self.process_controls(pedestal_buttons)
+
+        # Add all guards
+        self.process_controls(overhead_panel_guards)
+
+        # Add all sliders
+        self.process_controls(pedestal_sliders)
 
         # Add all knobs
         self.process_controls(overhead_panel_knobs)

@@ -40,8 +40,11 @@ isi_baro_setting_knob = [
     {
         "control_type": Encoder,
         "touchosc_address": "/encoder/cpt_qnh",
-        "xplane_dref_address": "AirbusFBW/ISIBaroSetting",
-        "xplane_dref_index": 0,
+        "touchosc_adjust_value": 0.025,
+        "xplane_dref_address": "sim/cockpit2/gauges/actuators/barometer_setting_in_hg_pilot",
     },
 ]
 main_panel_knobs.extend(isi_baro_setting_knob)
+
+# AirbusFBW/NDmodeCapt[1]
+# AirbusFBW/NDrangeCapt[1]

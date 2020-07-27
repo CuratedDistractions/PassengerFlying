@@ -15,3 +15,5 @@ du_brightness = [
     },
 ]
 overhead_panel_knobs.extend(du_brightness)
+
+# AirbusFBW/PackFlowSel[1]

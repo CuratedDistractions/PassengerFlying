@@ -74,7 +74,6 @@ def send_to_touchosc(touchosc_address: str, value) -> None:
     # Check for * in the address and remove it. A * is used by multi controls
     address = touchosc_address.replace("*", "")
     client = globals_list.touchosc_client
-    logger.debug(client)
 
     try:
         client.send_message(address, value)

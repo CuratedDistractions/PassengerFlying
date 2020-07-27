@@ -1,7 +1,7 @@
 import logging
 
 from lib.settings import globals_list
-from lib.controls import Label, MultiToggle, PushButton
+from lib.controls import Label, MultiToggle, PushButton, Fader
 from lib.xplane import get_from_xplane
 
 # Create a logger object
@@ -86,3 +86,9 @@ class AirbusQNHStandardButton(PushButton):
         result = results[self.xplane_dref_address][0]
         globals_list.qnh_standard = result
 
+
+class AirbusThrottle(Fader):
+    def callback_from_touchosc(self, address, results):
+        """Ignore TouchOSC values. It confuses X-Plane."""
+
+        pass

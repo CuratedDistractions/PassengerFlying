@@ -129,3 +129,7 @@ isi_baro_setting = [
     },
 ]
 main_panel_labels.extend(isi_baro_setting)
+
+# AirbusFBW/ALTmanaged
+# AirbusFBW/HDGmanaged
+# AirbusFBW/SPDmanaged
