@@ -33,6 +33,7 @@ class XPlaneConnect:
         xpIP = None
         try:
             xpIP = socket.gethostbyname(xpHost)
+        # TODO: Make this 'except' more explicit
         except:
             raise ValueError("Unable to resolve xpHost.")
 
