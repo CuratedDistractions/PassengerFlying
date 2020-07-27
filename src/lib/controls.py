@@ -4,12 +4,10 @@ import logging
 
 from lib.settings import globals_list
 from lib.touchosc import send_to_touchosc
+from lib.xplane import send_to_xplane, get_from_xplane
 
 # Create a logger object
 logger = logging.getLogger(__name__)
-
-touchosc = globals_list.touchosc
-xplane = globals_list.xplane
 
 
 class TouchoscControlItem:
@@ -278,13 +276,13 @@ class PushButton(TouchoscControlItem):
             else:
                 if self.xplane_dref_index is not None:  # Does the dref contain an array
                     # Get the whole dref. Since it's a tuple, we need to convert it to a list
-                    xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))
+                    xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
 
                     # Replace just the index we need (it's a toggle)
                     xplane_dref_value[self.xplane_dref_index] = int(not xplane_dref_value[self.xplane_dref_index])
                 else:
                     # Get the current dref value.
-                    xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))[0]
+                    xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
 
                     # Toggle
                     xplane_dref_value = int(not xplane_dref_value)
@@ -304,13 +302,13 @@ class ToggleButton(TouchoscControlItem):
     def callback_from_touchosc(self, address, results):
         if self.xplane_dref_index is not None:  # Does the dref contain an array
             # Get the whole dref. Since it's a tuple, we need to convert it to a list
-            xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
 
             # Replace just the index we need
             xplane_dref_value[self.xplane_dref_index] = results
         else:
             # Get the current dref value.
-            xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))[0]
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
 
             # Toggle
             xplane_dref_value = results
@@ -378,13 +376,13 @@ class Rotary(TouchoscControlItem):
     def callback_from_touchosc(self, address, results):
         if self.xplane_dref_index is not None:  # Does the dref contain an array
             # Get the whole dref. Since it's a tuple, we need to convert it to a list
-            xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
 
             # Replace just the index we need
             xplane_dref_value[self.xplane_dref_index] = results
         else:
             # Get the current dref value.
-            xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))[0]
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
 
             # Toggle
             xplane_dref_value = results
@@ -535,7 +533,7 @@ class MultiToggle(TouchoscControlItem):
 
             if self.xplane_dref_index is not None:  # Does the dref contain an array
                 # Get the whole dref. Since it's a tuple, we need to convert it to a list
-                xplane_dref_value = list(xplane.get_from_xplane(self.xplane_dref_address))
+                xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
 
                 # Replace just the index we need (it's a toggle)
                 xplane_dref_value[self.xplane_dref_index] = result

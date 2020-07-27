@@ -3,6 +3,7 @@
 ##########################################################################################
 
 from lib.controls import PushButton
+from aircraft.A319.controls import AirbusQNHStandardButton
 
 main_panel_buttons = []
 
@@ -20,4 +21,12 @@ master_buttons = [
 ]
 main_panel_buttons.extend(master_buttons)
 
-# AirbusFBW/ISIBaroStd
+# AirbusFBW/BaroStdCapt
+isi_baro_std = [
+    {
+        "control_type": AirbusQNHStandardButton,
+        "touchosc_address": "/button/cpt_qnh",
+        "xplane_dref_address": "AirbusFBW/BaroStdCapt",
+    },
+]
+main_panel_buttons.extend(isi_baro_std)

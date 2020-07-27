@@ -1,5 +1,7 @@
+import asyncio
 import logging
-from multiprocessing import Process, freeze_support
+import time
+from multiprocessing import freeze_support
 
 from lib.functions import (
     aircraft_is_compatible,
@@ -9,8 +11,8 @@ from lib.functions import (
     xplane_is_running,
 )
 from lib.settings import globals_list
-from lib.touchosc import TouchOSC
-from lib.xplane import XPlane
+from lib.touchosc import setup_touchosc_client, setup_touchosc_server
+from lib.xplane import pull_xplane_data
 
 # Current version
 CURRENT_VERSION = "0.1a"
@@ -27,13 +29,13 @@ def main():
 
     # Initialize some variables
     globals_list.force_refresh = {}
-
-    touchosc = TouchOSC()  # This class is responsible for the connection with TouchOSC
-    globals_list.touchosc = touchosc  # Save the connection in a global list
-
-    xplane = XPlane()  # This class is responsible for the connection with X-Plane
-    globals_list.xplane = xplane  # Save the connection in a global list
     globals_list.current_version = CURRENT_VERSION
+    globals_list.last_xplane_connection_ok = True
+    globals_list.start_time = time.time()
+
+    # Setup TouchOSC client
+    client = setup_touchosc_client()
+    globals_list.touchosc_client = client
 
     # Import modules of aircraft configuration
     load_aircraft_configuration()
@@ -43,21 +45,31 @@ def main():
         logger.info(f"Loading of {globals_list.args.aircraft} configuration successful.")
 
     # Let's start the show.
-    run_loop(xplane, touchosc)
+    asyncio.run(setup_loop())
 
 
-def run_loop(xplane, touchosc):
-    # Start two parallel processes:
-    # - one pulls drefs from X-Plane about 10 times per second
-    xplane = Process(target=xplane.monitor, name="X-Plane")
-    xplane.start()
+async def loop():
+    finished = False
+    while not finished:
+        # Enable time delay if X-Plane times out because of too many requests per second
+        time_delay = 0.1  # No more than 10 requests per second
+        # time_delay = 1  # No more than once per second, used for debug purposes
 
-    # - the other one listens for events from OSC
-    touchosc = Process(target=touchosc.server, name="TouchOSC")
-    touchosc.start()
+        if time.time() - globals_list.start_time > time_delay:
+            logger.debug("X-Plane pull")
+            pull_xplane_data()
+            globals_list.start_time = time.time()
 
-    xplane.join()
-    touchosc.join()
+        await asyncio.sleep(0)
+
+
+async def setup_loop():
+    server = setup_touchosc_server()
+    transport, protocol = await server.create_serve_endpoint()  # Create datagram endpoint and start serving
+
+    await loop()  # Enter main loop of program
+
+    transport.close()  # Clean up serve endpoint
 
 
 if __name__ == "__main__":
