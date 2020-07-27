@@ -56,7 +56,6 @@ async def loop():
         # time_delay = 1  # No more than once per second, used for debug purposes
 
         if time.time() - globals_list.start_time > time_delay:
-            logger.debug("X-Plane pull")
             pull_xplane_data()
             globals_list.start_time = time.time()
 

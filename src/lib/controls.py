@@ -258,7 +258,6 @@ class MasterCautionButtonLabel(Label):
 
 
 class Led(TouchoscControlItem):
-
     """This control is for display purposes only and does not react to touch or send messages.
 
     Values of incoming messages are mapped to the control's value range and update the brightness of the LED display.
@@ -266,7 +265,6 @@ class Led(TouchoscControlItem):
 
 
 class PushButton(TouchoscControlItem):
-
     """This control sends the second value of its value range when pressed and the first value of its value range when released."""
 
     def callback_from_touchosc(self, address, results):
@@ -292,7 +290,6 @@ class PushButton(TouchoscControlItem):
 
 
 class ToggleButton(TouchoscControlItem):
-
     """This control changes state between on/off when released. When the state changes to on, the second value in it's value range is sent, otherwise the first."""
 
     def __init__(self, **kwargs):
@@ -352,21 +349,68 @@ class ToggleButton(TouchoscControlItem):
 
 
 class XYPad(TouchoscControlItem):
-
     """This control maps the position of a touch along the x and y axes of its rectangle to its value range and sends out both values. Both x and y values use the same value range. The location of the minimum and maximum value positions of each axes can be inverted in the control's properties."""
 
     pass
 
 
 class Fader(TouchoscControlItem):
-
     """These controls emulate classic fader and potentiometer controls on hardware devices. They map the position of a touch to their value range by interpolating between their minimum and maximum positions."""
 
-    pass
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._touchosc_state = None
+
+    def callback_from_xplane(self, results):
+        if self.xplane_dref_address:
+            if self.xplane_dref_index is not None:
+                state = results[self.xplane_dref_address][self.xplane_dref_index]
+            else:
+                result = results[self.xplane_dref_address]
+                if isinstance(result, tuple):
+                    result = result[0]
+                state = result
+
+            self.touchosc_state = state
+
+    @property
+    def touchosc_state(self):
+        return self._touchosc_state
+
+    @touchosc_state.setter
+    def touchosc_state(self, value: int):
+        # Do nothing if nothing changed and no force refresh needed
+        force_refresh = globals_list.force_refresh[self.touchosc_address]
+        if self._touchosc_state == value and not force_refresh:
+            return
+
+        """The text of the label in TouchOSC."""
+        self._touchosc_state = value
+        self.__set_state_in_touchosc()
+
+        globals_list.force_refresh[self.touchosc_address] = False
+
+    def __set_state_in_touchosc(self):
+        """The actual command to set the state in TouchOSC."""
+        self.send_to_touchosc(self.touchosc_address, self.touchosc_state)
+
+    def callback_from_touchosc(self, address, results):
+        if self.xplane_dref_index is not None:  # Does the dref contain an array
+            # Get the whole dref. Since it's a tuple, we need to convert it to a list
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
+
+            # Replace just the index we need (it's a toggle)
+            xplane_dref_value[self.xplane_dref_index] = results
+        else:
+            # Get the current dref value.
+            xplane_dref_value = results
+
+        # Send the whole dref back to X-Plane
+        # logger.debug(f"Sending {xplane_dref_value} to {self.xplane_dref_address}")
+        self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
 
 
 class Rotary(TouchoscControlItem):
-
     """This control emulates an endless rotary or encoder control on hardware devices. It sends the upper end of its value range when a touch is moved clockwise, the lower end of its value range when a touch is moved counter-clockwise. It does not respond to incoming messages."""
 
     def __init__(self, **kwargs):
@@ -426,7 +470,6 @@ class Rotary(TouchoscControlItem):
 
 
 class Encoder(TouchoscControlItem):
-
     """This control emulates an endless rotary or encoder control on hardware devices. It sends the upper end of its value range when a touch is moved clockwise, the lower end of its value range when a touch is moved counter-clockwise. It does not respond to incoming messages."""
 
     pass
@@ -440,26 +483,22 @@ class Battery(TouchoscControlItem):
 
 
 class Time(TouchoscControlItem):
-
     """This control is for display purposes only and does not react to touch or send messages. It displays the current time. It does not respond to incoming messages."""
 
     pass
 
 
 class MultiPush(TouchoscControlItem):
-
     """This control groups multiple push-button controls into one control. A touch event can traverse multiple push controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
 
 
 class MultiXY(TouchoscControlItem):
-
     """This control behaves the same way as the XY Pad control but handles up to 5 touch-points at the same time. This control accepts multiple touch events. It does not respond to incoming messages."""
 
     pass
 
 
 class MultiToggle(TouchoscControlItem):
-
     """This control groups multiple toggle controls into one control. A touch event can traverse multiple toggle controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
 
     # This version assumes the control is set to exclusive (only one item active at a time)
@@ -547,7 +586,6 @@ class MultiToggle(TouchoscControlItem):
 
 
 class MultiFader(TouchoscControlItem):
-
     """This control groups multiple fader controls into one control. A touch event can traverse multiple fader controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
 
     pass
