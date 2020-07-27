@@ -113,8 +113,8 @@ main_panel_labels.extend(ohp_lights_ata32)
 
 # AirbusFBW/OHPLightsATA34[64] (also defined in overhead_panel_labels)
 ohp_lights_ata34 = [
-    {"xplane_dref_index": 24, "touchosc_address": "cpt_terr_on_nd",},
-    {"xplane_dref_index": 25, "touchosc_address": "fo_terr_on_nd",},
+    {"xplane_dref_index": 24, "touchosc_address": "/labels/cpt_terr_on_nd",},
+    {"xplane_dref_index": 25, "touchosc_address": "/labels/fo_terr_on_nd",},
 ]
 ohp_lights_ata34 = set_xplane_dref_address_and_control_type(ohp_lights_ata34, "AirbusFBW/OHPLightsATA34")
 main_panel_labels.extend(ohp_lights_ata34)
