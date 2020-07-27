@@ -13,7 +13,6 @@ xplane = globals_list.xplane
 
 
 class TouchoscControlItem:
-
     """This is the base class for all TouchOSC controls."""
 
     def __init__(
@@ -48,12 +47,12 @@ class TouchoscControlItem:
         pass
 
     @property
-    def touchosc_color(self):
+    def touchosc_color(self) -> str:
         """Color of an item in TouchOSC"""
         return self._touchosc_color
 
     @touchosc_color.setter
-    def touchosc_color(self, value):
+    def touchosc_color(self, value) -> None:
         """Sets the color of an item in TouchOSC and checks for valid color values."""
         # Do nothing if value wasn't changed and no force refresh needed
         force_refresh = globals_list.force_refresh[self.touchosc_address]
@@ -82,7 +81,7 @@ class TouchoscControlItem:
         globals_list.force_refresh[self.touchosc_address] = False
 
     @property
-    def touchosc_visible(self):
+    def touchosc_visible(self) -> bool:
         """Visibility of an item in TouchOSC."""
         try:
             return self._touchosc_visible
@@ -91,7 +90,11 @@ class TouchoscControlItem:
 
     @touchosc_visible.setter
     def touchosc_visible(self, value: bool):
-        """Sets the visibility of an item in TouchOSC."""
+        """Sets the visibility of an item in TouchOSC.
+
+        Args:
+            value (bool)
+        """
         # Do nothing if value wasn't changed and no force refresh needed
         force_refresh = globals_list.force_refresh[self.touchosc_address]
         if value == self._touchosc_visible and not force_refresh:
@@ -104,12 +107,12 @@ class TouchoscControlItem:
         globals_list.force_refresh[self.touchosc_address] = False
 
     @property
-    def touchosc_address(self):
+    def touchosc_address(self) -> str:
         """Optional control to listen for or send commands to in TouchOSC."""
         return self._touchosc_address
 
     @touchosc_address.setter
-    def touchosc_address(self, value: str):
+    def touchosc_address(self, value: str) -> None:
         """Optional control to listen for or send commands to in TouchOSC."""
         self._touchosc_address = value
 
@@ -119,7 +122,7 @@ class TouchoscControlItem:
         return self._xplane_dref_address
 
     @xplane_dref_address.setter
-    def xplane_dref_address(self, value: str):
+    def xplane_dref_address(self, value: str) -> None:
         """Optional dref to listen for or send commands to in X-Plane."""
         self._xplane_dref_address = value
 
@@ -129,7 +132,7 @@ class TouchoscControlItem:
         return self._xplane_dref_index
 
     @xplane_dref_index.setter
-    def xplane_dref_index(self, value: int):
+    def xplane_dref_index(self, value: int) -> None:
         """Optional dref to listen for or send commands to in X-Plane, this is its index number."""
         self._xplane_dref_index = value
 
@@ -139,27 +142,27 @@ class TouchoscControlItem:
         return self._xplane_command_address
 
     @xplane_command_address.setter
-    def xplane_command_address(self, value: str):
+    def xplane_command_address(self, value: str) -> None:
         """Optional command to send to X-Plane."""
         self._xplane_command_address = value
 
-    def set_color_in_touchosc(self):
+    def set_color_in_touchosc(self) -> None:
         """Actual command to set color in TouchOSC."""
         address = "/".join([str(self.touchosc_address), "color"])
         self.send_to_touchosc(address, self.touchosc_color)
 
-    def set_visibility_in_touchosc(self):
+    def set_visibility_in_touchosc(self) -> None:
         """Actual command to set visibility in TouchOSC."""
         address = "/".join([self.touchosc_address, "visible"])
         self.send_to_touchosc(address, self.touchosc_visible)
 
     @staticmethod
-    def send_to_touchosc(address, value):
+    def send_to_touchosc(address, value) -> None:
         send_to_touchosc(address, value)
 
     @staticmethod
-    def send_to_xplane(address, value=None):
-        xplane.send_to_xplane(address, value)
+    def send_to_xplane(address, value=None) -> None:
+        send_to_xplane(address, value)
 
 
 class Label(TouchoscControlItem):
@@ -178,7 +181,7 @@ class Label(TouchoscControlItem):
             return "LABEL"
 
     @touchosc_text.setter
-    def touchosc_text(self, value: str):
+    def touchosc_text(self, value: str) -> None:
         """The text of the label in TouchOSC."""
         # Do nothing if value wasn't changed and no force refresh needed
         force_refresh = globals_list.force_refresh[self.touchosc_address]
@@ -198,7 +201,7 @@ class Label(TouchoscControlItem):
 class DynamicLabel(Label):
     """Will change the text of the label to the value reported by X-Plane."""
 
-    def callback_from_xplane(self, results):
+    def callback_from_xplane(self, results) -> None:
         if self.xplane_dref_address:
             if self.xplane_dref_index is not None:
                 text = results[self.xplane_dref_address][self.xplane_dref_index]
@@ -217,7 +220,7 @@ class DynamicLabel(Label):
 class MasterWarningButtonLabel(Label):
     """Will change color when a master warning is active."""
 
-    def callback_from_xplane(self, results):
+    def callback_from_xplane(self, results) -> None:
         if self.xplane_dref_address:
             if self.xplane_dref_index is not None:
                 result = results[self.xplane_dref_address][self.xplane_dref_index]
@@ -228,7 +231,7 @@ class MasterWarningButtonLabel(Label):
                     self.touchosc_color = "gray"
 
     @staticmethod
-    def is_on(value):
+    def is_on(value: float) -> bool:
         if value < 0.2:
             return 0  # Light is off
         else:

@@ -16,18 +16,18 @@ class BaseAircraft:
         # added to the aircraft using the add_control method.
         self.define_controls()
 
-    def minimum_supported_version(self):
+    def minimum_supported_version(self) -> str:
         return "0.0"
 
-    def maximum_supported_version(self):
+    def maximum_supported_version(self) -> str:
         return "0.0"
 
     @staticmethod
-    def define_controls():
+    def define_controls() -> None:
         # Return error if this method is not defined in child class
         logger.error("You haven't defined any controls.")
 
-    def add_control(self, control):
+    def add_control(self, control) -> None:
         # Add control to X-Plane list if X-Plane drefs are defined
         if control.xplane_dref_address:
             # This is a simple duplicate check. For now we only accept a dref once
@@ -43,12 +43,16 @@ class BaseAircraft:
 
         self.controls.append(control)
 
-    def process_xplane_result(self, xplane_results):
-        # Trigger each control's callback
+    def process_xplane_result(self, xplane_results) -> None:
+        """Trigger each control's callback.
+
+        Args:
+            xplane_results
+        """
         for control in self.controls:
             control.callback_from_xplane(xplane_results)
 
-    def process_touchosc_result(self, address, result):
+    def process_touchosc_result(self, address: str, result):
         logger.debug(f"Processing result from TouchOSC: {address} and value {result}")
 
         # Get all elements of the address. Every TouchOCS address should be of format
