@@ -48,3 +48,7 @@ pedestal_labels.extend(acp1_lights)
 # AirbusFBW/XPDR3
 # AirbusFBW/XPDR4
 # These numbers are in reversed order
+
+# COM 1
+# AirbusFBW/RMP1StbyFreq[1]
+# AirbusFBW/RMP1Freq[1]

@@ -80,7 +80,7 @@ other_buttons = []
 # AirbusFBW/MCDU1KeySlewLeft
 # AirbusFBW/MCDU1KeySlewUp
 
-# Popups
+# Popupsx§
 # AirbusFBW/PopUpEWD
 # AirbusFBW/PopUpISI
 # AirbusFBW/PopUpND1

@@ -22,6 +22,18 @@ pedestal_buttons = []
 # AirbusFBW/TOConfigPres
 # sim/annunciator/clear_master_accept
 # AirbusFBW/ECAMRecall
+# AirbusFBW/SDENG[1]
+# AirbusFBW/SDBLEED[1]
+# AirbusFBW/SDPRESS[1]
+# AirbusFBW/SDELEC[1]
+# AirbusFBW/SDHYD[1]
+# AirbusFBW/SDFUEL[1]
+# AirbusFBW/SDAPU[1]
+# AirbusFBW/SDCOND[1]
+# AirbusFBW/SDDOOR[1]
+# AirbusFBW/SDWHEEL[1]
+# AirbusFBW/SDFCTL[1]
+# AirbusFBW/SDSTATUS[1]
 
 
 # COM 1
@@ -42,4 +54,8 @@ pedestal_buttons = []
 # AirbusFBW/RMP2FreqUpSml
 # AirbusFBW/RMPSwapCo
 
-# AirbusFBW/ParkBrake
+# AirbusFBW/ParkBrake[1]
+
+# Trim
+# sim/flight_controls/pitch_trim_up
+# sim/flight_controls/pitch_trim_down

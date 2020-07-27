@@ -41,8 +41,8 @@ def main():
     load_aircraft_configuration()
 
     # Check if X-Plane is running and aircraft configuration is compatible with base script
-    if xplane_is_running() and aircraft_is_compatible():
-        logger.info(f"Loading of {globals_list.args.aircraft} configuration successful.")
+    # if xplane_is_running() and aircraft_is_compatible():
+    #     logger.info(f"Loading of {globals_list.args.aircraft} configuration successful.")
 
     # Let's start the show.
     asyncio.run(setup_loop())

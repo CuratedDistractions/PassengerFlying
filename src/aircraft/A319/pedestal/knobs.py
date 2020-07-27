@@ -26,3 +26,6 @@ pedestal_knobs.extend(isi_baro_setting_knob)
 
 # Transponder
 # AirbusFBW/XPDRPower
+
+# Weather
+# ckpt/fped/radar/gain/ani[1]

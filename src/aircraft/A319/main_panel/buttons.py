@@ -60,24 +60,98 @@ abrk_buttons = [
 main_panel_buttons.extend(abrk_buttons)
 
 
-# AirbusFBW/NDShowCSTRCapt[1]
-# AirbusFBW/NDShowWPTCapt[1]
-# AirbusFBW/NDShowVORDCapt[1]
-# AirbusFBW/NDShowNDBCapt[1]
-# AirbusFBW/NDShowARPTCapt[1]
+nd_show_buttons = [
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/cpt_cstr",
+        "xplane_dref_address": "AirbusFBW/NDShowCSTRCapt",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/cpt_wpt",
+        "xplane_dref_address": "AirbusFBW/NDShowWPTCapt",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/cpt_vor_d",
+        "xplane_dref_address": "AirbusFBW/NDShowVORDCapt",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/cpt_ndb",
+        "xplane_dref_address": "AirbusFBW/NDShowNDBCapt",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/cpt_arpt",
+        "xplane_dref_address": "AirbusFBW/NDShowARPTCapt",
+    },
+]
+main_panel_buttons.extend(nd_show_buttons)
 
 
-# sim/autopilot/knots_mach_toggle
-# AirbusFBW/APPRbutton
-# AirbusFBW/ATHRbutton
-# AirbusFBW/EXPEDbutton
-# AirbusFBW/LOCbutton
-# AirbusFBW/PullAltitude
-# AirbusFBW/PullHDGSel
-# AirbusFBW/PullSPDSel
-# AirbusFBW/PullVSSel
-# AirbusFBW/PushAltitude
-# AirbusFBW/PushHDGSel
-# AirbusFBW/PushSPDSel
-# AirbusFBW/PushVSSel
-# AirbusFBW/HDGTRKmode
+autopilot_buttons = [
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/spd_mach",
+        "xplane_command_address": "sim/autopilot/knots_mach_toggle",
+    },
+    {"control_type": PushButton, "touchosc_address": "/button/appr", "xplane_command_address": "AirbusFBW/APPRbutton",},
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/a_thr",
+        "xplane_command_address": "AirbusFBW/ATHRbutton",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/exped",
+        "xplane_command_address": "AirbusFBW/EXPEDbutton",
+    },
+    {"control_type": PushButton, "touchosc_address": "/button/loc", "xplane_command_address": "AirbusFBW/LOCbutton",},
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/alt_pull",
+        "xplane_command_address": "AirbusFBW/PullAltitude",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/hdg_trk_pull",
+        "xplane_command_address": "AirbusFBW/PullHDGSel",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/spd_mach_pull",
+        "xplane_command_address": "AirbusFBW/PullSPDSel",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/v_s_fpa_pull",
+        "xplane_command_address": "AirbusFBW/PullVSSel",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/alt_push",
+        "xplane_command_address": "AirbusFBW/PushAltitude",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/hdg_trk_push",
+        "xplane_command_address": "AirbusFBW/PushHDGSel",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/spd_mach_push",
+        "xplane_command_address": "AirbusFBW/PushSPDSel",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/v_s_fpa_push",
+        "xplane_command_address": "AirbusFBW/PushVSSel",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/hdg_trk_v_s_fpa",
+        "xplane_dref_address": "AirbusFBW/HDGTRKmode",
+    },
+]
+main_panel_buttons.extend(autopilot_buttons)
