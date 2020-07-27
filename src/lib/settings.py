@@ -24,7 +24,7 @@ class Globals:
         return Globals.__instance__
 
     def __getattr__(self, name):
-        # logger.warning("Variable {} doesn't exist yet".format(name))
+        logger.warning("Variable {} doesn't exist yet".format(name))
         return None
 
 
