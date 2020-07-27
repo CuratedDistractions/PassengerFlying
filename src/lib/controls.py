@@ -1,7 +1,9 @@
 """Source of descriptions: https://hexler.net/docs/touchosc-controls-reference."""
 
 import logging
+
 from lib.settings import globals_list
+from lib.touchosc import send_to_touchosc
 
 # Create a logger object
 logger = logging.getLogger(__name__)
@@ -153,7 +155,7 @@ class TouchoscControlItem:
 
     @staticmethod
     def send_to_touchosc(address, value):
-        touchosc.send_to_touchosc(address, value)
+        send_to_touchosc(address, value)
 
     @staticmethod
     def send_to_xplane(address, value=None):
@@ -539,7 +541,7 @@ class MultiToggle(TouchoscControlItem):
                 xplane_dref_value = result
 
             # Send the whole dref back to X-Plane
-            logger.debug(f"Sending {xplane_dref_value} to {self.xplane_dref_address}")
+            # logger.debug(f"Sending {xplane_dref_value} to {self.xplane_dref_address}")
             self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
 
 

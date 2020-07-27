@@ -2,11 +2,11 @@ import logging
 from multiprocessing import Process, freeze_support
 
 from lib.functions import (
-    parse_arguments,
-    load_aircraft_configuration,
-    xplane_is_running,
     aircraft_is_compatible,
+    load_aircraft_configuration,
+    parse_arguments,
     setup_logging,
+    xplane_is_running,
 )
 from lib.settings import globals_list
 from lib.touchosc import TouchOSC
@@ -20,15 +20,12 @@ logger = logging.getLogger(__name__)
 
 def main():
     # Collect arguments from command line
-    args = parse_arguments(CURRENT_VERSION)
+    parse_arguments(CURRENT_VERSION)
 
     # Setup logging format
-    setup_logging(args.debug)
+    setup_logging()
 
-    # Save the arguments list to the global variables list
-    globals_list.args = args
-
-    # Initialize force refresh setting
+    # Initialize some variables
     globals_list.force_refresh = {}
 
     touchosc = TouchOSC()  # This class is responsible for the connection with TouchOSC
@@ -36,15 +33,14 @@ def main():
 
     xplane = XPlane()  # This class is responsible for the connection with X-Plane
     globals_list.xplane = xplane  # Save the connection in a global list
+    globals_list.current_version = CURRENT_VERSION
 
     # Import modules of aircraft configuration
-    aircraft = load_aircraft_configuration(args.aircraft)
-    # Save the aircraft in a global list
-    globals_list.aircraft = aircraft
+    load_aircraft_configuration()
 
     # Check if X-Plane is running and aircraft configuration is compatible with base script
-    if xplane_is_running(xplane) and aircraft_is_compatible(aircraft, CURRENT_VERSION):
-        logger.info(f"Loading of {args.aircraft} configuration successful.")
+    if xplane_is_running() and aircraft_is_compatible():
+        logger.info(f"Loading of {globals_list.args.aircraft} configuration successful.")
 
     # Let's start the show.
     run_loop(xplane, touchosc)

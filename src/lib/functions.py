@@ -1,17 +1,23 @@
 import argparse
 import importlib
-import coloredlogs
 import logging
 import socket
 import sys
+
+import coloredlogs
 from packaging import version
+
+from lib.settings import globals_list
+from lib.xplane import get_from_xplane
 
 # Create a logger object
 logger = logging.getLogger(__name__)
 
 
-def setup_logging(debug):
-    # Setup logging
+def setup_logging():
+    """Setup logging."""
+
+    debug = globals_list.args.debug
     verbose_level = "DEBUG" if debug else "WARNING"
     coloredlogs.install(
         fmt="%(asctime)s,%(msecs)d %(name)s(%(lineno)d) %(processName)s %(levelname)s %(funcName)s %(message)s",
@@ -20,7 +26,8 @@ def setup_logging(debug):
 
 
 def parse_arguments(current_version):
-    # Parse arguments
+    """Parse arguments."""
+
     parser = argparse.ArgumentParser(description=f"-== PassengerFlying v{current_version} ==-")
 
     parser.add_argument("--aircraft", required=True, help="Folder name of aircraft to load")
@@ -30,11 +37,13 @@ def parse_arguments(current_version):
     parser.add_argument("--touchosc_server_ip", help="IP address of TouchOSC server", default="0.0.0.0")
     parser.add_argument("--touchosc_server_port", help="Port of TouchOSC server", default=5005)
 
-    return parser.parse_args()
+    args = parser.parse_args()
+    globals_list.args = args
 
 
-def load_aircraft_configuration(aircraft_name: str):
-    # Check if we have a configuration for the loaded aircraft, if not we quit
+def load_aircraft_configuration():
+    """Check if we have a configuration for the loaded aircraft, if not we quit."""
+    aircraft_name = globals_list.args.aircraft
     try:
         aircraft_module = ".".join(["aircraft", aircraft_name, "aircraft"])
         aircraft = importlib.import_module(aircraft_module).Aircraft()
@@ -43,14 +52,14 @@ def load_aircraft_configuration(aircraft_name: str):
         logger.error(f"Could not load aircraft configuration for {aircraft_name} ({e}).")
         sys.exit()
 
-    return aircraft
+    globals_list.aircraft = aircraft
 
 
-def xplane_is_running(xplane) -> bool:
+def xplane_is_running() -> bool:
     """Check if X-Plane is running and an aircraft is loaded."""
 
     try:
-        xplane.get_from_xplane("sim/aircraft/view/acf_ICAO")
+        get_from_xplane("sim/aircraft/view/acf_ICAO")
     except socket.timeout as e:
         logger.error(f"Either X-Plane is't running or no aircraft was loaded ({e}).")
         sys.exit()
@@ -58,8 +67,11 @@ def xplane_is_running(xplane) -> bool:
     return True
 
 
-def aircraft_is_compatible(aircraft, current_version) -> bool:
+def aircraft_is_compatible() -> bool:
     """Check compatability of aircraft configuration version with base script version."""
+
+    aircraft = globals_list.aircraft
+    current_version = globals_list.current_version
 
     try:
         if version.parse(current_version) < version.parse(aircraft.minimum_supported_version()) or version.parse(
@@ -79,6 +91,8 @@ def aircraft_is_compatible(aircraft, current_version) -> bool:
 
 
 def decode_xplane_text(text):
+    """Convert ICAO value X-Plane returns into something readable."""
+
     CHARACTERS = [
         "0",
         "1",
