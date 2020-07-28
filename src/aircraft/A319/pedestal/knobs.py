@@ -25,7 +25,9 @@ isi_baro_setting_knob = [
 pedestal_knobs.extend(isi_baro_setting_knob)
 
 # Transponder
-# AirbusFBW/XPDRPower
+# AirbusFBW/XPDRPower[1]
 
 # Weather
 # ckpt/fped/radar/gain/ani[1]
+# ckpt/fped/radar/mode/anim[1]
+# ckpt/fped/radar/tilt/anim[1]

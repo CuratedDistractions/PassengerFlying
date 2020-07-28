@@ -2,7 +2,7 @@
 # MAIN PANEL KNOBS
 ##########################################################################################
 
-from lib.controls import Rotary, Encoder
+from lib.controls import Rotary, Encoder, StepsRotary
 
 main_panel_knobs = []
 
@@ -46,5 +46,16 @@ isi_baro_setting_knob = [
 ]
 main_panel_knobs.extend(isi_baro_setting_knob)
 
-# AirbusFBW/NDmodeCapt[1]
-# AirbusFBW/NDrangeCapt[1]
+ns_knobs = [
+    {
+        "control_type": StepsRotary,
+        "touchosc_address": "/rotary/cpt_rose",
+        "xplane_dref_address": "AirbusFBW/NDmodeCapt",
+    },
+    {
+        "control_type": StepsRotary,
+        "touchosc_address": "/rotary/cpt_scale",
+        "xplane_dref_address": "AirbusFBW/NDrangeCapt",
+    },
+]
+main_panel_knobs.extend(ns_knobs)
