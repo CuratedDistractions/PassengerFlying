@@ -214,144 +214,31 @@ class DynamicLabel(Label):
             self.touchosc_text = text
 
 
-# TODO: Keep it DRY (both Master buttons)
-class MasterWarningButtonLabel(Label):
-    """Will change color when a master warning is active."""
+class Encoder(TouchoscControlItem):
+    """This control emulates an endless rotary or encoder control on hardware devices. It sends the upper end of its value range when a touch is moved clockwise, the lower end of its value range when a touch is moved counter-clockwise. It does not respond to incoming messages."""
 
-    def callback_from_xplane(self, results) -> None:
-        if self.xplane_dref_address:
-            if self.xplane_dref_index is not None:
-                result = results[self.xplane_dref_address][self.xplane_dref_index]
-                state = self.is_on(result)
-                if state:
-                    self.touchosc_color = "red"
-                else:
-                    self.touchosc_color = "gray"
-
-    @staticmethod
-    def is_on(value: float) -> bool:
-        if value < 0.2:
-            return 0  # Light is off
-        else:
-            return 1  # Light is on
-
-
-class MasterCautionButtonLabel(Label):
-    """Will change color when a master caution is active."""
-
-    def callback_from_xplane(self, results):
-        if self.xplane_dref_address:
-            if self.xplane_dref_index is not None:
-                result = results[self.xplane_dref_address][self.xplane_dref_index]
-                state = self.is_on(result)
-                if state:
-                    self.touchosc_color = "orange"
-                else:
-                    self.touchosc_color = "gray"
-
-    @staticmethod
-    def is_on(value):
-        if value < 0.2:
-            return 0  # Light is off
-        else:
-            return 1  # Light is on
-
-
-class Led(TouchoscControlItem):
-    """This control is for display purposes only and does not react to touch or send messages.
-
-    Values of incoming messages are mapped to the control's value range and update the brightness of the LED display.
-    """
-
-
-class PushButton(TouchoscControlItem):
-    """This control sends the second value of its value range when pressed and the first value of its value range when released."""
-
-    def callback_from_touchosc(self, address, results):
-        if results > 0:  # We ignore the release of the button
-            if self.xplane_command_address:  # If no command address was defined, we'll use the dref address
-                self.send_to_xplane(self.xplane_command_address)
-            else:
-                if self.xplane_dref_index is not None:  # Does the dref contain an array
-                    # Get the whole dref. Since it's a tuple, we need to convert it to a list
-                    xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
-
-                    # Replace just the index we need (it's a toggle)
-                    xplane_dref_value[self.xplane_dref_index] = int(not xplane_dref_value[self.xplane_dref_index])
-                else:
-                    # Get the current dref value.
-                    xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
-
-                    # Toggle
-                    xplane_dref_value = int(not xplane_dref_value)
-
-                # Send the whole dref back to X-Plane
-                self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
-
-
-class ToggleButton(TouchoscControlItem):
-    """This control changes state between on/off when released. When the state changes to on, the second value in it's value range is sent, otherwise the first."""
-
-    def __init__(self, **kwargs):
+    def __init__(self, touchosc_adjust_value=1, **kwargs):
         super().__init__(**kwargs)
-        self._touchosc_state = None
+        self._touchosc_adjust_value = touchosc_adjust_value
 
     def callback_from_touchosc(self, address, results):
+        adjust_value = self._touchosc_adjust_value if results else self._touchosc_adjust_value * -1
+
         if self.xplane_dref_index is not None:  # Does the dref contain an array
             # Get the whole dref. Since it's a tuple, we need to convert it to a list
             xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
 
             # Replace just the index we need
-            xplane_dref_value[self.xplane_dref_index] = results
+            xplane_dref_value[self.xplane_dref_index] = xplane_dref_value[self.xplane_dref_index] + adjust_value
         else:
             # Get the current dref value.
             xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
 
             # Toggle
-            xplane_dref_value = results
+            xplane_dref_value = xplane_dref_value + adjust_value
 
         # Send the whole dref back to X-Plane
         self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
-
-    @property
-    def touchosc_state(self):
-        return self._touchosc_state
-
-    @touchosc_state.setter
-    def touchosc_state(self, value: int):
-        # Do nothing if nothing changed and no force refresh needed
-        force_refresh = globals_list.force_refresh[self.touchosc_address]
-        if self._touchosc_state == value and not force_refresh:
-            # logger.debug("Nothing changed")
-            return
-
-        # The text of the label in TouchOSC
-        self._touchosc_state = value
-        self.__set_state_in_touchosc()
-
-        globals_list.force_refresh[self.touchosc_address] = False
-
-    def __set_state_in_touchosc(self):
-        """The actual command to set the state in TouchOSC."""
-        self.send_to_touchosc(self.touchosc_address, self.touchosc_state)
-
-    def callback_from_xplane(self, results):
-        if self.xplane_dref_address:
-            if self.xplane_dref_index is not None:
-                state = int(results[self.xplane_dref_address][self.xplane_dref_index])
-            else:
-                result = results[self.xplane_dref_address]
-                if isinstance(result, tuple):
-                    result = result[0]
-                state = int(result)
-
-            self.touchosc_state = state
-
-
-class XYPad(TouchoscControlItem):
-    """This control maps the position of a touch along the x and y axes of its rectangle to its value range and sends out both values. Both x and y values use the same value range. The location of the minimum and maximum value positions of each axes can be inverted in the control's properties."""
-
-    pass
 
 
 class Fader(TouchoscControlItem):
@@ -410,112 +297,64 @@ class Fader(TouchoscControlItem):
         self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
 
 
-class Rotary(TouchoscControlItem):
-    """This control emulates an endless rotary or encoder control on hardware devices. It sends the upper end of its value range when a touch is moved clockwise, the lower end of its value range when a touch is moved counter-clockwise. It does not respond to incoming messages."""
+class Led(TouchoscControlItem):
+    """This control is for display purposes only and does not react to touch or send messages.
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self._touchosc_state = None
+    Values of incoming messages are mapped to the control's value range and update the brightness of the LED display.
+    """
 
-    def callback_from_touchosc(self, address, results):
-        if self.xplane_dref_index is not None:  # Does the dref contain an array
-            # Get the whole dref. Since it's a tuple, we need to convert it to a list
-            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
 
-            # Replace just the index we need
-            xplane_dref_value[self.xplane_dref_index] = results
-        else:
-            # Get the current dref value.
-            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
-
-            # Toggle
-            xplane_dref_value = results
-
-        # Send the whole dref back to X-Plane
-        self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
-
-    @property
-    def touchosc_state(self):
-        return self._touchosc_state
-
-    @touchosc_state.setter
-    def touchosc_state(self, value: int):
-        # Do nothing if nothing changed and no force refresh needed
-        force_refresh = globals_list.force_refresh[self.touchosc_address]
-        if self._touchosc_state == value and not force_refresh:
-            # logger.debug("Nothing changed")
-            return
-
-        # The text of the label in TouchOSC
-        self._touchosc_state = value
-        self.__set_state_in_touchosc()
-
-        globals_list.force_refresh[self.touchosc_address] = False
-
-    def __set_state_in_touchosc(self):
-        """The actual command to set the state in TouchOSC."""
-        self.send_to_touchosc(self.touchosc_address, self.touchosc_state)
+class MasterCautionButtonLabel(Label):
+    """Will change color when a master caution is active."""
 
     def callback_from_xplane(self, results):
         if self.xplane_dref_address:
             if self.xplane_dref_index is not None:
-                state = results[self.xplane_dref_address][self.xplane_dref_index]
-            else:
-                result = results[self.xplane_dref_address]
-                if isinstance(result, tuple):
-                    result = result[0]
-                state = result
+                result = results[self.xplane_dref_address][self.xplane_dref_index]
+                state = self.is_on(result)
+                if state:
+                    self.touchosc_color = "orange"
+                else:
+                    self.touchosc_color = "gray"
 
-            self.touchosc_state = state
-
-
-class Encoder(TouchoscControlItem):
-    """This control emulates an endless rotary or encoder control on hardware devices. It sends the upper end of its value range when a touch is moved clockwise, the lower end of its value range when a touch is moved counter-clockwise. It does not respond to incoming messages."""
-
-    def __init__(self, touchosc_adjust_value=1, **kwargs):
-        super().__init__(**kwargs)
-        self._touchosc_adjust_value = touchosc_adjust_value
-
-    def callback_from_touchosc(self, address, results):
-        adjust_value = self._touchosc_adjust_value if results else self._touchosc_adjust_value * -1
-
-        if self.xplane_dref_index is not None:  # Does the dref contain an array
-            # Get the whole dref. Since it's a tuple, we need to convert it to a list
-            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
-
-            # Replace just the index we need
-            xplane_dref_value[self.xplane_dref_index] = xplane_dref_value[self.xplane_dref_index] + adjust_value
+    @staticmethod
+    def is_on(value):
+        if value < 0.2:
+            return 0  # Light is off
         else:
-            # Get the current dref value.
-            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
-
-            # Toggle
-            xplane_dref_value = xplane_dref_value + adjust_value
-
-        # Send the whole dref back to X-Plane
-        self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
+            return 1  # Light is on
 
 
-class Battery(TouchoscControlItem):
-    """This control is for display purposes only and does not react to touch or send messages. It displays the current battery charge of the device. It does not respond to incoming messages."""
+# TODO: Keep it DRY (both Master buttons)
+class MasterWarningButtonLabel(Label):
+    """Will change color when a master warning is active."""
 
-    pass
+    def callback_from_xplane(self, results) -> None:
+        if self.xplane_dref_address:
+            if self.xplane_dref_index is not None:
+                result = results[self.xplane_dref_address][self.xplane_dref_index]
+                state = self.is_on(result)
+                if state:
+                    self.touchosc_color = "red"
+                else:
+                    self.touchosc_color = "gray"
+
+    @staticmethod
+    def is_on(value: float) -> bool:
+        if value < 0.2:
+            return 0  # Light is off
+        else:
+            return 1  # Light is on
 
 
-class Time(TouchoscControlItem):
-    """This control is for display purposes only and does not react to touch or send messages. It displays the current time. It does not respond to incoming messages."""
+class MultiFader(TouchoscControlItem):
+    """This control groups multiple fader controls into one control. A touch event can traverse multiple fader controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
 
     pass
 
 
 class MultiPush(TouchoscControlItem):
     """This control groups multiple push-button controls into one control. A touch event can traverse multiple push controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
-
-
-class MultiXY(TouchoscControlItem):
-    """This control behaves the same way as the XY Pad control but handles up to 5 touch-points at the same time. This control accepts multiple touch events. It does not respond to incoming messages."""
-
-    pass
 
 
 class MultiToggle(TouchoscControlItem):
@@ -605,7 +444,180 @@ class MultiToggle(TouchoscControlItem):
             self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
 
 
-class MultiFader(TouchoscControlItem):
-    """This control groups multiple fader controls into one control. A touch event can traverse multiple fader controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
+class MultiXY(TouchoscControlItem):
+    """This control behaves the same way as the XY Pad control but handles up to 5 touch-points at the same time. This control accepts multiple touch events. It does not respond to incoming messages."""
+
+    pass
+
+
+class PushButton(TouchoscControlItem):
+    """This control sends the second value of its value range when pressed and the first value of its value range when released."""
+
+    def callback_from_touchosc(self, address, results):
+        if results > 0:  # We ignore the release of the button
+            if self.xplane_command_address:  # If no command address was defined, we'll use the dref address
+                self.send_to_xplane(self.xplane_command_address)
+            else:
+                if self.xplane_dref_index is not None:  # Does the dref contain an array
+                    # Get the whole dref. Since it's a tuple, we need to convert it to a list
+                    xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
+
+                    # Replace just the index we need (it's a toggle)
+                    xplane_dref_value[self.xplane_dref_index] = int(not xplane_dref_value[self.xplane_dref_index])
+                else:
+                    # Get the current dref value.
+                    xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
+
+                    # Toggle
+                    xplane_dref_value = int(not xplane_dref_value)
+
+                # Send the whole dref back to X-Plane
+                self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
+
+
+class Rotary(TouchoscControlItem):
+    """This control emulates an endless rotary or encoder control on hardware devices. It sends the upper end of its value range when a touch is moved clockwise, the lower end of its value range when a touch is moved counter-clockwise. It does not respond to incoming messages."""
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._touchosc_state = None
+
+    def callback_from_touchosc(self, address, results):
+        if self.xplane_dref_index is not None:  # Does the dref contain an array
+            # Get the whole dref. Since it's a tuple, we need to convert it to a list
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
+
+            # Replace just the index we need
+            xplane_dref_value[self.xplane_dref_index] = results
+        else:
+            # Get the current dref value.
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
+
+            # Toggle
+            xplane_dref_value = results
+
+        # Send the whole dref back to X-Plane
+        self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
+
+    @property
+    def touchosc_state(self):
+        return self._touchosc_state
+
+    @touchosc_state.setter
+    def touchosc_state(self, value: int):
+        # Do nothing if nothing changed and no force refresh needed
+        force_refresh = globals_list.force_refresh[self.touchosc_address]
+        if self._touchosc_state == value and not force_refresh:
+            # logger.debug("Nothing changed")
+            return
+
+        # The text of the label in TouchOSC
+        self._touchosc_state = value
+        self.__set_state_in_touchosc()
+
+        globals_list.force_refresh[self.touchosc_address] = False
+
+    def __set_state_in_touchosc(self):
+        """The actual command to set the state in TouchOSC."""
+        self.send_to_touchosc(self.touchosc_address, self.touchosc_state)
+
+    def callback_from_xplane(self, results):
+        if self.xplane_dref_address:
+            if self.xplane_dref_index is not None:
+                state = results[self.xplane_dref_address][self.xplane_dref_index]
+            else:
+                result = results[self.xplane_dref_address]
+                if isinstance(result, tuple):
+                    result = result[0]
+                state = result
+
+            self.touchosc_state = state
+
+
+class StepsRotary(Rotary):
+    """Same as a rotary, but with fixed steps."""
+
+    def callback_from_touchosc(self, address, results):
+        # Translate raw results to fixed steps
+        result = round(results)
+
+        if self.xplane_dref_index is not None:  # Does the dref contain an array
+            # Get the whole dref. Since it's a tuple, we need to convert it to a list
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
+
+            # Replace just the index we need
+            xplane_dref_value[self.xplane_dref_index] = result
+        else:
+            # Get the current dref value.
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
+
+            # Toggle
+            xplane_dref_value = result
+
+        # Send the whole dref back to X-Plane
+        self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
+
+
+class ToggleButton(TouchoscControlItem):
+    """This control changes state between on/off when released. When the state changes to on, the second value in it's value range is sent, otherwise the first."""
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._touchosc_state = None
+
+    def callback_from_touchosc(self, address, results):
+        if self.xplane_dref_index is not None:  # Does the dref contain an array
+            # Get the whole dref. Since it's a tuple, we need to convert it to a list
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
+
+            # Replace just the index we need
+            xplane_dref_value[self.xplane_dref_index] = results
+        else:
+            # Get the current dref value.
+            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
+
+            # Toggle
+            xplane_dref_value = results
+
+        # Send the whole dref back to X-Plane
+        self.send_to_xplane(self.xplane_dref_address, xplane_dref_value)
+
+    @property
+    def touchosc_state(self):
+        return self._touchosc_state
+
+    @touchosc_state.setter
+    def touchosc_state(self, value: int):
+        # Do nothing if nothing changed and no force refresh needed
+        force_refresh = globals_list.force_refresh[self.touchosc_address]
+        if self._touchosc_state == value and not force_refresh:
+            # logger.debug("Nothing changed")
+            return
+
+        # The text of the label in TouchOSC
+        self._touchosc_state = value
+        self.__set_state_in_touchosc()
+
+        globals_list.force_refresh[self.touchosc_address] = False
+
+    def __set_state_in_touchosc(self):
+        """The actual command to set the state in TouchOSC."""
+        self.send_to_touchosc(self.touchosc_address, self.touchosc_state)
+
+    def callback_from_xplane(self, results):
+        if self.xplane_dref_address:
+            if self.xplane_dref_index is not None:
+                state = int(results[self.xplane_dref_address][self.xplane_dref_index])
+            else:
+                result = results[self.xplane_dref_address]
+                if isinstance(result, tuple):
+                    result = result[0]
+                state = int(result)
+
+            self.touchosc_state = state
+
+
+class XYPad(TouchoscControlItem):
+    """This control maps the position of a touch along the x and y axes of its rectangle to its value range and sends out both values. Both x and y values use the same value range. The location of the minimum and maximum value positions of each axes can be inverted in the control's properties."""
 
     pass
