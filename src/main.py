@@ -52,6 +52,7 @@ async def loop():
     finished = False
     while not finished:
         # Enable time delay if X-Plane times out because of too many requests per second
+        # time_delay = 0  # No time delay
         time_delay = 0.1  # No more than 10 requests per second
         # time_delay = 1  # No more than once per second, used for debug purposes
 
