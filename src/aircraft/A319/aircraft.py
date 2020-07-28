@@ -5,6 +5,7 @@ from aircraft.A319.main_panel.buttons import main_panel_buttons
 from aircraft.A319.main_panel.knobs import main_panel_knobs
 from aircraft.A319.main_panel.labels import main_panel_labels
 from aircraft.A319.main_panel.switches import main_panel_switches
+from aircraft.A319.main_panel.leds import main_panel_leds
 from aircraft.A319.other.buttons import other_buttons
 from aircraft.A319.other.switches import other_switches
 from aircraft.A319.overhead_panel.buttons import overhead_panel_buttons
@@ -47,6 +48,9 @@ class Aircraft(BaseAircraft):
         self.process_controls(overhead_panel_buttons)
         self.process_controls(main_panel_buttons)
         self.process_controls(pedestal_buttons)
+
+        # Add all LEDs
+        self.process_controls(main_panel_leds)
 
         # Add all guards
         self.process_controls(overhead_panel_guards)
