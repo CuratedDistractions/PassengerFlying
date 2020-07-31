@@ -4,16 +4,18 @@
 
 from lib.controls import Rotary
 
-overhead_panel_knobs = []
-
 # AirbusFBW/OHPBrightnessLevel
-du_brightness = [
+overhead_panel_knobs = [
     {
         "control_type": Rotary,
         "touchosc_address": "/rotary/int_lt_ovhd_integ_lt",
         "xplane_dref_address": "AirbusFBW/OHPBrightnessLevel",
     },
 ]
-overhead_panel_knobs.extend(du_brightness)
 
 # AirbusFBW/PackFlowSel[1]
+    {
+        "control_type": Rotary,
+        "touchosc_address": "/UNDEFINED",
+        "xplane_dref_address": "AirbusFBW/PackFlowSel",
+    },

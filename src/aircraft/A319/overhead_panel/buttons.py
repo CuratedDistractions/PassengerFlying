@@ -4,9 +4,7 @@
 
 from lib.controls import PushButton
 
-overhead_panel_buttons = []
-
-calls_buttons = [
+overhead_panel_buttons = [
     {
         "control_type": PushButton,
         "touchosc_address": "/button/calls_mech",
@@ -22,46 +20,36 @@ calls_buttons = [
         "touchosc_address": "/button/calls_aft",
         "xplane_command_address": "AirbusFBW/purser/aft",
     },
-]
-overhead_panel_buttons.extend(calls_buttons)
-
-# AirbusFBW/FuelOHPArray[32] // All values checked
-fuel_pump_buttons = [
+    # AirbusFBW/FuelOHPArray[32] // All values checked
     {
         "control_type": PushButton,
         "touchosc_address": "/button/fuel_ltk_pumps_1",
-        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
-        "xplane_dref_index": 0,
+        "xplane_command_address": "toliss_airbus/fuelcommands/PumpLWing1Toggle",
     },
     {
         "control_type": PushButton,
         "touchosc_address": "/button/fuel_ltk_pumps_2",
-        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
-        "xplane_dref_index": 1,
+        "xplane_command_address": "toliss_airbus/fuelcommands/PumpLWing2Toggle",
     },
     {
         "control_type": PushButton,
         "touchosc_address": "/button/fuel_ctr_tk_1",
-        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
-        "xplane_dref_index": 2,
+        "xplane_command_address": "toliss_airbus/fuelcommands/PumpLCenterToggle",
     },
     {
         "control_type": PushButton,
         "touchosc_address": "/button/fuel_ctr_tk_2",
-        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
-        "xplane_dref_index": 3,
+        "xplane_command_address": "toliss_airbus/fuelcommands/PumpRCenterToggle",
     },
     {
         "control_type": PushButton,
         "touchosc_address": "/button/fuel_rtk_pumps_1",
-        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
-        "xplane_dref_index": 4,
+        "xplane_command_address": "toliss_airbus/fuelcommands/PumpRWing1Toggle",
     },
     {
         "control_type": PushButton,
         "touchosc_address": "/button/fuel_rtk_pumps_2",
-        "xplane_dref_address": "AirbusFBW/FuelOHPArray",
-        "xplane_dref_index": 5,
+        "xplane_command_address": "toliss_airbus/fuelcommands/PumpRWing2Toggle",
     },
     {
         "control_type": PushButton,
@@ -75,30 +63,23 @@ fuel_pump_buttons = [
         "xplane_dref_address": "AirbusFBW/FuelOHPArray",
         "xplane_dref_index": 7,
     },
-]
-overhead_panel_buttons.extend(fuel_pump_buttons)
-
-apu_buttons = [
+    # APU
     {
         "control_type": PushButton,
         "touchosc_address": "/button/apu_master_sw",
-        "xplane_dref_address": "AirbusFBW/APUMaster",
+        "xplane_command_address": "toliss_airbus/apucommands/MasterToggle",
     },
     {
         "control_type": PushButton,
         "touchosc_address": "/button/apu_start",
-        "xplane_dref_address": "AirbusFBW/APUStarter",
+        "xplane_command_address": "toliss_airbus/apucommands/StarterToggle",
     },
     {
         "control_type": PushButton,
         "touchosc_address": "/button/air_cond_apu_bleed",
-        "xplane_dref_address": "AirbusFBW/APUBleedSwitch",
+        "xplane_command_address": "toliss_airbus/apucommands/BleedToggle",
     },
-]
-overhead_panel_buttons.extend(apu_buttons)
-
-# AirbusFBW/ElecOHPArray[32] // All values checked
-ElecOHPArray = [
+    # AirbusFBW/ElecOHPArray[32] // All values checked
     {
         "control_type": PushButton,
         "touchosc_address": "/button/elec_gen_1",
@@ -120,8 +101,7 @@ ElecOHPArray = [
     {
         "control_type": PushButton,
         "touchosc_address": "/button/elec_ext_pwr",
-        "xplane_dref_address": "AirbusFBW/ElecOHPArray",
-        "xplane_dref_index": 3,
+        "xplane_command_address": "toliss_airbus/eleccommands/ExtPowToggle",
     },
     {
         "control_type": PushButton,
@@ -132,14 +112,12 @@ ElecOHPArray = [
     {
         "control_type": PushButton,
         "touchosc_address": "/button/elec_bat_1",
-        "xplane_dref_address": "AirbusFBW/ElecOHPArray",
-        "xplane_dref_index": 5,
+        "xplane_command_address": "toliss_airbus/eleccommands/Bat1Toggle",
     },
     {
         "control_type": PushButton,
         "touchosc_address": "/button/elec_bat_2",
-        "xplane_dref_address": "AirbusFBW/ElecOHPArray",
-        "xplane_dref_index": 6,
+        "xplane_command_address": "toliss_airbus/eleccommands/Bat2Toggle",
     },
     {
         "control_type": PushButton,
@@ -165,29 +143,18 @@ ElecOHPArray = [
         "xplane_dref_address": "AirbusFBW/ElecOHPArray",
         "xplane_dref_index": 13,
     },
-]
-overhead_panel_buttons.extend(ElecOHPArray)
-
-apu_starter = [
     {
         "control_type": PushButton,
         "touchosc_address": "/button/apu_gen",
         "xplane_command_address": "AirbusFBW/APUStarter",
     },
-]
-overhead_panel_buttons.extend(apu_starter)
-
-calls_emer_button = [
+    # Calls
     {
         "control_type": PushButton,
         "touchosc_address": "/button/calls_emer",
         "xplane_dref_address": "AirbusFBW/EmerCallOHPButton",
     },
-]
-overhead_panel_buttons.extend(calls_emer_button)
-
-# AirbusFBW/FireExOHPArray[16] // All values checked
-fire_ex_ohp_array = [
+    # AirbusFBW/FireExOHPArray[16] // All values checked
     {
         "control_type": PushButton,
         "touchosc_address": "/button/fire_apu_fire",
@@ -224,11 +191,7 @@ fire_ex_ohp_array = [
         "xplane_dref_address": "AirbusFBW/FireExOHPArray",
         "xplane_dref_index": 5,
     },
-]
-overhead_panel_buttons.extend(fire_ex_ohp_array)
-
-# AirbusFBW/HydOHPArray[24] // All values checked
-hyd_ohp_array = [
+    # AirbusFBW/HydOHPArray[24] // All values checked
     {
         "control_type": PushButton,
         "touchosc_address": "/button/hyd_eng_1_pump",
@@ -265,10 +228,7 @@ hyd_ohp_array = [
         "xplane_dref_address": "AirbusFBW/HydOHPArray",
         "xplane_dref_index": 5,
     },
-]
-overhead_panel_buttons.extend(hyd_ohp_array)
-
-adr_buttons = [
+    # ADR
     {
         "control_type": PushButton,
         "touchosc_address": "/button/adr1",
@@ -287,11 +247,7 @@ adr_buttons = [
         "xplane_dref_address": "AirbusFBW/ADRSwitchArray",
         "xplane_dref_index": 2,
     },
-]
-overhead_panel_buttons.extend(adr_buttons)
-
-# AirbusFBW/ENGFireSwitchArray[4] // All values checked
-eng_fire_switch_array = [
+    # AirbusFBW/ENGFireSwitchArray[4] // All values checked
     {
         "control_type": PushButton,
         "touchosc_address": "/button/fire_eng_1_fire",
@@ -304,11 +260,7 @@ eng_fire_switch_array = [
         "xplane_dref_address": "AirbusFBW/ENGFireSwitchArray",
         "xplane_dref_index": 1,
     },
-]
-overhead_panel_buttons.extend(eng_fire_switch_array)
-
-# AirbusFBW/FCCSwitchArray[16] // All values checked
-fcc_switch_array = [
+    # AirbusFBW/FCCSwitchArray[16] // All values checked
     {
         "control_type": PushButton,
         "touchosc_address": "/button/flt_ctl_elac_1",
@@ -351,11 +303,7 @@ fcc_switch_array = [
         "xplane_dref_address": "AirbusFBW/FCCSwitchArray",
         "xplane_dref_index": 6,
     },
-]
-overhead_panel_buttons.extend(fcc_switch_array)
-
-# AirbusFBW/GPWSSwitchArray[8] // All values checked
-gpws_switch_array = [
+    # AirbusFBW/GPWSSwitchArray[8] // All values checked
     {
         "control_type": PushButton,
         "touchosc_address": "/button/gpws_sys",
@@ -386,19 +334,66 @@ gpws_switch_array = [
         "xplane_dref_address": "AirbusFBW/GPWSSwitchArray",
         "xplane_dref_index": 4,
     },
-]
-overhead_panel_buttons.extend(gpws_switch_array)
-
-
-probe_window_heat_button = [
+    # Probe window heat
     {
         "control_type": PushButton,
         "touchosc_address": "/button/probe_window_heat",
         "xplane_dref_address": "AirbusFBW/ProbeHeatSwitch",
     },
+    # Fire test
+    {"control_type": PushButton, "touchosc_address": "/NOT_DEFINED", "xplane_dref_address": "AirbusFBW/FireTestAPU",},
+    {"control_type": PushButton, "touchosc_address": "/NOT_DEFINED", "xplane_dref_address": "AirbusFBW/FireTestENG1",},
+    {"control_type": PushButton, "touchosc_address": "/NOT_DEFINED", "xplane_dref_address": "AirbusFBW/FireTestENG2",},
+    # Packs
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/air_cond_pack_1",
+        "xplane_command_address": "toliss_airbus/aircondcommands/Pack1Toggle",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/air_cond_pack_2",
+        "xplane_command_address": "toliss_airbus/aircondcommands/Pack2Toggle",
+    },
+    # Anti Ice
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/anti_ice_wing",
+        "xplane_command_address": "toliss_airbus/antiicecommands/WingToggle",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/anti_ice_eng_1",
+        "xplane_command_address": "toliss_airbus/antiicecommands/ENG1Toggle",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/anti_ice_eng_2",
+        "xplane_command_address": "toliss_airbus/antiicecommands/ENG2Toggle",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/NOT_DEFINED",
+        "xplane_command_address": "toliss_airbus/gpwscommands/Flap3Toggle",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/NOT_DEFINED",
+        "xplane_command_address": "toliss_airbus/gpwscommands/FlapModeToggle",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/NOT_DEFINED",
+        "xplane_command_address": "toliss_airbus/gpwscommands/GSModeToggle",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/NOT_DEFINED",
+        "xplane_command_address": "toliss_airbus/gpwscommands/SystemToggle",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/NOT_DEFINED",
+        "xplane_command_address": "toliss_airbus/gpwscommands/TerrainToggle",
+    },
 ]
-overhead_panel_buttons.extend(probe_window_heat_button)
-
-# AirbusFBW/FireTestAPU
-# AirbusFBW/FireTestENG1
-# AirbusFBW/FireTestENG2

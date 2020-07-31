@@ -28,8 +28,7 @@ class TouchoscControlItem:
         self._touchosc_visible = None
 
         self.touchosc_address = touchosc_address
-        if touchosc_address:
-            globals_list.force_refresh[self.touchosc_address] = False
+        globals_list.force_refresh[self.touchosc_address] = False
         if touchosc_initial_color:
             self.touchosc_color = touchosc_initial_color
         self.touchosc_visible = touchosc_visible
@@ -302,6 +301,44 @@ class Led(TouchoscControlItem):
 
     Values of incoming messages are mapped to the control's value range and update the brightness of the LED display.
     """
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._touchosc_state = None
+
+    @property
+    def touchosc_state(self):
+        return self._touchosc_state
+
+    @touchosc_state.setter
+    def touchosc_state(self, value: int):
+        # Do nothing if nothing changed and no force refresh needed
+        force_refresh = globals_list.force_refresh[self.touchosc_address]
+        if self._touchosc_state == value and not force_refresh:
+            # logger.debug("Nothing changed")
+            return
+
+        # Set the state of the LED in TouchOSC
+        self._touchosc_state = value
+        self.__set_state_in_touchosc()
+
+        globals_list.force_refresh[self.touchosc_address] = False
+
+    def __set_state_in_touchosc(self):
+        """The actual command to set the state in TouchOSC."""
+        self.send_to_touchosc(self.touchosc_address, self.touchosc_state)
+
+    def callback_from_xplane(self, results):
+        if self.xplane_dref_address:
+            if self.xplane_dref_index is not None:
+                state = int(results[self.xplane_dref_address][self.xplane_dref_index])
+            else:
+                result = results[self.xplane_dref_address]
+                if isinstance(result, tuple):
+                    result = result[0]
+                state = int(result)
+
+            self.touchosc_state = state
 
 
 class MasterCautionButtonLabel(Label):

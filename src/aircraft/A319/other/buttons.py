@@ -91,3 +91,15 @@ other_buttons = []
 # AirbusFBW/
 # AirbusFBW/
 # AirbusFBW/
+
+# toliss_airbus/3d_cockpit_commands/engine_observer
+# toliss_airbus/3d_cockpit_commands/view_3D_capt_fo_toggle
+# toliss_airbus/3d_cockpit_commands/view_3D_overhead_panel
+# toliss_airbus/3d_cockpit_commands/view_3D_pedestal_fwd
+# toliss_airbus/3d_cockpit_commands/view_3D_pedestal_rear
+# toliss_airbus/3d_cockpit_commands/view_3D_straight
+# toliss_airbus/3d_cockpit_commands/wing_observer
+
+# toliss_airbus/activate_appr_phase
+
+# toliss_airbus/iscs_open

@@ -4,10 +4,8 @@
 
 from lib.controls import PushButton
 
-overhead_panel_guards = []
-
 # AirbusFBW/OHPGuardsAllATA[64] //
-ohp_guards_all_ata = [
+overhead_panel_guards = [
     {
         "control_type": PushButton,
         "touchosc_address": "/button/emer_elec_pwr_man_on_guard",
@@ -112,4 +110,3 @@ ohp_guards_all_ata = [
         "xplane_dref_index": 19,
     },
 ]
-overhead_panel_guards.extend(ohp_guards_all_ata)

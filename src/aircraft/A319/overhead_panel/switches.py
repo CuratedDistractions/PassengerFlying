@@ -4,10 +4,8 @@
 
 from lib.controls import MultiToggle
 
-overhead_panel_switches = []
-
 # AirbusFBW/ADIRUSwitchArray[6]
-adiru_switch_array = [
+overhead_panel_switches = [
     {
         "control_type": MultiToggle,
         "touchosc_address": "/multitoggle/adirs_ir1",
@@ -29,23 +27,19 @@ adiru_switch_array = [
         "xplane_dref_address": "AirbusFBW/ADIRUSwitchArray",
         "xplane_dref_index": 2,
     },
-]
-overhead_panel_switches.extend(adiru_switch_array)
-
-# AirbusFBW/OHPLightSwitches[16]
-OHPLightSwitches = [
+    # AirbusFBW/OHPLightSwitches[16]
     {
         "control_type": MultiToggle,
         "touchosc_address": "/multitoggle/ext_lt_beacon",
         "touchosc_horizontal": False,
-        "xplane_dref_address": "AirbusFBW/OHPLightSwitches",
+        "xplane_dref_address": "AirbusFBW/OHPLightSwitches",  # toliss_airbus/lightcommands/BeaconToggle
         "xplane_dref_index": 0,
     },
     {
         "control_type": MultiToggle,
         "touchosc_address": "/multitoggle/ext_lt_wing",
         "touchosc_horizontal": False,
-        "xplane_dref_address": "AirbusFBW/OHPLightSwitches",
+        "xplane_dref_address": "AirbusFBW/OHPLightSwitches",  # toliss_airbus/lightcommands/WingLightToggle
         "xplane_dref_index": 1,
     },
     {
@@ -80,7 +74,7 @@ OHPLightSwitches = [
         "control_type": MultiToggle,
         "touchosc_address": "/multitoggle/ext_lt_rwy_turn_off",
         "touchosc_horizontal": False,
-        "xplane_dref_address": "AirbusFBW/OHPLightSwitches",
+        "xplane_dref_address": "AirbusFBW/OHPLightSwitches",  # toliss_airbus/lightcommands/TurnoffLightToggle
         "xplane_dref_index": 6,
     },
     {
@@ -101,7 +95,7 @@ OHPLightSwitches = [
         "control_type": MultiToggle,
         "touchosc_address": "/multitoggle/int_lt_stby_compass",
         "touchosc_horizontal": False,
-        "xplane_dref_address": "AirbusFBW/OHPLightSwitches",
+        "xplane_dref_address": "AirbusFBW/OHPLightSwitches",  # toliss_airbus/lightcommands/CompassLightToggle
         "xplane_dref_index": 9,
     },
     {
@@ -122,42 +116,27 @@ OHPLightSwitches = [
         "control_type": MultiToggle,
         "touchosc_address": "/multitoggle/no_smoking",
         "touchosc_horizontal": False,
-        "xplane_dref_address": "AirbusFBW/OHPLightSwitches",
+        "xplane_dref_address": "AirbusFBW/OHPLightSwitches",  # toliss_airbus/lightcommands/FSBSignToggle
         "xplane_dref_index": 12,
     },
-]
-overhead_panel_switches.extend(OHPLightSwitches)
-
-int_lt_ann_lt = [
+    # Test lights
     {
         "control_type": MultiToggle,
         "touchosc_address": "/multitoggle/int_lt_ann_lt",
         "touchosc_horizontal": False,
         "xplane_dref_address": "AirbusFBW/AnnunMode",
-    }
+    },
+    # Wipers
+    {
+        "control_type": MultiToggle,
+        "touchosc_address": "/UNDEFINED",
+        "touchosc_horizontal": False,
+        "xplane_dref_address": "AirbusFBW/LeftWiperSwitch",
+    },
+    {
+        "control_type": MultiToggle,
+        "touchosc_address": "/UNDEFINED",
+        "touchosc_horizontal": False,
+        "xplane_dref_address": "AirbusFBW/RightWiperSwitch",
+    },
 ]
-overhead_panel_switches.extend(int_lt_ann_lt)
-
-# wiper_left = WiperKnob(
-#     name:"Wiper Left",
-#     xplane_dref="AirbusFBW/LeftWiperSwitch",
-#  {   index ,
-#     address:"/multitoggle/wiper_left",
-#     color:GREY,
-#     visible:True,
-#     name:"WIPER L",
-#     debug=True,},
-# )
-# self.add_control(wiper_left)
-
-# wiper_right = WiperKnob(
-#     name:"Wiper Right",
-#     xplane_dref="AirbusFBW/RightWiperSwitch",
-#  {   index ,
-#     address:"/multitoggle/wiper_right/1/1",
-#     color:GREY,
-#     visible:True,
-#     name:"WIPER R",
-#     debug=True,},
-# )
-# self.add_control(wiper_right)

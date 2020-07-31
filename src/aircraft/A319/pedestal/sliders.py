@@ -4,12 +4,9 @@
 
 from aircraft.A319.controls import AirbusThrottle
 
-pedestal_sliders = []
-
-# sim/flightmodel/controls/flaprqst[1] (0, 0.25, 0.5, 0.75, 1)
-
-# AirbusFBW/throttle_input[5]
-throttle_input = [
+pedestal_sliders = [
+    # sim/flightmodel/controls/flaprqst[1] (0, 0.25, 0.5, 0.75, 1)
+    # AirbusFBW/throttle_input[5]
     {
         "control_type": AirbusThrottle,
         "touchosc_address": "/fader/thrust_1",
@@ -35,4 +32,3 @@ throttle_input = [
         "xplane_dref_index": 1,
     },
 ]
-pedestal_sliders.extend(throttle_input)

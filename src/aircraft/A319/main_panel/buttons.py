@@ -5,9 +5,7 @@
 from lib.controls import PushButton
 from aircraft.A319.controls import AirbusQNHStandardButton
 
-main_panel_buttons = []
-
-master_buttons = [
+main_panel_buttons = [
     {
         "control_type": PushButton,
         "touchosc_address": "/button/cpt_master_warning",
@@ -18,29 +16,17 @@ master_buttons = [
         "touchosc_address": "/button/cpt_master_caution",
         "xplane_command_address": "sim/annunciator/clear_master_caution",
     },
-]
-main_panel_buttons.extend(master_buttons)
-
-# AirbusFBW/BaroStdCapt
-isi_baro_std_button = [
+    # AirbusFBW/BaroStdCapt
     {
         "control_type": AirbusQNHStandardButton,
         "touchosc_address": "/button/cpt_qnh",
         "xplane_dref_address": "AirbusFBW/BaroStdCapt",
     },
-]
-main_panel_buttons.extend(isi_baro_std_button)
-
-chrono_button = [
     {
         "control_type": PushButton,
         "touchosc_address": "/button/cpt_chrono",
         "xplane_command_address": "AirbusFBW/CaptChronoButton",
     },
-]
-main_panel_buttons.extend(chrono_button)
-
-abrk_buttons = [
     {
         "control_type": PushButton,
         "touchosc_address": "/button/auto_brk_lo",
@@ -56,11 +42,6 @@ abrk_buttons = [
         "touchosc_address": "/button/auto_brk_max",
         "xplane_command_address": "AirbusFBW/AbrkMax",
     },
-]
-main_panel_buttons.extend(abrk_buttons)
-
-
-nd_show_buttons = [
     {
         "control_type": PushButton,
         "touchosc_address": "/button/cpt_cstr",
@@ -86,11 +67,6 @@ nd_show_buttons = [
         "touchosc_address": "/button/cpt_arpt",
         "xplane_dref_address": "AirbusFBW/NDShowARPTCapt",
     },
-]
-main_panel_buttons.extend(nd_show_buttons)
-
-
-autopilot_buttons = [
     {
         "control_type": PushButton,
         "touchosc_address": "/button/spd_mach",
@@ -151,7 +127,63 @@ autopilot_buttons = [
     {
         "control_type": PushButton,
         "touchosc_address": "/button/hdg_trk_v_s_fpa",
-        "xplane_dref_address": "AirbusFBW/HDGTRKmode",
+        "xplane_command_address": "toliss_airbus/dispcommands/HeadingTrackModeSwitch",
     },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/ap_1",
+        "xplane_command_address": "toliss_airbus/ap1_push",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/ap_2",
+        "xplane_command_address": "toliss_airbus/ap2_push",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/cpt_ls",
+        "xplane_command_address": "toliss_airbus/dispcommands/CaptLSButtonPush",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/metric_alt",
+        "xplane_command_address": "toliss_airbus/dispcommands/MetricAltitudeSwitch",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/cpt_terr_on_nd",
+        "xplane_command_address": "toliss_airbus/dispcommands/TerrOnND1Toggle",
+    },
+    # Need to combine these two?
+    # toliss_airbus/fd1_push
+    # toliss_airbus/fd2_push
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/cpt_fd",
+        "xplane_command_address": "toliss_airbus/fd1_push",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/loc",
+        "xplane_command_address": "toliss_airbus/loc_push",
+    },
+    # sim/instruments/timer_reset
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/UNDEFINED",
+        "xplane_command_address": "sim/instruments/timer_reset",
+    },
+    # sim/instruments/timer_show_date
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/UNDEFINED",
+        "xplane_command_address": "sim/instruments/timer_show_date",
+    },
+    # sim/instruments/timer_start_stop
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/UNDEFINED",
+        "xplane_command_address": "sim/instruments/timer_start_stop",
+    },
+    # AirbusFBW/PFDNDToggleCapt[1] (will switch back to 0 after pressed)
 ]
-main_panel_buttons.extend(autopilot_buttons)
