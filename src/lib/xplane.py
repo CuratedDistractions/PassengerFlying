@@ -232,7 +232,7 @@ class XPlaneConnect:
         resultCount = struct.unpack_from(b"B", buffer, 5)[0]
         offset = 6
         result = []
-        for i in range(resultCount):
+        for _ in range(resultCount):
             rowLen = struct.unpack_from(b"B", buffer, offset)[0]
             offset += 1
             fmt = "<{0:d}f".format(rowLen)
