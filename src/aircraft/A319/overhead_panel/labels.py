@@ -847,7 +847,7 @@ overhead_panel_labels = [
     },
     {
         "control_type": AirbusLabel,
-        "xplane_dref_adress": "AirbusFBW/OHPLightsATA70",
+        "xplane_dref_address": "AirbusFBW/OHPLightsATA70",
         "xplane_dref_index": 1,
         "touchosc_address": "/label/eng_man_start_2",
     },
