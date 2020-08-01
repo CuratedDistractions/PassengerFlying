@@ -274,4 +274,12 @@ main_panel_labels = [
         "xplane_dref_address": "AirbusFBW/ISIBaroSetting",
         "touchosc_address": "/label/cpt_qnh",
     },
+    # sim/cockpit2/autopilot/altitude_dial_ft[1]
+    # sim/cockpit2/autopilot/airspeed_dial_kts[1]
+    # sim/cockpit2/autopilot/airspeed_dial_kts_mach[1] (Shows the same value as just kts)
+    # sim/cockpit2/autopilot/airspeed_is_mach[1]
+    # sim/cockpit2/autopilot/vvi_dial_fpm[1]
+    # sim/cockpit2/autopilot/heading_dial_deg_mag_pilot[1]
+    # sim/cockpit2/autopilot/flight_director_pitch_deg[1]
+    # sim/cockpit2/autopilot/flight_director_roll_deg[1]
 ]

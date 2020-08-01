@@ -109,4 +109,6 @@ pedestal_switches = [
         "touchosc_horizontal": False,
         "xplane_dref_address": "ckpt/ped/radar/pwr/anim",
     },
+    # Speedbrake armed?
+    # ckpt/speedbrakeUp/anim
 ]

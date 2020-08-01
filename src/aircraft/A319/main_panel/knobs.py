@@ -47,4 +47,5 @@ main_panel_knobs = [
         "touchosc_address": "/rotary/cpt_scale",
         "xplane_dref_address": "AirbusFBW/NDrangeCapt",
     },
+    # sim/cockpit2/autopilot/altitude_dial_ft[1] (same dref as label)
 ]

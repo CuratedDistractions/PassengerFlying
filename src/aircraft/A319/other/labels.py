@@ -55,3 +55,18 @@
 
 # AirbusFBW/NoPax
 # AirbusFBW/PaxDistrib  # (0-1)
+
+# sim/cockpit2/engine/indicators/N1_percent
+
+# sim/cockpit2/controls/flap_ratio
+
+# sim/cockpit2/gauges/indicators/altitude_ft_pilot[1]
+# sim/cockpit2/gauges/indicators/airspeed_kts_pilot[1]
+# sim/cockpit2/gauges/indicators/true_airspeed_kts_pilot[1] (TAS)
+# sim/cockpit2/gauges/indicators/calibrated_airspeed_kts_pilot[1]
+# sim/cockpit2/gauges/indicators/vvi_fpm_pilot[1]
+# sim/cockpit2/gauges/indicators/compass_heading_deg_mag[1]
+# sim/cockpit2/gauges/indicators/mach_pilot[1]
+# sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot[1]
+# sim/cockpit2/gauges/indicators/wind_heading_deg_mag[1]
+# sim/cockpit2/gauges/indicators/wind_speed_kts[1]
