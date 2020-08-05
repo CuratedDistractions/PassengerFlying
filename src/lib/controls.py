@@ -39,12 +39,8 @@ class TouchoscControlItem:
     def callback_from_xplane(self, results):
         """This method is optional"""
 
-        pass
-
     def callback_from_touchosc(self, address, results):
-        # Always provide the TouchOSC address. It's used for Multi* controls.
-
-        pass
+        """Always provide the TouchOSC address. It's used for Multi* controls."""
 
     @property
     def touchosc_color(self) -> str:
@@ -388,8 +384,6 @@ class MasterWarningButtonLabel(Label):
 class MultiFader(TouchoscControlItem):
     """This control groups multiple fader controls into one control. A touch event can traverse multiple fader controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
 
-    pass
-
 
 class MultiPush(TouchoscControlItem):
     """This control groups multiple push-button controls into one control. A touch event can traverse multiple push controls in one gesture and change their values. This control accepts multiple touch events at the same time."""
@@ -484,8 +478,6 @@ class MultiToggle(TouchoscControlItem):
 
 class MultiXY(TouchoscControlItem):
     """This control behaves the same way as the XY Pad control but handles up to 5 touch-points at the same time. This control accepts multiple touch events. It does not respond to incoming messages."""
-
-    pass
 
 
 class PushButton(TouchoscControlItem):
@@ -645,5 +637,3 @@ class ToggleButton(TouchoscControlItem):
 
 class XYPad(TouchoscControlItem):
     """This control maps the position of a touch along the x and y axes of its rectangle to its value range and sends out both values. Both x and y values use the same value range. The location of the minimum and maximum value positions of each axes can be inverted in the control's properties."""
-
-    pass

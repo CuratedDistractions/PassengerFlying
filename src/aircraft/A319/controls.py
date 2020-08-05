@@ -90,5 +90,3 @@ class AirbusQNHStandardButton(PushButton):
 class AirbusThrottle(Fader):
     def callback_from_touchosc(self, address, results):
         """Ignore TouchOSC values. It confuses X-Plane."""
-
-        pass

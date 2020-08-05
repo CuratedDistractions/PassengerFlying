@@ -36,7 +36,7 @@ def pull_xplane_data():
             Credits: https://stackoverflow.com/a/312464/776118
             """
             for i in range(0, len(lst), n):
-                yield lst[i : i + n]
+                yield lst[i: i + n]
 
         for batch in chunks(xplane_dref_address_list, batch_size):
             result.extend(xplane_client.get_drefs(batch))
