@@ -6,6 +6,7 @@ from aircraft.A319.main_panel.knobs import main_panel_knobs
 from aircraft.A319.main_panel.labels import main_panel_labels
 from aircraft.A319.main_panel.switches import main_panel_switches
 from aircraft.A319.main_panel.leds import main_panel_leds
+
 # from aircraft.A319.other.buttons import other_buttons
 from aircraft.A319.other.switches import other_switches
 from aircraft.A319.overhead_panel.buttons import overhead_panel_buttons
@@ -67,7 +68,10 @@ class Aircraft(BaseAircraft):
         self.process_controls(debug_buttons)
 
         # Use the IR1 light (which uses a button as background) to open ISCS screen
-        iscs = PushButton(touchosc_address="/ovhd/push95", xplane_command_address="toliss_airbus/iscs_open",)
+        iscs = PushButton(
+            touchosc_address="/ovhd/push95",
+            xplane_command_address="toliss_airbus/iscs_open",
+        )
         self.add_control(iscs)
 
     def process_controls(self, controls):
