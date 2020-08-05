@@ -28,14 +28,28 @@ def setup_logging():
 def parse_arguments(current_version):
     """Parse arguments."""
 
-    parser = argparse.ArgumentParser(description=f"-== PassengerFlying v{current_version} ==-")
+    parser = argparse.ArgumentParser(
+        description=f"-== PassengerFlying v{current_version} ==-"
+    )
 
-    parser.add_argument("--aircraft", required=True, help="Folder name of aircraft to load")
-    parser.add_argument("--debug", help="Increase output verbosity", action="store_true")
-    parser.add_argument("--touchosc_device_ip", required=True, help="IP address of TouchOSC device")
-    parser.add_argument("--touchosc_device_port", help="Port of TouchOSC device", default=5006)
-    parser.add_argument("--touchosc_server_ip", help="IP address of TouchOSC server", default="0.0.0.0")
-    parser.add_argument("--touchosc_server_port", help="Port of TouchOSC server", default=5005)
+    parser.add_argument(
+        "--aircraft", required=True, help="Folder name of aircraft to load"
+    )
+    parser.add_argument(
+        "--debug", help="Increase output verbosity", action="store_true"
+    )
+    parser.add_argument(
+        "--touchosc_device_ip", required=True, help="IP address of TouchOSC device"
+    )
+    parser.add_argument(
+        "--touchosc_device_port", help="Port of TouchOSC device", default=5006
+    )
+    parser.add_argument(
+        "--touchosc_server_ip", help="IP address of TouchOSC server", default="0.0.0.0"
+    )
+    parser.add_argument(
+        "--touchosc_server_port", help="Port of TouchOSC server", default=5005
+    )
 
     args = parser.parse_args()
     globals_list.args = args
@@ -49,7 +63,9 @@ def load_aircraft_configuration():
         aircraft = importlib.import_module(aircraft_module).Aircraft()
 
     except ModuleNotFoundError as e:
-        logger.error(f"Could not load aircraft configuration for {aircraft_name} ({e}).")
+        logger.error(
+            f"Could not load aircraft configuration for {aircraft_name} ({e})."
+        )
         sys.exit()
 
     globals_list.aircraft = aircraft
@@ -74,12 +90,16 @@ def aircraft_is_compatible() -> bool:
     current_version = globals_list.current_version
 
     try:
-        if version.parse(current_version) < version.parse(aircraft.minimum_supported_version()) or version.parse(
-            current_version
-        ) > version.parse(aircraft.maximum_supported_version()):
+        if version.parse(current_version) < version.parse(
+            aircraft.minimum_supported_version()
+        ) or version.parse(current_version) > version.parse(
+            aircraft.maximum_supported_version()
+        ):
             logger.error(
                 "This aircraft is only compatible with PassengerFlying versions between {} and {}. You are using version {}".format(
-                    aircraft.minimum_supported_version(), aircraft.maximum_supported_version(), current_version
+                    aircraft.minimum_supported_version(),
+                    aircraft.maximum_supported_version(),
+                    current_version,
                 )
             )
             sys.exit()

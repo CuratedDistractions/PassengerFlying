@@ -78,4 +78,6 @@ def send_to_touchosc(touchosc_address: str, value) -> None:
     try:
         client.send_message(address, value)
     except OSError as e:
-        logger.error(f"Error when sending to value '{value}' to address {address} in TouchOSC ({e}).")
+        logger.error(
+            f"Error when sending to value '{value}' to address {address} in TouchOSC ({e})."
+        )

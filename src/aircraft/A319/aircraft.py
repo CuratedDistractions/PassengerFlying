@@ -67,7 +67,10 @@ class Aircraft(BaseAircraft):
         self.process_controls(debug_buttons)
 
         # Use the IR1 light (which uses a button as background) to open ISCS screen
-        iscs = PushButton(touchosc_address="/ovhd/push95", xplane_command_address="toliss_airbus/iscs_open",)
+        iscs = PushButton(
+            touchosc_address="/ovhd/push95",
+            xplane_command_address="toliss_airbus/iscs_open",
+        )
         self.add_control(iscs)
 
     def process_controls(self, controls):

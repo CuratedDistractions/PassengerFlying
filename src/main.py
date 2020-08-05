@@ -65,7 +65,12 @@ async def loop():
 
 async def setup_loop():
     server = setup_touchosc_server()
-    transport, protocol = await server.create_serve_endpoint()  # Create datagram endpoint and start serving
+    (
+        transport,
+        protocol,
+    ) = (
+        await server.create_serve_endpoint()
+    )  # Create datagram endpoint and start serving
 
     await loop()  # Enter main loop of program
 

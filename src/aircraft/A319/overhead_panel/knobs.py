@@ -12,5 +12,9 @@ overhead_panel_knobs = [
         "xplane_dref_address": "AirbusFBW/OHPBrightnessLevel",
     },
     # AirbusFBW/PackFlowSel[1]
-    {"control_type": Rotary, "touchosc_address": "/UNDEFINED", "xplane_dref_address": "AirbusFBW/PackFlowSel",},
+    {
+        "control_type": Rotary,
+        "touchosc_address": "/UNDEFINED",
+        "xplane_dref_address": "AirbusFBW/PackFlowSel",
+    },
 ]

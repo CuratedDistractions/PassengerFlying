@@ -107,17 +107,41 @@ pedestal_labels = [
     },
     # Transponder
     # AirbusFBW/XPDR1
-    {"control_type": Label, "xplane_dref_address": "AirbusFBW/XPDR1", "touchosc_address": "/UNDEFINED",},
+    {
+        "control_type": Label,
+        "xplane_dref_address": "AirbusFBW/XPDR1",
+        "touchosc_address": "/UNDEFINED",
+    },
     # AirbusFBW/XPDR2
-    {"control_type": Label, "xplane_dref_address": "AirbusFBW/XPDR2", "touchosc_address": "/UNDEFINED",},
+    {
+        "control_type": Label,
+        "xplane_dref_address": "AirbusFBW/XPDR2",
+        "touchosc_address": "/UNDEFINED",
+    },
     # AirbusFBW/XPDR3
-    {"control_type": Label, "xplane_dref_address": "AirbusFBW/XPDR3", "touchosc_address": "/UNDEFINED",},
+    {
+        "control_type": Label,
+        "xplane_dref_address": "AirbusFBW/XPDR3",
+        "touchosc_address": "/UNDEFINED",
+    },
     # AirbusFBW/XPDR4
-    {"control_type": Label, "xplane_dref_address": "AirbusFBW/XPDR4", "touchosc_address": "/UNDEFINED",},
+    {
+        "control_type": Label,
+        "xplane_dref_address": "AirbusFBW/XPDR4",
+        "touchosc_address": "/UNDEFINED",
+    },
     # These numbers are in reversed order
     # COM 1
     # AirbusFBW/RMP1StbyFreq[1]
-    {"control_type": Label, "xplane_dref_address": "AirbusFBW/RMP1StbyFreq", "touchosc_address": "/UNDEFINED",},
+    {
+        "control_type": Label,
+        "xplane_dref_address": "AirbusFBW/RMP1StbyFreq",
+        "touchosc_address": "/UNDEFINED",
+    },
     # AirbusFBW/RMP1Freq[1]
-    {"control_type": Label, "xplane_dref_address": "AirbusFBW/RMP1Freq", "touchosc_address": "/UNDEFINED",},
+    {
+        "control_type": Label,
+        "xplane_dref_address": "AirbusFBW/RMP1Freq",
+        "touchosc_address": "/UNDEFINED",
+    },
 ]

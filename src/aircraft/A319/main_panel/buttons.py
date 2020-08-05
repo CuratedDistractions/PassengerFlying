@@ -72,7 +72,11 @@ main_panel_buttons = [
         "touchosc_address": "/button/spd_mach",
         "xplane_command_address": "sim/autopilot/knots_mach_toggle",
     },
-    {"control_type": PushButton, "touchosc_address": "/button/appr", "xplane_command_address": "AirbusFBW/APPRbutton",},
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/appr",
+        "xplane_command_address": "AirbusFBW/APPRbutton",
+    },
     {
         "control_type": PushButton,
         "touchosc_address": "/button/a_thr",
@@ -83,7 +87,11 @@ main_panel_buttons = [
         "touchosc_address": "/button/exped",
         "xplane_command_address": "AirbusFBW/EXPEDbutton",
     },
-    {"control_type": PushButton, "touchosc_address": "/button/loc", "xplane_command_address": "AirbusFBW/LOCbutton",},
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/button/loc",
+        "xplane_command_address": "AirbusFBW/LOCbutton",
+    },
     {
         "control_type": PushButton,
         "touchosc_address": "/button/alt_pull",

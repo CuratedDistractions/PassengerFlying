@@ -341,9 +341,21 @@ overhead_panel_buttons = [
         "xplane_dref_address": "AirbusFBW/ProbeHeatSwitch",
     },
     # Fire test
-    {"control_type": PushButton, "touchosc_address": "/NOT_DEFINED", "xplane_dref_address": "AirbusFBW/FireTestAPU",},
-    {"control_type": PushButton, "touchosc_address": "/NOT_DEFINED", "xplane_dref_address": "AirbusFBW/FireTestENG1",},
-    {"control_type": PushButton, "touchosc_address": "/NOT_DEFINED", "xplane_dref_address": "AirbusFBW/FireTestENG2",},
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/NOT_DEFINED",
+        "xplane_dref_address": "AirbusFBW/FireTestAPU",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/NOT_DEFINED",
+        "xplane_dref_address": "AirbusFBW/FireTestENG1",
+    },
+    {
+        "control_type": PushButton,
+        "touchosc_address": "/NOT_DEFINED",
+        "xplane_dref_address": "AirbusFBW/FireTestENG2",
+    },
     # Packs
     {
         "control_type": PushButton,

@@ -77,4 +77,3 @@ while True:
     data_radio = radio.read(64)
     if data_radio:
         print("Data_radio: ", data_radio)
-
