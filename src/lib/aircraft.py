@@ -10,7 +10,6 @@ class BaseAircraft:
         self.xplane_dref_address_list = []  # List of X-Plane drefs
         self.touchosc_address_dict = {}  # List of ToucOSC addresses
         self.controls = []  # List of all the controls
-        # self.latest_xplane_result = {}  # Keeps track of previous results from X-Plane
 
         # Collect all controls. Each control will have some values declared and then it's
         # added to the aircraft using the add_control method.
@@ -29,17 +28,15 @@ class BaseAircraft:
 
     def add_control(self, control) -> None:
         # Add control to X-Plane list if X-Plane drefs are defined
-        if control.xplane_dref_address:
-            # This is a simple duplicate check. For now we only accept a dref once
-            if control.xplane_dref_address not in self.xplane_dref_address_list:
-                self.xplane_dref_address_list.append(control.xplane_dref_address)
+        # This is a simple duplicate check. For now we only accept a dref once
+        if control.xplane_dref_address and control.xplane_dref_address not in self.xplane_dref_address_list:
+            self.xplane_dref_address_list.append(control.xplane_dref_address)
 
         # Add control to TouchOSC list if TouchOSC addresses are defined
         # This is a dict because we need to be able to find the control by
         # its touchosc_address
-        if control.touchosc_address:
-            if control.touchosc_address not in self.touchosc_address_dict:
-                self.touchosc_address_dict[control.touchosc_address] = control
+        if control.touchosc_address and control.touchosc_address not in self.touchosc_address_dict:
+            self.touchosc_address_dict[control.touchosc_address] = control
 
         self.controls.append(control)
 

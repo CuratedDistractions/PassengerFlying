@@ -273,9 +273,6 @@ overhead_panel_labels = [
         "xplane_dref_index": 17,
         "touchosc_address": "/label/elec_galley_upper",
     },
-    # {"control_type": AirbusLabel,"xplane_dref_address": "AirbusFBW/OHPLightsATA24", "xplane_dref_index": 18, "touchosc_address": "/ovhd/label"},
-    # {"control_type": AirbusLabel,"xplane_dref_address": "AirbusFBW/OHPLightsATA24", "xplane_dref_index": 19, "touchosc_address": "/ovhd/label"},
-    # {"control_type": AirbusLabel,"xplane_dref_address": "AirbusFBW/OHPLightsATA24", "xplane_dref_index": 20, "touchosc_address": "/ovhd/label"},
     {
         "control_type": AirbusLabel,
         "xplane_dref_address": "AirbusFBW/OHPLightsATA24",
@@ -349,8 +346,6 @@ overhead_panel_labels = [
         "xplane_dref_index": 9,
         "touchosc_address": "/label/fire_eng_2_agent_2_lower",
     },
-    # {"control_type": AirbusLabel,"xplane_dref_address": "AirbusFBW/OHPLightsATA26", "xplane_dref_index": 20, "touchosc_address": "/label/fire_"},
-    # {"control_type": AirbusLabel,"xplane_dref_address": "AirbusFBW/OHPLightsATA26", "xplane_dref_index": 21, "touchosc_address": "/ovhd/label"},
     {
         "control_type": AirbusLabel,
         "xplane_dref_address": "AirbusFBW/OHPLightsATA26",
@@ -789,10 +784,6 @@ overhead_panel_labels = [
         "xplane_dref_index": 17,
         "touchosc_address": "/label/gpws_ldg_flap_3",
     },
-    # {"control_type": AirbusLabel,"xplane_dref_address": "AirbusFBW/OHPLightsATA34", "xplane_dref_index": 20, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
-    # {"control_type": AirbusLabel,"xplane_dref_address": "AirbusFBW/OHPLightsATA34", "xplane_dref_index": 21, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
-    # {"control_type": AirbusLabel,"xplane_dref_address": "AirbusFBW/OHPLightsATA34", "xplane_dref_index": 22, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
-    # {"control_type": AirbusLabel,"xplane_dref_address": "AirbusFBW/OHPLightsATA34", "xplane_dref_index": 23, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE"},
     {
         "control_type": AirbusLabel,
         "xplane_dref_address": "AirbusFBW/OHPLightsATA34",

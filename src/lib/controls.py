@@ -37,10 +37,13 @@ class TouchoscControlItem:
         self.xplane_command_address = xplane_command_address
 
     def callback_from_xplane(self, results):
+        """This method is optional"""
+
         pass
 
     def callback_from_touchosc(self, address, results):
         # Always provide the TouchOSC address. It's used for Multi* controls.
+
         pass
 
     @property
@@ -345,14 +348,13 @@ class MasterCautionButtonLabel(Label):
     """Will change color when a master caution is active."""
 
     def callback_from_xplane(self, results):
-        if self.xplane_dref_address:
-            if self.xplane_dref_index is not None:
-                result = results[self.xplane_dref_address][self.xplane_dref_index]
-                state = self.is_on(result)
-                if state:
-                    self.touchosc_color = "orange"
-                else:
-                    self.touchosc_color = "gray"
+        if self.xplane_dref_address and self.xplane_dref_index is not None:
+            result = results[self.xplane_dref_address][self.xplane_dref_index]
+            state = self.is_on(result)
+            if state:
+                self.touchosc_color = "orange"
+            else:
+                self.touchosc_color = "gray"
 
     @staticmethod
     def is_on(value):
@@ -367,14 +369,13 @@ class MasterWarningButtonLabel(Label):
     """Will change color when a master warning is active."""
 
     def callback_from_xplane(self, results) -> None:
-        if self.xplane_dref_address:
-            if self.xplane_dref_index is not None:
-                result = results[self.xplane_dref_address][self.xplane_dref_index]
-                state = self.is_on(result)
-                if state:
-                    self.touchosc_color = "red"
-                else:
-                    self.touchosc_color = "gray"
+        if self.xplane_dref_address and self.xplane_dref_index is not None:
+            result = results[self.xplane_dref_address][self.xplane_dref_index]
+            state = self.is_on(result)
+            if state:
+                self.touchosc_color = "red"
+            else:
+                self.touchosc_color = "gray"
 
     @staticmethod
     def is_on(value: float) -> bool:
@@ -527,10 +528,6 @@ class Rotary(TouchoscControlItem):
             # Replace just the index we need
             xplane_dref_value[self.xplane_dref_index] = results
         else:
-            # Get the current dref value.
-            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
-
-            # Toggle
             xplane_dref_value = results
 
         # Send the whole dref back to X-Plane
@@ -585,10 +582,6 @@ class StepsRotary(Rotary):
             # Replace just the index we need
             xplane_dref_value[self.xplane_dref_index] = result
         else:
-            # Get the current dref value.
-            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
-
-            # Toggle
             xplane_dref_value = result
 
         # Send the whole dref back to X-Plane
@@ -610,10 +603,6 @@ class ToggleButton(TouchoscControlItem):
             # Replace just the index we need
             xplane_dref_value[self.xplane_dref_index] = results
         else:
-            # Get the current dref value.
-            xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
-
-            # Toggle
             xplane_dref_value = results
 
         # Send the whole dref back to X-Plane

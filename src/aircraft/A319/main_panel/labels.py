@@ -162,8 +162,6 @@ main_panel_labels = [
         "xplane_dref_index": 45,
         "touchosc_address": "/label/ap_2",
     },
-    # {"control_type": AirbusLabel, "xplane_dref_address": "AirbusFBW/OHPLightsATA31", "xplane_dref_index": 46, "touchosc_address": "/label/"},
-    # {"control_type": AirbusLabel, "xplane_dref_address": "AirbusFBW/OHPLightsATA31", "xplane_dref_index": 47, "touchosc_address": "/label/"},
     {
         "control_type": AirbusLabel,
         "xplane_dref_address": "AirbusFBW/OHPLightsATA31",

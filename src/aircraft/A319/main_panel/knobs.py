@@ -4,29 +4,31 @@
 
 from lib.controls import Rotary, Encoder, StepsRotary
 
+UNDEFINED = "/undefined"
+
 main_panel_knobs = [
     # AirbusFBW/DUBrightness (0, 1, 2, 3)
     {
         "control_type": Rotary,
-        "touchosc_address": "/multitoggle/",
+        "touchosc_address": UNDEFINED,
         "xplane_dref_address": "AirbusFBW/DUBrightness",
         "xplane_dref_index": 0,
     },
     {
         "control_type": Rotary,
-        "touchosc_address": "/multitoggle/",
+        "touchosc_address": UNDEFINED,
         "xplane_dref_address": "AirbusFBW/DUBrightness",
         "xplane_dref_index": 1,
     },
     {
         "control_type": Rotary,
-        "touchosc_address": "/multitoggle/",
+        "touchosc_address": UNDEFINED,
         "xplane_dref_address": "AirbusFBW/DUBrightness",
         "xplane_dref_index": 2,
     },
     {
         "control_type": Rotary,
-        "touchosc_address": "/multitoggle/",
+        "touchosc_address": UNDEFINED,
         "xplane_dref_address": "AirbusFBW/DUBrightness",
         "xplane_dref_index": 3,
     },

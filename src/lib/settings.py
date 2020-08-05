@@ -25,7 +25,6 @@ class Globals:
 
     def __getattr__(self, name):
         logger.warning("Variable {} doesn't exist yet".format(name))
-        return None
 
 
 globals_list = Globals.get_instance()
