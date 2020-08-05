@@ -15,10 +15,12 @@ class BaseAircraft:
         # added to the aircraft using the add_control method.
         self.define_controls()
 
-    def minimum_supported_version(self) -> str:
+    @staticmethod
+    def minimum_supported_version() -> str:
         return "0.0"
 
-    def maximum_supported_version(self) -> str:
+    @staticmethod
+    def maximum_supported_version() -> str:
         return "0.0"
 
     @staticmethod
