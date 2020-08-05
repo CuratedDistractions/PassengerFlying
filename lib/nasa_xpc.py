@@ -46,7 +46,9 @@ class XPlaneConnect:
 
         # Create and bind socket
         clientAddr = ("0.0.0.0", port)
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+        self.socket = socket.socket(
+            socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP
+        )
         self.socket.bind(clientAddr)
         timeout /= 1000.0
         self.socket.settimeout(timeout)
@@ -98,7 +100,9 @@ class XPlaneConnect:
         clientAddr = ("0.0.0.0", port)
         timeout = self.socket.gettimeout()
         self.socket.close()
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+        self.socket = socket.socket(
+            socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP
+        )
         self.socket.bind(clientAddr)
         self.socket.settimeout(timeout)
 
@@ -147,7 +151,9 @@ class XPlaneConnect:
         buffer = struct.pack(b"<4sx", b"DATA")
         for row in data:
             if len(row) != 9:
-                raise ValueError("Row does not contain exactly 9 values. <" + str(row) + ">")
+                raise ValueError(
+                    "Row does not contain exactly 9 values. <" + str(row) + ">"
+                )
             buffer += struct.pack(b"<I8f", *row)
         self.sendUDP(buffer)
 
@@ -295,7 +301,9 @@ class XPlaneConnect:
 
             # Preconditions
             if len(dref) == 0 or len(dref) > 255:
-                raise ValueError("dref must be a non-empty string less than 256 characters.")
+                raise ValueError(
+                    "dref must be a non-empty string less than 256 characters."
+                )
 
             if value is None:
                 raise ValueError("value must be a scalar or sequence of floats.")
@@ -305,7 +313,9 @@ class XPlaneConnect:
                 if len(value) > 255:
                     raise ValueError("value must have less than 256 items.")
                 fmt = "<B{0:d}sB{1:d}f".format(len(dref), len(value))
-                buffer += struct.pack(fmt.encode(), len(dref), dref.encode(), len(value), *value)
+                buffer += struct.pack(
+                    fmt.encode(), len(dref), dref.encode(), len(value), *value
+                )
             else:
                 fmt = "<B{0:d}sBf".format(len(dref))
                 buffer += struct.pack(fmt.encode(), len(dref), dref.encode(), 1, value)
@@ -369,7 +379,14 @@ class XPlaneConnect:
 
         msgLen = len(msg)
 
-        buffer = struct.pack(b"<4sxiiB" + (str(msgLen) + "s").encode(), b"TEXT", x, y, msgLen, msg.encode(),)
+        buffer = struct.pack(
+            b"<4sxiiB" + (str(msgLen) + "s").encode(),
+            b"TEXT",
+            x,
+            y,
+            msgLen,
+            msg.encode(),
+        )
         self.sendUDP(buffer)
 
     def sendVIEW(self, view):
@@ -409,7 +426,13 @@ class XPlaneConnect:
         if op == 3:
             buffer = struct.pack(b"<4sxBB", b"WYPT", 3, 0)
         else:
-            buffer = struct.pack(("<4sxBB" + str(len(points)) + "f").encode(), b"WYPT", op, len(points), *points)
+            buffer = struct.pack(
+                ("<4sxBB" + str(len(points)) + "f").encode(),
+                b"WYPT",
+                op,
+                len(points),
+                *points
+            )
         self.sendUDP(buffer)
 
     def sendCOMM(self, comm):
@@ -423,7 +446,9 @@ class XPlaneConnect:
 
         buffer = struct.pack(b"<4sx", b"COMM")
         if len(comm) == 0 or len(comm) > 255:
-            raise ValueError("comm must be a non-empty string less than 256 characters.")
+            raise ValueError(
+                "comm must be a non-empty string less than 256 characters."
+            )
 
         # Pack message
         fmt = "<B{0:d}s".format(len(comm))

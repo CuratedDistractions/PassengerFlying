@@ -34,7 +34,9 @@ class XPlane:
             # time_delay_amount = 1  # No more than once per second, used for debug purposes
 
             if time_delay:
-                time_start = time.time()  # Save timestamp, so we can decide if we need to pause at the end of this loop
+                time_start = (
+                    time.time()
+                )  # Save timestamp, so we can decide if we need to pause at the end of this loop
 
             try:
                 xplane_client = XPlaneConnect()
@@ -46,14 +48,18 @@ class XPlane:
             except socket.timeout as e:
                 # aircraft.reset_latest_xplane_result()
                 if last_connection_ok:  # It's no longer ok
-                    logger.warning(f"Lost connection with X-Plane ({e}). Not a problem, will try again.")
+                    logger.warning(
+                        f"Lost connection with X-Plane ({e}). Not a problem, will try again."
+                    )
                 last_connection_ok = False
 
             if last_connection_ok:
                 # Return the values to the aircraft configuration
 
                 # Add the original dref addresses to the returned values
-                list_with_drefs_and_results = self.reassign_results_to_drefs(result, xplane_dref_address_list)
+                list_with_drefs_and_results = self.reassign_results_to_drefs(
+                    result, xplane_dref_address_list
+                )
 
                 # And return the results to the aircraft configuration
                 aircraft.process_xplane_result(list_with_drefs_and_results)
@@ -80,7 +86,9 @@ class XPlane:
     def reassign_results_to_drefs(self, results, xplane_dref_address_list):
         list_with_drefs_and_results = {}
         for idx, result in enumerate(results):
-            dref = xplane_dref_address_list[idx]  # Match result with dref with same index
+            dref = xplane_dref_address_list[
+                idx
+            ]  # Match result with dref with same index
             list_with_drefs_and_results[dref] = result
 
         return list_with_drefs_and_results

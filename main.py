@@ -19,12 +19,22 @@ CURRENT_VERSION = "0.1a"
 settings.init()
 
 # Parse arguments
-parser = argparse.ArgumentParser(description=f"-== PassengerFlying v{CURRENT_VERSION} ==-")
+parser = argparse.ArgumentParser(
+    description=f"-== PassengerFlying v{CURRENT_VERSION} ==-"
+)
 parser.add_argument("--debug", help="Increase output verbosity", action="store_true")
-parser.add_argument("--touchosc_device_ip", required=True, help="IP address of TouchOSC device")
-parser.add_argument("--touchosc_device_port", help="Port of TouchOSC device", default=5006)
-parser.add_argument("--touchosc_server_ip", help="IP address of TouchOSC server", default="0.0.0.0")
-parser.add_argument("--touchosc_server_port", help="Port of TouchOSC server", default=5005)
+parser.add_argument(
+    "--touchosc_device_ip", required=True, help="IP address of TouchOSC device"
+)
+parser.add_argument(
+    "--touchosc_device_port", help="Port of TouchOSC device", default=5006
+)
+parser.add_argument(
+    "--touchosc_server_ip", help="IP address of TouchOSC server", default="0.0.0.0"
+)
+parser.add_argument(
+    "--touchosc_server_port", help="Port of TouchOSC server", default=5005
+)
 parser.add_argument("--aircraft", required=True, help="Folder name of aircraft to load")
 args = parser.parse_args()
 
@@ -34,7 +44,9 @@ settings.globalList["ARGS"] = args
 # Setup logging
 verbose_level = "DEBUG" if args.debug else "WARNING"
 logger = logging.getLogger(__name__)
-coloredlogs.install(fmt="%(asctime)s %(name)s %(levelname)s %(message)s", level=verbose_level)
+coloredlogs.install(
+    fmt="%(asctime)s %(name)s %(levelname)s %(message)s", level=verbose_level
+)
 
 
 def main():
@@ -63,12 +75,16 @@ def main():
         sys.exit()
 
     try:
-        if version.parse(CURRENT_VERSION) < version.parse(aircraft.minimum_supported_version()) or version.parse(
-            CURRENT_VERSION
-        ) > version.parse(aircraft.maximum_supported_version()):
+        if version.parse(CURRENT_VERSION) < version.parse(
+            aircraft.minimum_supported_version()
+        ) or version.parse(CURRENT_VERSION) > version.parse(
+            aircraft.maximum_supported_version()
+        ):
             logger.error(
                 "This aircraft is only compatible with PassengerFlying versions between {} and {}. You are using version {}".format(
-                    aircraft.minimum_supported_version(), aircraft.maximum_supported_version(), CURRENT_VERSION
+                    aircraft.minimum_supported_version(),
+                    aircraft.maximum_supported_version(),
+                    CURRENT_VERSION,
                 )
             )
             sys.exit()

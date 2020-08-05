@@ -52,7 +52,9 @@ class BaseAircraft:
             control.callback_from_xplane(xplane_results)
 
     def process_touchosc_result(self, touchosc_address, touchosc_result):
-        logger.debug(f"Processing result from TouchOSC: {touchosc_address} and value {touchosc_result}")
+        logger.debug(
+            f"Processing result from TouchOSC: {touchosc_address} and value {touchosc_result}"
+        )
         # Get all elements of the address. Every TouchOCS address should be of format
         # /<category|tab>/<control_name>[/column/row]
         address_split = touchosc_address.split("/")

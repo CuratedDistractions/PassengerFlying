@@ -215,7 +215,9 @@ ohp_lights_ata21 = [
     # {"xplane_dref_index": 63, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE",},
 ]
 # Add xplane_dref to this list
-ohp_lights_ata21 = set_xplane_dref_address_and_control_type(ohp_lights_ata21, "AirbusFBW/OHPLightsATA21")
+ohp_lights_ata21 = set_xplane_dref_address_and_control_type(
+    ohp_lights_ata21, "AirbusFBW/OHPLightsATA21"
+)
 overhead_panel_labels.extend(ohp_lights_ata21)
 
 # AirbusFBW/OHPLightsATA24
@@ -360,7 +362,9 @@ ohp_lights_ata24 = [
     # {"xplane_dref_index": 63, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE",},
 ]
 # Add xplane_dref to this list
-ohp_lights_ata24 = set_xplane_dref_address_and_control_type(ohp_lights_ata24, "AirbusFBW/OHPLightsATA24")
+ohp_lights_ata24 = set_xplane_dref_address_and_control_type(
+    ohp_lights_ata24, "AirbusFBW/OHPLightsATA24"
+)
 overhead_panel_labels.extend(ohp_lights_ata24)
 
 # # AirbusFBW/OHPLightsATA26
@@ -548,7 +552,9 @@ ohp_lights_ata27 = [
     # {"xplane_dref_index": 63, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE",},
 ]
 # Add xplane_dref to this list
-ohp_lights_ata27 = set_xplane_dref_address_and_control_type(ohp_lights_ata27, "AirbusFBW/OHPLightsATA27")
+ohp_lights_ata27 = set_xplane_dref_address_and_control_type(
+    ohp_lights_ata27, "AirbusFBW/OHPLightsATA27"
+)
 overhead_panel_labels.extend(ohp_lights_ata27)
 
 # AirbusFBW/OHPLightsATA28
@@ -668,7 +674,9 @@ ohp_lights_ata28 = [
     # {"xplane_dref_index": 63, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE",},
 ]
 # Add xplane_dref to this list
-ohp_lights_ata28 = set_xplane_dref_address_and_control_type(ohp_lights_ata28, "AirbusFBW/OHPLightsATA28")
+ohp_lights_ata28 = set_xplane_dref_address_and_control_type(
+    ohp_lights_ata28, "AirbusFBW/OHPLightsATA28"
+)
 overhead_panel_labels.extend(ohp_lights_ata28)
 
 # AirbusFBW/OHPLightsATA29
@@ -746,7 +754,9 @@ ohp_lights_ata29 = [
     # {"xplane_dref_index": 63, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE",},
 ]
 # Add xplane_dref to this list
-ohp_lights_ata29 = set_xplane_dref_address_and_control_type(ohp_lights_ata29, "AirbusFBW/OHPLightsATA29")
+ohp_lights_ata29 = set_xplane_dref_address_and_control_type(
+    ohp_lights_ata29, "AirbusFBW/OHPLightsATA29"
+)
 overhead_panel_labels.extend(ohp_lights_ata29)
 
 # AirbusFBW/OHPLightsATA30
@@ -803,7 +813,9 @@ ohp_lights_ata30 = [
     # {"xplane_dref_index": 63, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE",},
 ]
 # Add xplane_dref to this list
-ohp_lights_ata30 = set_xplane_dref_address_and_control_type(ohp_lights_ata30, "AirbusFBW/OHPLightsATA30")
+ohp_lights_ata30 = set_xplane_dref_address_and_control_type(
+    ohp_lights_ata30, "AirbusFBW/OHPLightsATA30"
+)
 overhead_panel_labels.extend(ohp_lights_ata30)
 
 # AirbusFBW/OHPLightsATA31
@@ -1120,7 +1132,9 @@ ohp_lights_ata31 = [
     # {"xplane_dref_index": 63, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE",},
 ]
 # Add xplane_dref to this list
-ohp_lights_ata31 = set_xplane_dref_address_and_control_type(ohp_lights_ata31, "AirbusFBW/OHPLightsATA31")
+ohp_lights_ata31 = set_xplane_dref_address_and_control_type(
+    ohp_lights_ata31, "AirbusFBW/OHPLightsATA31"
+)
 overhead_panel_labels.extend(ohp_lights_ata31)
 
 # # AirbusFBW/OHPLightsATA32
@@ -1368,7 +1382,9 @@ ohp_lights_ata34 = [
     # {"xplane_dref_index": 63, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE",},
 ]
 # Add xplane_dref to this list
-ohp_lights_ata34 = set_xplane_dref_address_and_control_type(ohp_lights_ata34, "AirbusFBW/OHPLightsATA34")
+ohp_lights_ata34 = set_xplane_dref_address_and_control_type(
+    ohp_lights_ata34, "AirbusFBW/OHPLightsATA34"
+)
 overhead_panel_labels.extend(ohp_lights_ata34)
 
 # # AirbusFBW/OHPLightsATA35
@@ -1420,7 +1436,9 @@ ohp_lights_ata49 = [
     # {"xplane_dref_index": 63, "touchosc_address": "/ovhd/label", "touchosc_initial_text": "NONE",},
 ]
 # Add xplane_dref to this list
-ohp_lights_ata49 = set_xplane_dref_address_and_control_type(ohp_lights_ata49, "AirbusFBW/OHPLightsATA49")
+ohp_lights_ata49 = set_xplane_dref_address_and_control_type(
+    ohp_lights_ata49, "AirbusFBW/OHPLightsATA49"
+)
 overhead_panel_labels.extend(ohp_lights_ata49)
 
 # sim/cockpit2/electrical/battery_voltage_indicated_volts
