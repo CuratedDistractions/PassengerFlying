@@ -4,12 +4,9 @@ import time
 from multiprocessing import freeze_support
 
 from lib.functions import (
-    aircraft_is_compatible,
     load_aircraft_configuration,
     parse_arguments,
-    setup_logging,
-    xplane_is_running,
-)
+    setup_logging)
 from lib.settings import globals_list
 from lib.touchosc import setup_touchosc_client, setup_touchosc_server
 from lib.xplane import pull_xplane_data
