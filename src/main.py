@@ -3,10 +3,7 @@ import logging
 import time
 from multiprocessing import freeze_support
 
-from lib.functions import (
-    load_aircraft_configuration,
-    parse_arguments,
-    setup_logging)
+from lib.functions import load_aircraft_configuration, parse_arguments, setup_logging
 from lib.settings import globals_list
 from lib.touchosc import setup_touchosc_client, setup_touchosc_server
 from lib.xplane import pull_xplane_data
@@ -62,7 +59,12 @@ async def loop():
 
 async def setup_loop():
     server = setup_touchosc_server()
-    transport, protocol = await server.create_serve_endpoint()  # Create datagram endpoint and start serving
+    (
+        transport,
+        protocol,
+    ) = (
+        await server.create_serve_endpoint()
+    )  # Create datagram endpoint and start serving
 
     await loop()  # Enter main loop of program
 
