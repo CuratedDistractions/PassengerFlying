@@ -29,4 +29,3 @@ main_panel_switches = [
         "touchosc_horizontal": False,
     },
 ]
-

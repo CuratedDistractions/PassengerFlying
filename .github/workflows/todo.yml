@@ -15,4 +15,3 @@ jobs:
           LABEL: "# TODO"
           COMMENT_MARKER: "#"
         id: "todo"
-        

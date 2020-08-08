@@ -264,12 +264,13 @@ class Fader(TouchoscControlItem):
 
     @touchosc_state.setter
     def touchosc_state(self, value: int):
+        """The text of the label in TouchOSC."""
+
         # Do nothing if nothing changed and no force refresh needed
         force_refresh = globals_list.force_refresh[self.touchosc_address]
         if self._touchosc_state == value and not force_refresh:
             return
 
-        """The text of the label in TouchOSC."""
         self._touchosc_state = value
         self.__set_state_in_touchosc()
 
@@ -356,8 +357,8 @@ class MasterCautionButtonLabel(Label):
     def is_on(value):
         if value < 0.2:
             return 0  # Light is off
-        else:
-            return 1  # Light is on
+
+        return 1  # Light is on
 
 
 # TODO: Keep it DRY (both Master buttons)
@@ -377,8 +378,8 @@ class MasterWarningButtonLabel(Label):
     def is_on(value: float) -> bool:
         if value < 0.2:
             return 0  # Light is off
-        else:
-            return 1  # Light is on
+
+        return 1  # Light is on
 
 
 class MultiFader(TouchoscControlItem):
@@ -419,12 +420,13 @@ class MultiToggle(TouchoscControlItem):
 
     @touchosc_state.setter
     def touchosc_state(self, value: int):
+        """The text of the label in TouchOSC."""
+
         # Do nothing if nothing changed and no force refresh needed
         force_refresh = globals_list.force_refresh[self.touchosc_address]
         if self._touchosc_state == value and not force_refresh:
             return
 
-        """The text of the label in TouchOSC."""
         self._touchosc_state = value
         self.__set_state_in_touchosc()
 

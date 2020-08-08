@@ -23,8 +23,8 @@ class AirbusLabel(Label):
     def __is_on(value):
         if value < 0.2:
             return 0  # Light is off
-        else:
-            return 1  # Light is on
+
+        return 1  # Light is on
 
 
 class AirbusQNHLabel(Label):

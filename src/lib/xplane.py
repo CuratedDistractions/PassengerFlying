@@ -36,7 +36,7 @@ def pull_xplane_data():
             Credits: https://stackoverflow.com/a/312464/776118
             """
             for i in range(0, len(lst), n):
-                yield lst[i: i + n]
+                yield lst[i : i + n]
 
         for batch in chunks(xplane_dref_address_list, batch_size):
             result.extend(xplane_client.get_drefs(batch))
@@ -181,7 +181,7 @@ class XPlaneConnect:
             raise ValueError("drefs and values must have the same number of elements.")
 
         buffer = struct.pack(b"<4sx", b"DREF")
-        for i in range(len(drefs)):
+        for i, item in enumerate(drefs):
             dref = drefs[i]
             value = values[i]
 
