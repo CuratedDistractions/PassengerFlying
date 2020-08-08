@@ -11,6 +11,7 @@ packaging = "^20.4"
 pyinstaller = "^3.6"
 coloredlogs = "^14.0"
 python-osc = "^1.7.4"
+requests = "^2.24.0"
 
 [tool.poetry.dev-dependencies]
 
