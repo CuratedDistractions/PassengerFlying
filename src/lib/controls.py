@@ -72,7 +72,9 @@ class TouchoscControlItem:
             self._touchosc_color = value
             self.set_color_in_touchosc()
         else:
-            logger.warning(f"Tried to set color {value} for {self.touchosc_address}, which is not supported.")
+            logger.warning(
+                f"Tried to set color {value} for {self.touchosc_address}, which is not supported."
+            )
 
         globals_list.force_refresh[self.touchosc_address] = False
 
@@ -220,14 +222,18 @@ class Encoder(TouchoscControlItem):
         self._touchosc_adjust_value = touchosc_adjust_value
 
     def callback_from_touchosc(self, address, results):
-        adjust_value = self._touchosc_adjust_value if results else self._touchosc_adjust_value * -1
+        adjust_value = (
+            self._touchosc_adjust_value if results else self._touchosc_adjust_value * -1
+        )
 
         if self.xplane_dref_index is not None:  # Does the dref contain an array
             # Get the whole dref. Since it's a tuple, we need to convert it to a list
             xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
 
             # Replace just the index we need
-            xplane_dref_value[self.xplane_dref_index] = xplane_dref_value[self.xplane_dref_index] + adjust_value
+            xplane_dref_value[self.xplane_dref_index] = (
+                xplane_dref_value[self.xplane_dref_index] + adjust_value
+            )
         else:
             # Get the current dref value.
             xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
@@ -264,12 +270,13 @@ class Fader(TouchoscControlItem):
 
     @touchosc_state.setter
     def touchosc_state(self, value: int):
+        """The text of the label in TouchOSC."""
+
         # Do nothing if nothing changed and no force refresh needed
         force_refresh = globals_list.force_refresh[self.touchosc_address]
         if self._touchosc_state == value and not force_refresh:
             return
 
-        """The text of the label in TouchOSC."""
         self._touchosc_state = value
         self.__set_state_in_touchosc()
 
@@ -356,8 +363,8 @@ class MasterCautionButtonLabel(Label):
     def is_on(value):
         if value < 0.2:
             return 0  # Light is off
-        else:
-            return 1  # Light is on
+
+        return 1  # Light is on
 
 
 # TODO: Keep it DRY (both Master buttons)
@@ -377,8 +384,8 @@ class MasterWarningButtonLabel(Label):
     def is_on(value: float) -> bool:
         if value < 0.2:
             return 0  # Light is off
-        else:
-            return 1  # Light is on
+
+        return 1  # Light is on
 
 
 class MultiFader(TouchoscControlItem):
@@ -419,12 +426,13 @@ class MultiToggle(TouchoscControlItem):
 
     @touchosc_state.setter
     def touchosc_state(self, value: int):
+        """The text of the label in TouchOSC."""
+
         # Do nothing if nothing changed and no force refresh needed
         force_refresh = globals_list.force_refresh[self.touchosc_address]
         if self._touchosc_state == value and not force_refresh:
             return
 
-        """The text of the label in TouchOSC."""
         self._touchosc_state = value
         self.__set_state_in_touchosc()
 
@@ -442,7 +450,9 @@ class MultiToggle(TouchoscControlItem):
     def callback_from_xplane(self, results):
         if self.xplane_dref_address:
             if self.xplane_dref_index is not None:
-                state = int(results[self.xplane_dref_address][self.xplane_dref_index]) + 1
+                state = (
+                    int(results[self.xplane_dref_address][self.xplane_dref_index]) + 1
+                )
             else:
                 result = results[self.xplane_dref_address]
                 if isinstance(result, tuple):
@@ -485,7 +495,9 @@ class PushButton(TouchoscControlItem):
 
     def callback_from_touchosc(self, address, results):
         if results > 0:  # We ignore the release of the button
-            if self.xplane_command_address:  # If no command address was defined, we'll use the dref address
+            if (
+                self.xplane_command_address
+            ):  # If no command address was defined, we'll use the dref address
                 self.send_to_xplane(self.xplane_command_address)
             else:
                 if self.xplane_dref_index is not None:  # Does the dref contain an array
@@ -493,10 +505,14 @@ class PushButton(TouchoscControlItem):
                     xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))
 
                     # Replace just the index we need (it's a toggle)
-                    xplane_dref_value[self.xplane_dref_index] = int(not xplane_dref_value[self.xplane_dref_index])
+                    xplane_dref_value[self.xplane_dref_index] = int(
+                        not xplane_dref_value[self.xplane_dref_index]
+                    )
                 else:
                     # Get the current dref value.
-                    xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[0]
+                    xplane_dref_value = list(get_from_xplane(self.xplane_dref_address))[
+                        0
+                    ]
 
                     # Toggle
                     xplane_dref_value = int(not xplane_dref_value)

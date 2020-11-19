@@ -36,7 +36,7 @@ def pull_xplane_data():
             Credits: https://stackoverflow.com/a/312464/776118
             """
             for i in range(0, len(lst), n):
-                yield lst[i: i + n]
+                yield lst[i : i + n]
 
         for batch in chunks(xplane_dref_address_list, batch_size):
             result.extend(xplane_client.get_drefs(batch))
@@ -47,14 +47,18 @@ def pull_xplane_data():
         globals_list.last_xplane_connection_ok = True  # Success, we didn't time out
     except socket.timeout as e:
         if globals_list.last_xplane_connection_ok:  # It's no longer ok
-            logger.warning(f"Lost connection with X-Plane ({e}). Not a problem, will try again.")
+            logger.warning(
+                f"Lost connection with X-Plane ({e}). Not a problem, will try again."
+            )
         globals_list.last_xplane_connection_ok = False
 
     if globals_list.last_xplane_connection_ok:
         # Return the values to the aircraft configuration
 
         # Add the original dref addresses to the returned values
-        list_with_drefs_and_results = __reassign_results_to_drefs(result, xplane_dref_address_list)
+        list_with_drefs_and_results = __reassign_results_to_drefs(
+            result, xplane_dref_address_list
+        )
 
         # And return the results to the aircraft configuration
         aircraft.process_xplane_result(list_with_drefs_and_results)
@@ -129,7 +133,9 @@ class XPlaneConnect:
 
         # Create and bind socket
         client_addr = ("0.0.0.0", port)
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+        self.socket = socket.socket(
+            socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP
+        )
         self.socket.bind(client_addr)
         timeout /= 1000.0
         self.socket.settimeout(timeout)
@@ -181,13 +187,15 @@ class XPlaneConnect:
             raise ValueError("drefs and values must have the same number of elements.")
 
         buffer = struct.pack(b"<4sx", b"DREF")
-        for i in range(len(drefs)):
+        for i, item in enumerate(drefs):
             dref = drefs[i]
             value = values[i]
 
             # Preconditions
             if len(dref) == 0 or len(dref) > 255:
-                raise ValueError("dref must be a non-empty string less than 256 characters.")
+                raise ValueError(
+                    "dref must be a non-empty string less than 256 characters."
+                )
 
             if value is None:
                 raise ValueError("value must be a scalar or sequence of floats.")
@@ -197,7 +205,9 @@ class XPlaneConnect:
                 if len(value) > 255:
                     raise ValueError("value must have less than 256 items.")
                 fmt = "<B{0:d}sB{1:d}f".format(len(dref), len(value))
-                buffer += struct.pack(fmt.encode(), len(dref), dref.encode(), len(value), *value)
+                buffer += struct.pack(
+                    fmt.encode(), len(dref), dref.encode(), len(value), *value
+                )
             else:
                 fmt = "<B{0:d}sBf".format(len(dref))
                 buffer += struct.pack(fmt.encode(), len(dref), dref.encode(), 1, value)
@@ -252,7 +262,9 @@ class XPlaneConnect:
 
         buffer = struct.pack(b"<4sx", b"COMM")
         if len(comm) == 0 or len(comm) > 255:
-            raise ValueError("comm must be a non-empty string less than 256 characters.")
+            raise ValueError(
+                "comm must be a non-empty string less than 256 characters."
+            )
 
         # Pack message
         fmt = "<B{0:d}s".format(len(comm))
